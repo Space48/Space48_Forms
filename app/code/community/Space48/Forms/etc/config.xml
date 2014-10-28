@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Space48_Forms>
+            <version>0.0.2</version>
+        </Space48_Forms>
+    </modules>
+    
+    <!-- GLOBAL -->
+    <global>
+        
+        <!-- models -->
+        <models>
+            <!-- model declaration -->
+            <space48_forms>
+                <class>Space48_Forms_Model</class>
+                <resourceModel>space48_forms_resource</resourceModel>
+            </space48_forms>
+            
+            <!-- model resource -->
+            <space48_forms_resource>
+                <class>Space48_Forms_Model_Resource</class>
+                <entities>
+                    <form><table>space48_forms_form</table></form>
+                </entities>
+            </space48_forms_resource>
+        </models>
+        
+        <!-- resources -->
+        <resources>
+            <space48_forms_setup>
+                <setup>
+                    <module>Space48_Forms</module>
+                </setup>
+                <connection><use>core_setup</use></connection>
+            </space48_forms_setup>
+            
+            <space48_forms_write>
+                <connection><use>core_write</use></connection>
+            </space48_forms_write>
+            
+            <space48_forms_read>
+                <connection><use>core_read</use></connection>
+            </space48_forms_read>
+        </resources>
+        
+        <!-- blocks -->
+        <blocks>
+            <space48_forms>
+                <class>Space48_Forms_Block</class>
+            </space48_forms>
+        </blocks>
+        
+        <!-- helpers -->
+        <helpers>
+            <space48_forms>
+                <class>Space48_Forms_Helper</class>
+            </space48_forms>
+        </helpers>
+        
+        
+        <!-- templates -->
+        <template>
+            <email>
+                <!-- general email template -->
+                <!-- <payment_space48_forms_method_accepted_email_template>
+                    <label>Finance Accepted Email</label>
+                    <file>space48_forms/accepted.html</file>
+                    <type>html</type>
+                </payment_space48_forms_method_accepted_email_template> -->
+            </email>
+        </template>
+    </global>
+    
+    <!-- ADMIN -->
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Space48_Forms_Adminhtml before="Mage_Adminhtml">Space48_Forms_Adminhtml</Space48_Forms_Adminhtml>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    
+    <!-- ADMINHTML -->
+    <adminhtml>
+        <!-- layout -->
+        <layout>
+            <updates>
+                <space48_forms>
+                    <file>space48/forms/default.xml</file>
+                </space48_forms>
+            </updates>
+        </layout>
+    </adminhtml>
+    
+    <!-- FRONTEND -->
+    <frontend>
+        <!-- layout -->
+        <layout>
+            <updates>
+                <space48_forms>
+                    <file>space48/forms/default.xml</file>
+                </space48_forms>
+            </updates>
+        </layout>
+        
+        <!-- routers -->
+        <routers>
+            <space48_forms>
+                <use>standard</use>
+                <args>
+                    <module>Space48_Forms</module>
+                    <frontName>forms</frontName>
+                </args>
+            </space48_forms>
+        </routers>
+    </frontend>
+    
+    <!-- DEFAULT -->
+    <default>
+        <space48_forms>
+            <general>
+                <enabled>1</enabled>
+            </general>
+        </space48_forms>
+    </default>
+</config>
