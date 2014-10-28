@@ -36,8 +36,11 @@ $sql = "
       `method` VARCHAR(4) DEFAULT 'POST'  COMMENT 'Form submit method.',
       `enctype` VARCHAR(32) NOT NULL DEFAULT 'multipart/form-data'  COMMENT 'Form enctype.',
       `css_class` VARCHAR(128) COMMENT 'Additional container CSS class.',
-      `frontend_block` VARCHAR(240) NOT NULL DEFAULT 'space48_forms/form'  COMMENT 'The frontend block that renders the form.',
+      `frontend_block` VARCHAR(240) DEFAULT 'space48_forms/form'  COMMENT 'The frontend block that renders the form.',
+      `frontend_template` VARCHAR(240) DEFAULT 'space48/forms/form.phtml',
       `status` TINYINT NOT NULL DEFAULT 0 COMMENT 'Form status.',
+      `updated_at` DATETIME,
+      `created_at` DATETIME,
       PRIMARY KEY (`form_id`),
       UNIQUE INDEX `UNIQUE_FORM_CODE` (`code`)
     ) ENGINE=INNODB;

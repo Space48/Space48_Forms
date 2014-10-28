@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Space48_Forms>
-            <version>0.0.2</version>
+            <version>0.0.3</version>
         </Space48_Forms>
     </modules>
     
@@ -22,6 +22,7 @@
                 <class>Space48_Forms_Model_Resource</class>
                 <entities>
                     <form><table>space48_forms_form</table></form>
+                    <form_fieldset><table>space48_forms_form_fieldset</table></form_fieldset>
                 </entities>
             </space48_forms_resource>
         </models>

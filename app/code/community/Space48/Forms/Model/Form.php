@@ -1,6 +1,6 @@
 <?php
 
-class Space48_Forms_Model_Form extends Mage_Core_Model_Abstract
+class Space48_Forms_Model_Form extends Space48_Forms_Model_Abstract
 {
     /**
      * status
