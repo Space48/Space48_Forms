@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<layout>
+    <!-- form manager -->
+    <adminhtml_forms_form_index>
+        <reference name="content">
+            <block type="space48_forms/admin_form" name="space48_forms.form.grid_container" />
+        </reference>
+    </adminhtml_forms_form_index>
+    
+    <adminhtml_forms_form_new>
+        <update handle="space48_forms_form_add_edit" />
+    </adminhtml_forms_form_new>
+    
+    <adminhtml_forms_form_edit>
+        <update handle="space48_forms_form_add_edit" />
+    </adminhtml_forms_form_edit>
+    
+    <space48_forms_form_add_edit>
+        <update handle="editor"/>
+        
+        <reference name="head">
+            <action method="setCanLoadExtJs"><flag>1</flag></action>
+            <action method="setCanLoadTinyMce"><flag>1</flag></action>
+        </reference>
+        
+        <reference name="left">
+            <block type="space48_forms/admin_form_edit_tabs" name="space48_forms.form.edit.tabs" />
+        </reference>
+        
+        <reference name="content">
+            <block type="space48_forms/admin_form_edit" name="space48_forms.form.edit" />
+        </reference>
+    </space48_forms_form_add_edit>
+
+</layout>

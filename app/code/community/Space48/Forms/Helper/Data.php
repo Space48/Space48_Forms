@@ -34,4 +34,32 @@ class Space48_Forms_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getModel('core/date')->timestamp() * 1;
     }
+    
+    /**
+     * registers models in registry
+     *
+     * @param  string $key
+     * @param  Varien_Object $model
+     *
+     * @return $this
+     */
+    public function register($key, Varien_Object $model)
+    {
+        $key = 'current/'.$key;
+        Mage::register($key, $model);
+        return $this;
+    }
+    
+    /**
+     * get model from registry
+     *
+     * @param  string $key
+     *
+     * @return Varien_Object
+     */
+    public function registry($key)
+    {
+        $key = 'current/'.$key;
+        return Mage::registry($key);
+    }
 }

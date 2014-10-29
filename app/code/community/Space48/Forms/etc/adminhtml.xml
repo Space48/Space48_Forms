@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
+    <menu>
+        <cms>
+            <children>
+                <space48_forms translate="title" module="space48_forms">
+                    <title>Forms</title>
+                    <sort_order>3</sort_order>
+                    <children>
+                        <form>
+                            <title>Form Manager</title>
+                            <sort_order>10</sort_order>
+                            <action>adminhtml/forms_form/index</action>
+                        </form>
+                        <fieldset>
+                            <title>Fieldset Manager</title>
+                            <sort_order>20</sort_order>
+                            <action>adminhtml/forms_fieldset/index</action>
+                        </fieldset>
+                        <field>
+                            <title>Field Manager</title>
+                            <sort_order>30</sort_order>
+                            <action>adminhtml/forms_field/index</action>
+                        </field>
+                    </children>
+                </space48_forms>
+            </children>
+        </cms>
+    </menu>
     <acl>
         <resources>
             <all>
@@ -7,6 +34,28 @@
             </all>
             <admin>
                 <children>
+                    <cms>
+                        <children>
+                            <space48_forms translate="title" module="space48_forms">
+                                <title>Forms</title>
+                                <sort_order>1000</sort_order>
+                                <children>
+                                    <form>
+                                        <title>Form Manager</title>
+                                        <sort_order>10</sort_order>
+                                    </form>
+                                    <fieldset>
+                                        <title>Fieldset Manager</title>
+                                        <sort_order>20</sort_order>
+                                    </fieldset>
+                                    <field>
+                                        <title>Field Manager</title>
+                                        <sort_order>30</sort_order>
+                                    </field>
+                                </children>
+                            </space48_forms>
+                        </children>
+                    </cms>
                     <system>
                         <children>
                             <config>
