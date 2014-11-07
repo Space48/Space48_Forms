@@ -1,6 +1,6 @@
 <?php
 
-class Space48_Forms_Block_Admin_Form_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
+class Space48_Forms_Block_Admin_Form_Edit_Form extends Space48_Forms_Block_Admin_Abstract_Form_Edit_Form_Abstract
 {
     /**
      * prepare form
@@ -9,7 +9,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Form extends Mage_Adminhtml_Block_Widg
     {
         // new form
         $form = new Varien_Data_Form(array(
-            'id'     => 'space48_forms_form_edit',
+            'id'     => 'edit_form',
             'action' => $this->getUrl('*/*/save'),
             'method' => 'post',
         ));

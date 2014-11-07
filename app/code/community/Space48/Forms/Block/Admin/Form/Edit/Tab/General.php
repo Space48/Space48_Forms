@@ -11,9 +11,6 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_General extends Space48_Forms_Bloc
     {
         $form = new Varien_Data_Form();
         
-        // set data model
-        $form->setDataObject($this->_getForm());
-        
         // set form
         $this->setForm($form);
         
@@ -22,12 +19,21 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_General extends Space48_Forms_Bloc
             'legend' => Mage::helper('space48_forms')->__('General Information')
         ));
         
+        // id field
+        if ( $id = $this->_getModel()->getId() ) {
+            $fieldset->addField('form_id', 'hidden', array(
+                'name'  => 'form_id',
+                'value' => $id,
+            ));
+        }
+        
         // status field
         $fieldset->addField('status', 'select', array(
             'label'   => Mage::helper('space48_forms')->__('Status'),
             'name'    => 'status',
             'note'    => Mage::helper('space48_forms')->__('Enable or disable this form.'),
             'options' => $this->_getYesNoOptions(),
+            'value'   => $this->_getModel()->getStatus(),
         ));
         
         // name field
@@ -36,6 +42,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_General extends Space48_Forms_Bloc
             'required' => true,
             'name'     => 'code',
             'note'     => Mage::helper('space48_forms')->__('A unique code to identify this form.'),
+            'value'    => $this->_getModel()->getCode(),
         ));
         
         // title field
@@ -43,6 +50,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_General extends Space48_Forms_Bloc
             'label' => Mage::helper('space48_forms')->__('Title'),
             'name'  => 'title',
             'note'  => Mage::helper('space48_forms')->__('The form title. If set, this will appear as a page title.'),
+            'value' => $this->_getModel()->getTitle(),
         ));
         
         // description field
@@ -53,6 +61,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_General extends Space48_Forms_Bloc
             'wysiwyg' => true,
             'config'  => $this->_getWywiwygConfig(),
             'style'   => 'width:800px',
+            'value'   => $this->_getModel()->getDescription(),
         ));
         
         // instructions field
@@ -63,6 +72,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_General extends Space48_Forms_Bloc
             'wysiwyg' => true,
             'config'  => $this->_getWywiwygConfig(),
             'style'   => 'width:800px',
+            'value'   => $this->_getModel()->getInstructions(),
         ));
         
         // success content field
@@ -73,6 +83,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_General extends Space48_Forms_Bloc
             'wysiwyg' => true,
             'config'  => $this->_getWywiwygConfig(),
             'style'   => 'width:800px',
+            'value'   => $this->_getModel()->getSuccessContent(),
         ));
         
         
@@ -84,6 +95,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_General extends Space48_Forms_Bloc
             'note'    => Mage::helper('space48_forms')->__('This content appears on unsuccessful submission of the form.'),
             'wysiwyg' => true,
             'config'  => $wysiwygConfig,
+            'value'   => $this->_getModel()->getFailureContent(),
         ));
         */
        
@@ -95,6 +107,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_General extends Space48_Forms_Bloc
             'wysiwyg' => true,
             'config'  => $this->_getWywiwygConfig(),
             'style'   => 'width:800px',
+            'value'   => $this->_getModel()->getBeforeFormContent(),
         ));
         
         // after form content
@@ -105,17 +118,8 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_General extends Space48_Forms_Bloc
             'wysiwyg' => true,
             'config'  => $this->_getWywiwygConfig(),
             'style'   => 'width:800px',
+            'value'   => $this->_getModel()->getAfterFormContent(),
         ));
-        
-        /*
-        if(Mage::getSingleton('adminhtml/session')->getWebFormsData())
-        {
-            $form->setValues(Mage::getSingleton('adminhtml/session')->getWebFormsData());
-            Mage::getSingleton('adminhtml/session')->setWebFormsData(null);
-        } elseif(Mage::registry('field')){
-            $form->setValues(Mage::registry('field')->getData());
-        }
-        */
         
         return parent::_prepareForm();
     }

@@ -1,0 +1,5 @@
+<?php
+
+abstract class Space48_Forms_Block_Admin_Abstract_Form_Edit_Tabs_Tab_Abstract extends Space48_Forms_Block_Admin_Abstract_Form_Edit_Form_Abstract
+{
+}

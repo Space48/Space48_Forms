@@ -1,6 +1,6 @@
 <?php
 
-class Space48_Forms_Block_Admin_Form_Edit extends Mage_Adminhtml_Block_Widget_Form_Container
+class Space48_Forms_Block_Admin_Form_Edit extends Space48_Forms_Block_Admin_Abstract_Form_Edit_Abstract
 {
     /**
      * constructor

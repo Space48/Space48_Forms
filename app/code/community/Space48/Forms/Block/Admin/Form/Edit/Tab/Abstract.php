@@ -1,39 +1,13 @@
 <?php
 
-abstract class Space48_Forms_Block_Admin_Form_Edit_Tab_Abstract extends Mage_Adminhtml_Block_Widget_Form
+abstract class Space48_Forms_Block_Admin_Form_Edit_Tab_Abstract extends Space48_Forms_Block_Admin_Abstract_Form_Edit_Tabs_Tab_Abstract
 {
     /**
-     * get form model
+     * registry key
      *
-     * @return Space48_Forms_Model_Form
+     * @var string
      */
-    protected function _getForm()
-    {
-        return Mage::helper('space48_forms')->registry('space48_forms/form');
-    }
-    
-    /**
-     * get wysiwyg config
-     *
-     * @return Varien_Object
-     */
-    protected function _getWywiwygConfig()
-    {
-        return Mage::getSingleton('cms/wysiwyg_config')->getConfig(array(
-            'width' => '800px',
-            'hidden' => true
-        ));
-    }
-    
-    /**
-     * get yes/no options (boolean)
-     *
-     * @return array
-     */
-    protected function _getYesNoOptions()
-    {
-        return Mage::getSingleton('adminhtml/system_config_source_yesno')->toArray();
-    }
+    protected $_registryKey = 'space48_forms/form';
     
     /**
      * get admin email template options

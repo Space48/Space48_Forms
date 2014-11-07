@@ -62,4 +62,19 @@ class Space48_Forms_Helper_Data extends Mage_Core_Helper_Abstract
         $key = 'current/'.$key;
         return Mage::registry($key);
     }
+    
+    /**
+     * throw exception
+     * 
+     * this is here so we don't have to call the "__"
+     * function at every point. DRY
+     *
+     * @return void
+     */
+    public function throwException()
+    {
+        $args = func_get_args();
+        $message = call_user_func_array(array($this, '__'), $args);
+        Mage::throwException($message);
+    }
 }

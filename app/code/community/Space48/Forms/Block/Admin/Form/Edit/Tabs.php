@@ -1,5 +1,6 @@
 <?php
-class Space48_Forms_Block_Admin_Form_Edit_Tabs extends Mage_Adminhtml_Block_Widget_Tabs
+
+class Space48_Forms_Block_Admin_Form_Edit_Tabs extends Space48_Forms_Block_Admin_Abstract_Form_Edit_Tabs_Abstract
 {
     /**
      * constructor
@@ -9,7 +10,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tabs extends Mage_Adminhtml_Block_Widg
         parent::__construct();
         
         $this->setId('space48_forms_form_edit_tabs');
-        $this->setDestElementId('space48_forms_form_edit');
+        $this->setDestElementId('edit_form');
         $this->setTitle(Mage::helper('space48_forms')->__('Field Information'));
     }
     

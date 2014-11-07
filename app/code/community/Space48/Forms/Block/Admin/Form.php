@@ -1,6 +1,6 @@
 <?php
 
-class Space48_Forms_Block_Admin_Form extends Mage_Adminhtml_Block_Widget_Grid_Container
+class Space48_Forms_Block_Admin_Form extends Space48_Forms_Block_Admin_Abstract_Form_Abstract
 {
     /**
      * @var string

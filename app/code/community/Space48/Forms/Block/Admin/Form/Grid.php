@@ -1,6 +1,6 @@
 <?php
 
-class Space48_Forms_Block_Admin_Form_Grid extends Mage_Adminhtml_Block_Widget_Grid
+class Space48_Forms_Block_Admin_Form_Grid extends Space48_Forms_Block_Admin_Abstract_Form_Grid_Abstract
 {
     /**
      * constructor
@@ -56,7 +56,7 @@ class Space48_Forms_Block_Admin_Form_Grid extends Mage_Adminhtml_Block_Widget_Gr
         
         return parent::_prepareColumns();
     }
-
+    
     /**
      * get row url
      *
@@ -66,6 +66,6 @@ class Space48_Forms_Block_Admin_Form_Grid extends Mage_Adminhtml_Block_Widget_Gr
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
+        return $this->getUrl('*/*/edit', array('form_id' => $row->getId()));
     }
 }

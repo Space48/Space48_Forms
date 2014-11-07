@@ -12,10 +12,10 @@ abstract class Space48_Forms_Model_Resource_Abstract extends Mage_Core_Model_Res
     {
         $now = Mage::helper('space48_forms')->now();
         
-        $this->setUpdatedAt($now);
+        $object->setUpdatedAt($now);
         
-        if ( ! $this->getCreatedAt() ) {
-            $this->setCreatedAt($now);
+        if ( ! $object->getCreatedAt() ) {
+            $object->setCreatedAt($now);
         }
         
         return $this;
