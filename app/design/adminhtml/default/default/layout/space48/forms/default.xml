@@ -19,6 +19,11 @@
         <update handle="editor"/>
         
         <reference name="head">
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>space48/forms/js/forms.js</name>
+            </action>
+            
             <action method="setCanLoadExtJs"><flag>1</flag></action>
             <action method="setCanLoadTinyMce"><flag>1</flag></action>
         </reference>

@@ -29,7 +29,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_General extends Space48_Forms_Bloc
         
         // status field
         $fieldset->addField('status', 'select', array(
-            'label'   => Mage::helper('space48_forms')->__('Status'),
+            'label'   => Mage::helper('space48_forms')->__('Enabled'),
             'name'    => 'status',
             'note'    => Mage::helper('space48_forms')->__('Enable or disable this form.'),
             'options' => $this->_getYesNoOptions(),

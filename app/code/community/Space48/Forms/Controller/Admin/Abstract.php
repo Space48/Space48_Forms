@@ -105,6 +105,110 @@ abstract class Space48_Forms_Controller_Admin_Abstract extends Mage_Adminhtml_Co
     }
     
     /**
+     * validate action
+     *
+     * @return void
+     */
+    public function validateAction()
+    {
+        // post data
+        $data = $this->getRequest()->getPost();
+        
+        // build response object
+        $response = new Varien_Object(array(
+            'error'   => '',
+            'message' => '',
+        ));
+        
+        try {
+            if ( ! $data ) {
+                $this->_exception('No form data has been entered.');
+            }
+            
+            // get model
+            $model = $this->_getModel();
+            
+            // set data
+            $model->setData($data);
+            
+            // validate the model
+            $model->validate();
+            
+        } catch (Exception $e) {
+            $response->setError(true);
+            
+            // instead of creating a whole new
+            // block for this and a template etc
+            // etc I though it was best to create
+            // this very small snippet of html
+            // within the controller itself.
+            $message = '
+                <ul class="messages">
+                    <li class="error-msg">
+                        <ul>
+                            <li>
+                                <span>'.$e->getMessage().'</span>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            ';
+            
+            $response->setMessage( $message );
+        }
+        
+        // echo json response
+        $this->getResponse()->setBody( json_encode( $response->getData() ) );
+    }
+    
+    /**
+     * save action
+     *
+     * @return void
+     */
+    public function saveAction()
+    {
+        $data = $this->getRequest()->getPost();
+        
+        try {
+            
+            if ( ! $data ) {
+                $this->_exception('No form data has been entered.');
+            }
+            
+            // get model
+            $model = $this->_getModel();
+            
+            // set data
+            $model->setData($data);
+            
+            // save the model
+            $model->save();
+            
+            if ( $this->_isSaveAndContinue() ) {
+                // redirect to model edit
+                $this->_redirect('*/*/edit', array('form_id' => $model->getId()));
+            } else {
+                // redirect to grid
+                $this->_redirect('*/*/index');
+            }
+        } catch (Exception $e) {
+            
+            // show error message
+            $this->_addError( $e->getMessage() );
+            
+            // store data
+            $this->_setFormData($data);
+            
+            if ( isset($data['form_id']) ) {
+                $this->_redirect('*/*/edit', array('form_id' => $data['form_id']));
+            } else {
+                $this->_redirect('*/*/new');
+            }
+        }
+    }
+    
+    /**
      * returns whether or not "save and continue"
      * button was clicked
      *
