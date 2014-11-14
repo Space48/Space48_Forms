@@ -29,7 +29,17 @@ abstract class Space48_Forms_Controller_Admin_Abstract extends Mage_Adminhtml_Co
      */
     protected function _getModelId()
     {
-        return $this->getRequest()->getParam('form_id');
+        return $this->getRequest()->getParam($this->_getIdFieldName());
+    }
+    
+    /**
+     * get id field name
+     *
+     * @return string
+     */
+    protected function _getIdFieldName()
+    {
+        return $this->_getModel()->getIdFieldName();
     }
     
     /**
@@ -186,8 +196,17 @@ abstract class Space48_Forms_Controller_Admin_Abstract extends Mage_Adminhtml_Co
             $model->save();
             
             if ( $this->_isSaveAndContinue() ) {
+                
+                // params to append to url
+                $params = array('form_id' => $model->getId());
+                
+                // set active tab
+                if ( $activeTab = $this->getRequest()->getParam('active_tab') ) {
+                    $params['active_tab'] = $activeTab;
+                }
+                
                 // redirect to model edit
-                $this->_redirect('*/*/edit', array('form_id' => $model->getId()));
+                $this->_redirect('*/*/edit', $params);
             } else {
                 // redirect to grid
                 $this->_redirect('*/*/index');
@@ -241,7 +260,7 @@ abstract class Space48_Forms_Controller_Admin_Abstract extends Mage_Adminhtml_Co
         $data = $this->_getSession()->getData('form_data');
         
         // unset data
-        //$this->_getSession()->setData('form_data', null);
+        $this->_getSession()->setData('form_data', null);
         
         return $data;
     }

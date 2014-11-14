@@ -248,17 +248,62 @@
             this.setVarienForm(form);
             
             // init fieldsets
-            this.initFieldsets();
+            new FieldsetToggle();
+            
+            // init event handlers
+            this.initEventHandlers();
         },
         
         /**
-         * init fieldsets
+         * init event handlers
          *
          * @return {this}
          */
-        initFieldsets : function () {
-            new FieldsetToggle(this.getVarienForm());
+        initEventHandlers : function () {
+            
+            // ensure we have the global events object
+            if ( typeof varienGlobalEvents === 'undefined' ) {
+                return this;
+            }
+            
+            varienGlobalEvents.attachEventHandler('showTab', function(arg) {
+                this.setActiveTab(arg.tab.name);
+            }.bind(this));
+            
             return this;
+        },
+        
+        /**
+         * get active tab field element
+         *
+         * @return {Element}
+         */
+        getActiveTabFieldElement : function () {
+            if ( typeof this.activeTabFieldElement === 'undefined' ) {
+                // create hidden field
+                var field = new Element('input', {
+                    'type'  : 'hidden',
+                    'name'  : 'active_tab',
+                    'value' : '',
+                });
+                
+                // insert into form
+                this.getVarienFormElement().insert(field);
+                
+                // cache
+                this.activeTabFieldElement = field;
+            }
+            
+            return this.activeTabFieldElement
+        },
+        
+        /**
+         * set active tab
+         *
+         * @param {string} tab
+         */
+        setActiveTab : function (tab) {
+            this.getActiveTabFieldElement().setValue(tab);
         },
         
         /**
@@ -281,6 +326,19 @@
         },
         
         /**
+         * get varien form element
+         *
+         * @return {Element}
+         */
+        getVarienFormElement : function () {
+            if ( ( typeof this.varienFormElement ) === 'undefined' ) {
+                this.varienFormElement = $(this.getVarienForm().formId);
+            }
+            
+            return this.varienFormElement;
+        },
+        
+        /**
          * save action
          *
          * @param  {bool} andContinue
@@ -288,11 +346,16 @@
          * @return {this}
          */
         save : function (andContinue) {
+            
+            var url = '';
+            
             if ( andContinue ) {
-                this.getVarienForm().submit(this.getVarienForm().action + 'back/edit/');
-            } else {
-                this.getVarienForm().submit();
+                if ( this.getVarienFormElement() ) {
+                    url = this.getVarienFormElement().action + 'back/edit/';
+                }
             }
+            
+            this.getVarienForm().submit(url);
             
             return this;
         },

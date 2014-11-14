@@ -110,4 +110,24 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Advanced extends Space48_Forms_Blo
         
         return parent::_prepareForm();
     }
+    
+    /**
+     * get tab label
+     *
+     * @return string
+     */
+    public function getTabLabel()
+    {
+        return $this->__('Advanced');
+    }
+
+    /**
+     * get tab title
+     *
+     * @return string
+     */
+    public function getTabTitle()
+    {
+        return $this->__('Advanced');
+    }
 }

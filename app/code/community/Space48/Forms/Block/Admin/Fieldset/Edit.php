@@ -1,6 +1,6 @@
 <?php
 
-class Space48_Forms_Block_Admin_Form_Edit extends Space48_Forms_Block_Admin_Abstract_Form_Edit_Abstract
+class Space48_Forms_Block_Admin_Fieldset_Edit extends Space48_Forms_Block_Admin_Abstract_Form_Edit_Abstract
 {
     /**
      * constructor
@@ -10,9 +10,9 @@ class Space48_Forms_Block_Admin_Form_Edit extends Space48_Forms_Block_Admin_Abst
         parent::__construct();
         
         $this->_mode       = 'edit';
-        $this->_objectId   = 'form_id';
+        $this->_objectId   = 'fieldset_id';
         $this->_blockGroup = 'space48_forms';
-        $this->_controller = 'admin_form';
+        $this->_controller = 'admin_fieldset';
         
         // remove default save button
         $this->_removeButton('save');
@@ -32,7 +32,7 @@ class Space48_Forms_Block_Admin_Form_Edit extends Space48_Forms_Block_Admin_Abst
         ), 2);
         
         $this->_formScripts[] = "
-            var space48_form = new Space48_Forms_Form(editForm);
+            var space48_form = new Space48_Forms_Fieldset(editForm);
         ";
     }
     
@@ -43,7 +43,7 @@ class Space48_Forms_Block_Admin_Form_Edit extends Space48_Forms_Block_Admin_Abst
      */
     public function getHeaderText()
     {
-        return Mage::helper('space48_forms')->__('Add/Edit Form');
+        return Mage::helper('space48_forms')->__('Add/Edit Fieldset');
     }
     
     /**

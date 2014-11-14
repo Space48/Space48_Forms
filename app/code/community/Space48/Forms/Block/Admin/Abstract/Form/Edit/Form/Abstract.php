@@ -55,6 +55,6 @@ abstract class Space48_Forms_Block_Admin_Abstract_Form_Edit_Form_Abstract extend
      */
     protected function _getYesNoOptions()
     {
-        return Mage::getSingleton('adminhtml/system_config_source_yesno')->toArray();
+        return Mage::getSingleton('space48_forms/source_boolean')->getOptionArray();
     }
 }

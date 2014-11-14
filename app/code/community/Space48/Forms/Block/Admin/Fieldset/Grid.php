@@ -1,6 +1,6 @@
 <?php
 
-class Space48_Forms_Block_Admin_Form_Grid extends Space48_Forms_Block_Admin_Abstract_Form_Grid_Abstract
+class Space48_Forms_Block_Admin_Fieldset_Grid extends Space48_Forms_Block_Admin_Abstract_Form_Grid_Abstract
 {
     /**
      * constructor
@@ -8,7 +8,7 @@ class Space48_Forms_Block_Admin_Form_Grid extends Space48_Forms_Block_Admin_Abst
     public function __construct()
     {
         parent::__construct();
-        $this->setDefaultSort('form_id');
+        $this->setDefaultSort('fieldset_id');
         $this->setDefaultDir('DESC');
     }
     
@@ -19,7 +19,7 @@ class Space48_Forms_Block_Admin_Form_Grid extends Space48_Forms_Block_Admin_Abst
      */
     public function _prepareCollection()
     {
-        $collection = Mage::getResourceModel('space48_forms/form_collection');
+        $collection = Mage::getResourceModel('space48_forms/form_fieldset_collection');
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -32,17 +32,23 @@ class Space48_Forms_Block_Admin_Form_Grid extends Space48_Forms_Block_Admin_Abst
     public function _prepareColumns()
     {
         // id column
-        $this->addColumn('form_id', array(
+        $this->addColumn('fieldset_id', array(
             'header'    => 'ID',
-            'index'     => 'form_id',
+            'index'     => 'fieldset_id',
             'type'      => 'number',
             'width'     => '50px',
         ));
         
         // name column
-        $this->addColumn('code', array(
-            'header'    => 'Code',
-            'index'     => 'code',
+        $this->addColumn('name', array(
+            'header'    => 'Name',
+            'index'     => 'name',
+        ));
+        
+        // title column
+        $this->addColumn('title', array(
+            'header'    => 'Title',
+            'index'     => 'title',
         ));
         
         // status column
@@ -66,6 +72,6 @@ class Space48_Forms_Block_Admin_Form_Grid extends Space48_Forms_Block_Admin_Abst
      */
     public function getRowUrl($row)
     {
-        return $this->getUrl('*/*/edit', array('form_id' => $row->getId()));
+        return $this->getUrl('*/*/edit', array('fieldset_id' => $row->getId()));
     }
 }

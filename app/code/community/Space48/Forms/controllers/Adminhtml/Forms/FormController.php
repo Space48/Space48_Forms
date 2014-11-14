@@ -9,4 +9,16 @@ class Space48_Forms_Adminhtml_Forms_FormController
      * @var string
      */
     protected $_modelClass = 'space48_forms/form';
+    
+    /**
+     * grid action
+     *
+     * @return void
+     */
+    public function gridAction()
+    {
+        $this->_initModel();
+        $this->loadLayout('empty');
+        $this->renderLayout();
+    }
 }

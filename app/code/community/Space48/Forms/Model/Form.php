@@ -95,10 +95,12 @@ class Space48_Forms_Model_Form extends Space48_Forms_Model_Abstract
         }
         
         // validate block
-        $block = Mage::app()->getLayout()->createBlock( $this->getFrontendBlock() );
-        
-        if ( ! ( $block instanceof Space48_Forms_Block_Form_Abstract ) ) {
-            Mage::helper('space48_forms')->throwException('Please define a block which extends "Space48_Forms_Block_Form_Abstract".');
+        if ( $this->getFrontendBlock() != Space48_Forms_Model_Form::DEFAULT_FRONTEND_BLOCK ) {
+            $block = Mage::app()->getLayout()->createBlock( $this->getFrontendBlock() );
+            
+            if ( ! ( $block instanceof Space48_Forms_Block_Form_Abstract ) ) {
+                Mage::helper('space48_forms')->throwException('Please define a block which extends "Space48_Forms_Block_Form_Abstract".');
+            }
         }
         
         return $this;

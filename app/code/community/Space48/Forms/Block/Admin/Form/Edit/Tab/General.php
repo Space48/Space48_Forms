@@ -123,4 +123,24 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_General extends Space48_Forms_Bloc
         
         return parent::_prepareForm();
     }
+    
+    /**
+     * get tab label
+     *
+     * @return string
+     */
+    public function getTabLabel()
+    {
+        return $this->__('General');
+    }
+
+    /**
+     * get tab title
+     *
+     * @return string
+     */
+    public function getTabTitle()
+    {
+        return $this->__('General');
+    }
 }

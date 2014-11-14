@@ -158,4 +158,24 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Email extends Space48_Forms_Block_
         
         return parent::_prepareForm();
     }
+    
+    /**
+     * get tab label
+     *
+     * @return string
+     */
+    public function getTabLabel()
+    {
+        return $this->__('Email');
+    }
+
+    /**
+     * get tab title
+     *
+     * @return string
+     */
+    public function getTabTitle()
+    {
+        return $this->__('Email');
+    }
 }
