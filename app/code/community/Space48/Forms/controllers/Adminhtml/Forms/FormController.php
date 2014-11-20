@@ -15,7 +15,7 @@ class Space48_Forms_Adminhtml_Forms_FormController
      *
      * @return void
      */
-    public function gridAction()
+    public function fieldsetGridAction()
     {
         $this->_initModel();
         $this->loadLayout('empty');

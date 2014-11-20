@@ -21,8 +21,8 @@ class Space48_Forms_Block_Admin_Field_Edit_Tab_General extends Space48_Forms_Blo
         
         // id field
         if ( $id = $this->_getModel()->getId() ) {
-            $fieldset->addField('form_id', 'hidden', array(
-                'name'  => 'form_id',
+            $fieldset->addField('field_id', 'hidden', array(
+                'name'  => 'field_id',
                 'value' => $id,
             ));
         }

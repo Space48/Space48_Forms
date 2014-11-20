@@ -1,6 +1,6 @@
 <?php
 
-class Space48_Forms_Block_Admin_Form_Edit_Tab_Fieldsets
+class Space48_Forms_Block_Admin_Fieldset_Edit_Tab_Fields
     extends Space48_Forms_Block_Admin_Abstract_Form_Grid_Abstract
         implements Mage_Adminhtml_Block_Widget_Tab_Interface
 {
@@ -14,7 +14,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Fieldsets
         $this->setSaveParametersInSession(false);
         $this->setDefaultSort('position');
         $this->setDefaultDir('ASC');
-        $this->setId('fieldsets');
+        $this->setId('fields');
     }
     
     /**
@@ -25,16 +25,16 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Fieldsets
     public function _prepareCollection()
     {
         // load collection
-        $collection = Mage::getResourceModel('space48_forms/form_fieldset_collection');
+        $collection = Mage::getResourceModel('space48_forms/form_fieldset_field_collection');
         
         // get select object
         $select = $collection->getSelect();
         
         // get index table
-        $table = $collection->getResource()->getTable('space48_forms/form_fieldset_index');
+        $table = $collection->getResource()->getTable('space48_forms/form_fieldset_field_index');
         
         // create join
-        $select->joinLeft(array('index' => $table), 'main_table.fieldset_id = index.fieldset_id', array('position'));
+        $select->joinLeft(array('index' => $table), 'main_table.field_id = index.field_id', array('position'));
         
         // set collection
         $this->setCollection($collection);
@@ -61,7 +61,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Fieldsets
      */
     public function getGridUrl()
     {
-        return $this->getUrl('*/*/fieldsetGrid', array('_current' => true));
+        return $this->getUrl('*/*/fieldsGrid', array('_current' => true));
     }
 
     /**
@@ -71,29 +71,29 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Fieldsets
      */
     protected function _getModel()
     {
-        return Mage::helper('space48_forms')->registry('space48_forms/form');
+        return Mage::helper('space48_forms')->registry('space48_forms/form_fieldset');
     }
     
     protected function _addColumnFilterToCollection($column)
     {
         // Set custom filter for in category flag
-        if ( $column->getId() == 'in_form' ) {
+        if ( $column->getId() == 'in_fieldset' ) {
             
-            $fieldsets = $this->_getSelectedFieldsets();
+            $fields = $this->_getSelectedFields();
             
             // default this to an array
-            if ( ! $fieldsets ) {
-                $fieldsets = array();
+            if ( ! $fields ) {
+                $fields = array();
             }
             
             // if we have a filter value
             if ( $column->getFilter()->getValue() ) {
-                $this->getCollection()->addFieldToFilter('main_table.fieldset_id', array('in' => $fieldsets));
+                $this->getCollection()->addFieldToFilter('main_table.field_id', array('in' => $fields));
             }
             
-            // else if we have fieldsets that are selected
-            elseif ( $fieldsets && count($fieldsets) ) {
-                $this->getCollection()->addFieldToFilter('main_table.fieldset_id', array('nin' => $fieldsets));
+            // else if we have fields that are selected
+            elseif ( $fields && count($fields) ) {
+                $this->getCollection()->addFieldToFilter('main_table.field_id', array('nin' => $fields));
             }
         }
         // for all other filters
@@ -112,19 +112,19 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Fieldsets
     public function _prepareColumns()
     {
         // id column
-        $this->addColumn('in_form', array(
+        $this->addColumn('in_fieldset', array(
             'header_css_class' => 'a-center',
             'type'             => 'checkbox',
-            'name'             => 'in_form',
-            'values'           => $this->_getSelectedFieldsets(),
+            'name'             => 'in_fieldset',
+            'values'           => $this->_getSelectedFields(),
             'align'            => 'center',
-            'index'            => 'fieldset_id'
+            'index'            => 'field_id'
         ));
         
         // id column
-        $this->addColumn('fieldset_id', array(
+        $this->addColumn('field_id', array(
             'header'    => 'ID',
-            'index'     => 'fieldset_id',
+            'index'     => 'field_id',
             'type'      => 'number',
             'width'     => '50px',
         ));
@@ -135,10 +135,10 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Fieldsets
             'index'     => 'name',
         ));
         
-        // title column
-        $this->addColumn('title', array(
-            'header'    => 'Title',
-            'index'     => 'title',
+        // label column
+        $this->addColumn('label', array(
+            'header'    => 'Label',
+            'index'     => 'label',
         ));
         
         // status column
@@ -168,18 +168,18 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Fieldsets
      *
      * @return array
      */
-    protected function _getSelectedFieldsets()
+    protected function _getSelectedFields()
     {
         // see if any posted data
-        $fieldsets = $this->getRequest()->getPost('selected_fieldsets');
+        $fields = $this->getRequest()->getPost('selected_fields');
         
         // if not, then return what the model has
         // got stored
-        if ( ! $fieldsets ) {
-            $fieldsets = array_keys($this->getSelectedFieldsets());
+        if ( ! $fields ) {
+            $fields = array_keys($this->getSelectedFields());
         }
         
-        return $fieldsets;
+        return $fields;
     }
     
     /**
@@ -187,13 +187,13 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Fieldsets
      *
      * @return array|null
      */
-    public function getSelectedFieldsets()
+    public function getSelectedFields()
     {
         // try load fieldset collection
-        $fieldsets = $this->_getModel()->getFieldsets();
+        $fields = $this->_getModel()->getFields();
         
         // return empty array if there are no records
-        if ( ! $fieldsets->count() ) {
+        if ( ! $fields->count() ) {
             return array();
         }
         
@@ -202,9 +202,9 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Fieldsets
         
         // loop through each fieldset and build data
         // array
-        foreach ( $fieldsets as $fieldset ) {
-            $data[$fieldset->getId()] = array(
-                'position' => $fieldset->getPosition(),
+        foreach ( $fields as $field ) {
+            $data[$field->getId()] = array(
+                'position' => $field->getPosition(),
             );
         }
         
@@ -242,7 +242,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Fieldsets
      */
     public function getTabLabel()
     {
-        return $this->__('Fieldsets');
+        return $this->__('Fields');
     }
 
     /**
@@ -252,7 +252,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Fieldsets
      */
     public function getTabTitle()
     {
-        return $this->__('Fieldsets');
+        return $this->__('Fields');
     }
     
     /**
@@ -274,7 +274,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Fieldsets
             $block = $this->getLayout()->createBlock('adminhtml/widget_grid_serializer');
             
             if ( $block instanceof Mage_Adminhtml_Block_Widget_Grid_Serializer ) {
-                $block->initSerializerBlock($this, 'getSelectedFieldsets', 'fieldsets', 'selected_fieldsets');
+                $block->initSerializerBlock($this, 'getSelectedFields', 'fields', 'selected_fields');
                 $block->addColumnInputName('position');
                 
                 $html .= $block->toHtml();

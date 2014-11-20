@@ -27,6 +27,9 @@ class Space48_Forms_Block_Admin_Fieldset_Edit_Tabs extends Space48_Forms_Block_A
         // advanced tab
         $this->addTab('advanced', 'space48_forms/admin_fieldset_edit_tab_advanced');
         
+        // fields tab
+        $this->addTab('fields', 'space48_forms/admin_fieldset_edit_tab_fields');
+        
         return parent::_beforeToHtml();
     }
 }

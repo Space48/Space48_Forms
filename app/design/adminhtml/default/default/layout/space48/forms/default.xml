@@ -15,11 +15,11 @@
         <update handle="space48_forms_form_add_edit" />
     </adminhtml_forms_form_edit>
     
-    <adminhtml_forms_form_grid>
+    <adminhtml_forms_form_fieldsetgrid>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="space48_forms/admin_form_edit_tab_fieldsets" name="space48_forms.form.edit.tab.fieldsets.grid"/>
         </block>
-    </adminhtml_forms_form_grid>
+    </adminhtml_forms_form_fieldsetgrid>
     
     <space48_forms_form_add_edit>
         <update handle="space48_forms_abstract_add_edit"/>
@@ -47,6 +47,12 @@
     <adminhtml_forms_fieldset_edit>
         <update handle="space48_forms_fieldset_add_edit" />
     </adminhtml_forms_fieldset_edit>
+    
+    <adminhtml_forms_fieldset_fieldsgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="space48_forms/admin_fieldset_edit_tab_fields" name="space48_forms.fieldsets.edit.tab.fields.grid"/>
+        </block>
+    </adminhtml_forms_fieldset_fieldsgrid>
     
     <space48_forms_fieldset_add_edit>
         <update handle="space48_forms_abstract_add_edit"/>
@@ -102,10 +108,10 @@
                 <name>space48/forms/css/forms.css</name>
             </action>
             
-            <action method="addItem">
-                <type>skin_js</type>
-                <name>space48/forms/js/forms.js</name>
-            </action>
+            <action method="addJs"><js>space48/forms/adminhtml/core.js</js></action>
+            <action method="addJs"><js>space48/forms/adminhtml/field.dependency.js</js></action>
+            <action method="addJs"><js>space48/forms/adminhtml/fieldset.toggle.js</js></action>
+            <action method="addJs"><js>space48/forms/adminhtml/forms.js</js></action>
             
             <action method="setCanLoadExtJs"><flag>1</flag></action>
             <action method="setCanLoadTinyMce"><flag>1</flag></action>

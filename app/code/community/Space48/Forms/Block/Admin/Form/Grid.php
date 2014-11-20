@@ -43,6 +43,13 @@ class Space48_Forms_Block_Admin_Form_Grid extends Space48_Forms_Block_Admin_Abst
         $this->addColumn('code', array(
             'header'    => 'Code',
             'index'     => 'code',
+            'width'     => '150px',
+        ));
+        
+        // name column
+        $this->addColumn('title', array(
+            'header'    => 'Title',
+            'index'     => 'title',
         ));
         
         // status column

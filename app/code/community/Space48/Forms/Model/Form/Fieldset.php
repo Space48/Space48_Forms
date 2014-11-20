@@ -37,6 +37,66 @@ class Space48_Forms_Model_Form_Fieldset extends Space48_Forms_Model_Abstract
     }
     
     /**
+     * on after save
+     *
+     * @return $this
+     */
+    protected function _afterSave()
+    {
+        // save fieldsets
+        $this->_saveFields();
+        
+        parent::_afterSave();
+    }
+    
+    /**
+     * save fields
+     *
+     * @return $this
+     */
+    protected function _saveFields()
+    {
+        // we need to ensure that the "fields"
+        // variable exists in the data because
+        // otherwise on save we will delete
+        // existing relationships when we're
+        // not supposed to
+        if ( ! $this->hasData('fields') ) {
+            return $this;
+        }
+        
+        // get posted data
+        $fields = $this->getData('fields');
+        
+        // we need to decode this if set
+        if ( $fields ) {
+            // decode the serialized input
+            $fields = Mage::helper('adminhtml/js')->decodeGridSerializedInput($fields);
+        }
+        
+        // should now be an array, otherwise
+        // we create an empty array
+        if ( ! is_array($fields) ) {
+            $fields = array();
+        }
+        
+        // we need to normalise this array
+        $normalised = array();
+        
+        foreach ( $fields as $id => $field ) {
+            $normalised[] = array(
+                'id'       => $id,
+                'position' => $field['position'],
+            );
+        }
+        
+        // create relationships in database
+        $this->getResource()->applyFieldsToFieldset($this, $normalised);
+        
+        return $this;
+    }
+    
+    /**
      * validate data
      *
      * @return $this
@@ -81,5 +141,18 @@ class Space48_Forms_Model_Form_Fieldset extends Space48_Forms_Model_Abstract
         }
         
         return Space48_Forms_Model_Form_Fieldset::DEFAULT_FRONTEND_TEMPLATE;
+    }
+    
+    public function getFields()
+    {
+        if ( is_null($this->_fields) ) {
+            // load collection
+            $collection = Mage::getResourceModel('space48_forms/form_fieldset_field_collection');
+            $collection->addFieldsetFilter($this);
+            
+            $this->_fields = $collection;
+        }
+        
+        return $this->_fields;
     }
 }

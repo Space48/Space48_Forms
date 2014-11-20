@@ -22,7 +22,7 @@ class Space48_Forms_Block_Admin_Fieldset_Edit_Tab_General extends Space48_Forms_
         // id field
         if ( $id = $this->_getModel()->getId() ) {
             $fieldset->addField('fieldset_id', 'hidden', array(
-                'name'  => 'form_id',
+                'name'  => 'fieldset_id',
                 'value' => $id,
             ));
         }

@@ -47,9 +47,70 @@ class Space48_Forms_Model_Form extends Space48_Forms_Model_Abstract
      */
     protected function _beforeSave()
     {
+        // ensure we have valid data
         $this->validate();
         
         return parent::_beforeSave();
+    }
+    
+    /**
+     * on after save
+     *
+     * @return $this
+     */
+    protected function _afterSave()
+    {
+        // save fieldsets
+        $this->_saveFieldsets();
+        
+        parent::_afterSave();
+    }
+    
+    /**
+     * save fieldsets
+     *
+     * @return $this
+     */
+    protected function _saveFieldsets()
+    {
+        // we need to ensure that the "fieldsets"
+        // variable exists in the data because
+        // otherwise on save we will delete
+        // existing relationships when we're
+        // not supposed to
+        if ( ! $this->hasData('fieldsets') ) {
+            return $this;
+        }
+        
+        // get posted data
+        $fieldsets = $this->getData('fieldsets');
+        
+        // we need to decode this if set
+        if ( $fieldsets ) {
+            // decode the serialized input
+            $fieldsets = Mage::helper('adminhtml/js')->decodeGridSerializedInput($fieldsets);
+        }
+        
+        // should now be an array, otherwise
+        // we create an empty array
+        if ( ! is_array($fieldsets) ) {
+            $fieldsets = array();
+        }
+        
+        // we need to normalise this array
+        $normalised = array();
+        
+        foreach ( $fieldsets as $id => $fieldset ) {
+            $normalised[] = array(
+                'id'       => $id,
+                'position' => $fieldset['position'],
+            );
+        }
+        
+        // create relationships in database
+        $this->getResource()->applyFieldsetsToForm($this, $normalised);
+        
+        return $this;
     }
     
     /**
@@ -132,5 +193,23 @@ class Space48_Forms_Model_Form extends Space48_Forms_Model_Abstract
         }
         
         return Space48_Forms_Model_Form::DEFAULT_FRONTEND_TEMPLATE;
+    }
+    
+    /**
+     * get fieldsets
+     *
+     * @return Space48_Forms_Model_Resource_Form_Fieldset_Collection
+     */
+    public function getFieldsets()
+    {
+        if ( is_null($this->_fieldsets) ) {
+            // load collection
+            $collection = Mage::getResourceModel('space48_forms/form_fieldset_collection');
+            $collection->addFormFilter($this);
+            
+            $this->_fieldsets = $collection;
+        }
+        
+        return $this->_fieldsets;
     }
 }

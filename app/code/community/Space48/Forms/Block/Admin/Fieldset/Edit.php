@@ -7,12 +7,12 @@ class Space48_Forms_Block_Admin_Fieldset_Edit extends Space48_Forms_Block_Admin_
      */
     public function __construct()
     {
-        parent::__construct();
-        
         $this->_mode       = 'edit';
         $this->_objectId   = 'fieldset_id';
         $this->_blockGroup = 'space48_forms';
         $this->_controller = 'admin_fieldset';
+        
+        parent::__construct();
         
         // remove default save button
         $this->_removeButton('save');
@@ -32,7 +32,7 @@ class Space48_Forms_Block_Admin_Fieldset_Edit extends Space48_Forms_Block_Admin_
         ), 2);
         
         $this->_formScripts[] = "
-            var space48_form = new Space48_Forms_Fieldset(editForm);
+            var space48_form = new Space48Forms.Form_Fieldset(editForm);
         ";
     }
     

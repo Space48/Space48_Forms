@@ -53,7 +53,7 @@ abstract class Space48_Forms_Controller_Admin_Abstract extends Mage_Adminhtml_Co
         
         // must be instance of "Mage_Core_Model_Abstract"
         if ( ! ( $model instanceof Mage_Core_Model_Abstract ) ) {
-            $this->_exception('Unable to initialise model.');
+            $this->_exception('Unable to initialise selected item.');
         }
         
         // load model if we have an id
@@ -104,7 +104,7 @@ abstract class Space48_Forms_Controller_Admin_Abstract extends Mage_Adminhtml_Co
     {
         // try init model
         if ( ! $this->_initModel()->getId() ) {
-            $this->_addError('Unable to load model.');
+            $this->_addError('Unable to load selected item.');
             
             $this->_redirect('*/*/index');
             return;
@@ -178,6 +178,7 @@ abstract class Space48_Forms_Controller_Admin_Abstract extends Mage_Adminhtml_Co
      */
     public function saveAction()
     {
+        $idField = $this->_getIdFieldName();
         $data = $this->getRequest()->getPost();
         
         try {
@@ -198,12 +199,15 @@ abstract class Space48_Forms_Controller_Admin_Abstract extends Mage_Adminhtml_Co
             if ( $this->_isSaveAndContinue() ) {
                 
                 // params to append to url
-                $params = array('form_id' => $model->getId());
+                $params = array($idField => $model->getId());
                 
                 // set active tab
                 if ( $activeTab = $this->getRequest()->getParam('active_tab') ) {
                     $params['active_tab'] = $activeTab;
                 }
+                
+                // show success message
+                $this->_addSuccess('Your changes have successfully been saved.');
                 
                 // redirect to model edit
                 $this->_redirect('*/*/edit', $params);
@@ -219,12 +223,38 @@ abstract class Space48_Forms_Controller_Admin_Abstract extends Mage_Adminhtml_Co
             // store data
             $this->_setFormData($data);
             
-            if ( isset($data['form_id']) ) {
-                $this->_redirect('*/*/edit', array('form_id' => $data['form_id']));
+            if ( isset($data[$idField]) ) {
+                $this->_redirect('*/*/edit', array($idField => $data[$idField]));
             } else {
                 $this->_redirect('*/*/new');
             }
         }
+    }
+    
+    /**
+     * delete action
+     *
+     * @return void
+     */
+    public function deleteAction()
+    {
+        try {
+            $model = $this->_initModel();
+            
+            // if we have not got a model
+            if ( ! $model->getId() ) {
+                $this->_exception('No form data has been entered.');
+            }
+            
+            // try delete
+            $model->delete();
+            
+        } catch (Exception $e) {
+            // show error message
+            $this->_addError( $e->getMessage() );
+        }
+        
+        $this->_redirect('*/*/index');
     }
     
     /**

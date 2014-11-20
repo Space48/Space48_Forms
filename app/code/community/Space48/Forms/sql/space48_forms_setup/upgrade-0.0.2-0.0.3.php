@@ -17,12 +17,11 @@ $sql = "
       `css_class` VARCHAR(128),
       `frontend_block` VARCHAR(240) DEFAULT 'space48_forms/form_fieldset',
       `frontend_template` VARCHAR(240) DEFAULT 'space48/forms/form/fieldset.phtml',
-      `position` INT DEFAULT 0,
       `status` TINYINT DEFAULT 0,
       `updated_at` DATETIME,
       `created_at` DATETIME,
       PRIMARY KEY (`fieldset_id`)
-    );
+    ) ENGINE=INNODB;
 ";
 
 $this->run($sql);

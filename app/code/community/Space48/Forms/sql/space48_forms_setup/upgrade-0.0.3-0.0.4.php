@@ -26,12 +26,11 @@ $sql = "
       `autocomplete` TINYINT NOT NULL DEFAULT 0,
       `show_in_admin_email` TINYINT NOT NULL DEFAULT 1,
       `show_in_customer_email` TINYINT NOT NULL DEFAULT 1,
-      `position` INT NOT NULL DEFAULT 0,
       `status` TINYINT NOT NULL DEFAULT 0,
       `updated_at` DATETIME,
       `created_at` DATETIME,
       PRIMARY KEY (`field_id`)
-    );
+    ) ENGINE=INNODB;
 ";
 
 $this->run($sql);

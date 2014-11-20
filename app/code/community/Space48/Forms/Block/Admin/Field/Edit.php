@@ -7,12 +7,12 @@ class Space48_Forms_Block_Admin_Field_Edit extends Space48_Forms_Block_Admin_Abs
      */
     public function __construct()
     {
-        parent::__construct();
-        
         $this->_mode       = 'edit';
         $this->_objectId   = 'field_id';
         $this->_blockGroup = 'space48_forms';
         $this->_controller = 'admin_field';
+        
+        parent::__construct();
         
         // remove default save button
         $this->_removeButton('save');
@@ -32,7 +32,7 @@ class Space48_Forms_Block_Admin_Field_Edit extends Space48_Forms_Block_Admin_Abs
         ), 2);
         
         $this->_formScripts[] = "
-            var space48_form = new Space48_Forms_Field(editForm);
+            var space48_form = new Space48Forms.Form_Field(editForm);
         ";
     }
     
