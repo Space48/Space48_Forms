@@ -1,0 +1,17 @@
+<?php if ( $this->canShowFieldset() ) : ?>
+    <div id="<?php echo $this->getFieldsetId(); ?>" class="<?php echo $this->getFieldsetClass(); ?>">
+        
+        <?php /* fieldset title */ ?>
+        <?php if ( $this->canShowTitle() ) : ?>
+            <h2 class="legend">
+                <?php echo $this->getFieldsetTitle(); ?>
+            </h2>
+        <?php endif; ?>
+        
+        <ul class="form-list field-list">
+            <?php foreach ( $this->getFields() as $field ) : ?>
+                <?php echo $this->getFieldHtml($field); ?>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<layout>
+    <default>
+        <reference name="head">
+            <action method="addJs"><script>space48/forms/frontend/jquery.js</script></action>
+            <action method="addJs"><script>space48/forms/frontend/forms.js</script></action>
+        </reference>
+    </default>
+</layout>

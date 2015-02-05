@@ -143,6 +143,11 @@ class Space48_Forms_Model_Form_Fieldset extends Space48_Forms_Model_Abstract
         return Space48_Forms_Model_Form_Fieldset::DEFAULT_FRONTEND_TEMPLATE;
     }
     
+    /**
+     * get fields
+     *
+     * @return Space48_Forms_Model_Resource_Form_Fieldset_Field_Collection
+     */
     public function getFields()
     {
         if ( is_null($this->_fields) ) {

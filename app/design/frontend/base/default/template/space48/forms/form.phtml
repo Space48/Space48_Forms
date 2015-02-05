@@ -1,0 +1,60 @@
+<?php if ( $this->canShowForm() ) : ?>
+    <form id="<?php echo $this->getFormId(); ?>" class="<?php echo $this->getFormClass(); ?>" method="<?php echo $this->getFormMethod(); ?>" action="<?php echo $this->getFormAction(); ?>" enctype="<?php echo $this->getFormEncType(); ?>" >
+        
+        <?php /* form title */ ?>
+        <?php if ( $this->canShowTitle() ) : ?>
+            <div class="page-title form-title">
+                <h1><?php echo $this->getFormTitle(); ?></h1>
+            </div>
+        <?php endif; ?>
+        
+        <?php /* form description */ ?>
+        <?php if ( $this->canShowDescription() ) : ?>
+            <div class="form-description std">
+                <?php echo $this->getFormDescription(); ?>
+            </div>
+        <?php endif; ?>
+        
+        <?php /* form instructions */ ?>
+        <?php if ( $this->canShowInstructions() ) : ?>
+            <div class="form-instructions std">
+                <?php echo $this->getFormInstructions(); ?>
+            </div>
+        <?php endif; ?>
+        
+        <?php /* before form content */ ?>
+        <?php if ( $this->canShowBeforeFormContent() ) : ?>
+            <div class="before-form-content std">
+                <?php echo $this->getBeforeFormContent(); ?>
+            </div>
+        <?php endif; ?>
+        
+        <?php /* fieldsets */ ?>
+        <ul class="fieldsets">
+            <?php foreach ( $this->getFieldsets() as $fieldset ): ?>
+                <li>
+                    <?php echo $this->getFieldsetHtml($fieldset); ?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        
+        <?php /* button set */ ?>
+        <div class="buttons-set">
+            <button type="submit" title="Submit" class="button">
+                <span><span>Submit</span></span>
+            </button>
+        </div>
+        
+        <?php /* after form content */ ?>
+        <?php if ( $this->canShowAfterFormContent() ) : ?>
+            <div class="after-form-content std">
+                <?php echo $this->getAfterFormContent(); ?>
+            </div>
+        <?php endif; ?>
+    </form>
+    
+    <?php /* js */ ?>
+    <script type="text/javascript">
+        (function(){ this.<?php echo $this->getJsFormName(); ?> = new Space48Forms.Form('<?php echo $this->getFormId(); ?>', <?php echo $this->getJsonConfig(); ?>) }());
+    </script>
+<?php endif; ?>
