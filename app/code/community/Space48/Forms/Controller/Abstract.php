@@ -51,6 +51,23 @@ abstract class Space48_Forms_Controller_Abstract extends Mage_Core_Controller_Fr
     }
     
     /**
+     * log
+     */
+    protected function _log()
+    {
+        $args = func_get_args();
+        $message = call_user_func_array(array($this->_helper(), '__'), $args);
+        
+        try {
+            Mage::log($message, null, 'space48_forms.log');
+        } catch (Exception $e) {
+            // do nothing
+        }
+        
+        return $this;
+    }
+    
+    /**
      * get helper
      *
      * @param  string $helper

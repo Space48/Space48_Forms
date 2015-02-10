@@ -2,6 +2,10 @@
 <layout>
     <default>
         <reference name="head">
+            <!-- css -->
+            <action method="addCss"><stylesheet>space48/forms/css/styles.css</stylesheet></action>
+            
+            <!-- js -->
             <action method="addJs"><script>space48/forms/frontend/jquery.js</script></action>
             <action method="addJs"><script>space48/forms/frontend/forms.js</script></action>
         </reference>

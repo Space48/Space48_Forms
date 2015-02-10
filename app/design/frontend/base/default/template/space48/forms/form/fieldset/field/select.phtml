@@ -13,20 +13,21 @@
         <?php endif; ?>
     </label>
     <div class="input-box">
-        <input 
+        <select
+            
             id="<?php echo $this->getInputId(); ?>"
             class="<?php echo $this->getCssClass(); ?>"
             name="<?php echo $this->getFieldName(); ?>"
-            value="<?php echo $this->getFieldValue(); ?>"
             title="<?php echo $this->getFieldTitle(); ?>"
-            type="<?php echo $this->getFieldType(); ?>"
             
-            <?php echo $this->isInputRequired()  ? 'required'            : '';                     ?>
-            <?php echo $this->isAutoCapitalise() ? 'autocapitalize="on"' : 'autocapitalize="off"'; ?>
-            <?php echo $this->isAutoCorrect()    ? 'autocorrect="on"'    : 'autocorrect="off"';    ?>
-            <?php echo $this->isAutoComplete()   ? 'autocomplete="on"'   : 'autocomplete="off"';   ?>
-            <?php echo $this->isSpellcheck()     ? 'spellcheck="true"'   : 'spellcheck="false"';   ?>
+            <?php echo $this->isInputRequired() ? 'required' : ''; ?>
             >
+            <?php foreach ( $this->getFieldOptions() as $value => $label ) : ?>
+                <option value="<?php echo $value; ?>" <?php echo $this->getFieldValue() == $value ? 'selected' : ''; ?>>
+                    <?php echo $label; ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
     </div>
     
     <?php if ( $this->canShowComment() ) : ?>

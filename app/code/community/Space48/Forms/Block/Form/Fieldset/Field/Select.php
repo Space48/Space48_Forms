@@ -1,6 +1,6 @@
 <?php
 
-class Space48_Forms_Block_Form_Fieldset_Field_Text extends Space48_Forms_Block_Form_Fieldset_Field_Abstract
+class Space48_Forms_Block_Form_Fieldset_Field_Select extends Space48_Forms_Block_Form_Fieldset_Field_Abstract
 {
     /**
      * constructor
@@ -8,7 +8,7 @@ class Space48_Forms_Block_Form_Fieldset_Field_Text extends Space48_Forms_Block_F
     public function _construct()
     {
         parent::_construct();
-        $this->setTemplate('space48/forms/form/fieldset/field/text.phtml');
+        $this->setTemplate('space48/forms/form/fieldset/field/select.phtml');
     }
     
     /**
@@ -18,7 +18,7 @@ class Space48_Forms_Block_Form_Fieldset_Field_Text extends Space48_Forms_Block_F
      */
     public function getFieldType()
     {
-        return Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_TEXT;
+        return Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_SELECT;
     }
     
     /**

@@ -19,6 +19,21 @@ abstract class Space48_Forms_Block_Form_Fieldset_Abstract
     protected $_fieldset;
     
     /**
+     * fieldset container id (html)
+     * not to be confused with fieldset model id
+     *
+     * @var string
+     */
+    protected $_fieldsetId;
+    
+    /**
+     * css classes
+     *
+     * @var array
+     */
+    protected $_classes = array();
+    
+    /**
      * constructor
      */
     protected function _construct()
@@ -107,6 +122,56 @@ abstract class Space48_Forms_Block_Form_Fieldset_Abstract
     }
     
     /**
+     * get fieldset id
+     * don't confuse this with fieldset model id
+     * this is purely for html id and javascript
+     *
+     * @return string
+     */
+    public function getFieldsetId()
+    {
+        if ( is_null($this->_fieldsetId) ) {
+            $this->_fieldsetId = 'fieldset_' . uniqid() . '_' . $this->getFieldset()->getId();
+        }
+        
+        return $this->_fieldsetId;
+    }
+    
+    /**
+     * get fieldset class (css class)
+     *
+     * @return string
+     */
+    public function getFieldsetClass()
+    {
+        $this->addFieldsetClass('fieldset');
+        $this->addFieldsetClass('form-fieldset');
+        $this->addFieldsetClass('form-fieldset-'.$this->getFieldset()->getId());
+        
+        return implode(' ', $this->_classes);
+    }
+    
+    /**
+     * add form class
+     *
+     * @param string|array $class
+     */
+    public function addFieldsetClass($class)
+    {
+        if ( is_array($class) ) {
+            $classes = $class;
+        } else {
+            $classes = explode(' ', $class);
+        }
+        
+        foreach ( $classes as $class ) {
+            $this->_classes[$class] = $class;
+        }
+        
+        return $this;
+    }
+    
+    /**
      * can show fieldset
      *
      * @return bool
@@ -174,7 +239,7 @@ abstract class Space48_Forms_Block_Form_Fieldset_Abstract
                 $blockType = 'space48_forms/form_fieldset_field_text';
                 break;
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_SELECT:
-                $blockType = 'space48_forms/form_fieldset_field_text';
+                $blockType = 'space48_forms/form_fieldset_field_select';
                 break;
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_CHECKBOX:
                 $blockType = 'space48_forms/form_fieldset_field_text';

@@ -110,6 +110,16 @@ abstract class Space48_Forms_Block_Form_Abstract
     }
     
     /**
+     * get current url
+     *
+     * @return string
+     */
+    public function getCurrentUrl()
+    {
+        return Mage::helper('core/url')->getCurrentUrl();
+    }
+     
+    /**
      * get js form name
      *
      * @return string
@@ -182,7 +192,11 @@ abstract class Space48_Forms_Block_Form_Abstract
      */
     public function getFormAction()
     {
-        return $this->getUrl('forms/submit/form');
+        if ( $this->getForm()->getMethod() == Space48_Forms_Model_Form::FORM_METHOD_POST ) {
+            return $this->getUrl('forms/submit/post');
+        }
+        
+        return $this->getUrl('forms/submit/get');
     }
     
     /**
@@ -299,6 +313,24 @@ abstract class Space48_Forms_Block_Form_Abstract
     }
     
     /**
+     * can show back button
+     *
+     * @return bool
+     */
+    public function canShowBackButton()
+    {
+        if ( ! $this->getShowBackButton() ) {
+            return false;
+        }
+        
+        if ( ! $this->getBackButtonUrl() ) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
      * get form title
      *
      * @return string
@@ -346,6 +378,46 @@ abstract class Space48_Forms_Block_Form_Abstract
     public function getAfterFormContent()
     {
         return $this->getForm()->getAfterFormContent();
+    }
+    
+    /**
+     * get submit button text
+     *
+     * @return string
+     */
+    public function getSubmitButtonText()
+    {
+        return $this->getForm()->getSubmitButtonText();
+    }
+    
+    /**
+     * whether to show back button
+     *
+     * @return bool
+     */
+    public function getShowBackButton()
+    {
+        return (bool) $this->getForm()->getBackButtonShow();
+    }
+    
+    /**
+     * get back button text
+     *
+     * @return string
+     */
+    public function getBackButtonText()
+    {
+        return $this->getForm()->getBackButtonText();
+    }
+    
+    /**
+     * get back button url
+     *
+     * @return string
+     */
+    public function getBackButtonUrl()
+    {
+        return $this->getForm()->getBackButtonUrl();
     }
     
     /**

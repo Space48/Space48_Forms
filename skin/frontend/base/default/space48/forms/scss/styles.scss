@@ -1,0 +1,150 @@
+.space48-form {
+    
+    // form title
+    .form-title {
+        
+    }
+    
+    // form description
+    .form-description {
+        
+    }
+    
+    // form instructions
+    .form-instructions {
+        padding:1em;
+        background:#eee;
+        margin:0 0 1.5em 0;
+        border:1px solid #ddd;
+        color:#444;
+        
+        *:last-child {
+            margin-bottom:0;
+        }
+    }
+    
+    // before form content
+    .before-form-content {
+        
+    }
+    
+    // after form content
+    .after-form-content {
+        
+    }
+    
+    // fieldsets container
+    .form-fieldsets {
+        list-style:none;
+        
+        // fieldset
+        .form-fieldset {
+            margin:0 0 1em 0;
+            
+            // fieldset title
+            .fieldset-title {
+                margin:0;
+                padding:5px 0;
+            }
+            
+            // fieldset fields container
+            .fieldset-fields {
+                list-style:none;
+                
+                // fieldset field
+                .fieldset-field {
+                    margin:0;
+                    padding:1em;
+                    
+                    // fieldset label
+                    label {
+                        
+                        // required
+                        &.required {
+                            
+                        }
+                        
+                        // field hint
+                        .field-hint {
+                            position: relative;
+                            
+                            a:hover + p {
+                                display: block;
+                            }
+                            
+                            p {
+                                display: none;
+                                position: absolute;
+                                width: 200px;
+                                height: auto;
+                                padding:1em;
+                                border:1px solid silver;
+                                z-index: 1000;
+                                background: #fff;
+                                border-radius:4px;
+                                left:110%;
+                                top:0;
+                                box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.4);
+                            }
+                        }
+                    }
+                    
+                    // input container
+                    .input-box {
+                        
+                        // input
+                        input {
+                            
+                        }
+                        
+                        // select
+                        select {
+                            
+                        }
+                        
+                        // textarea
+                        textarea {
+                            
+                        }
+                    }
+                    
+                    // field comment
+                    .field-comment {
+                        
+                        
+                        p {
+                            margin:0.2em 0 0 0;
+                            padding:0.2em 0.5em;
+                            border-left:2px solid #2e8ab8;
+                            background:#eee;
+                            display: inline-block;
+                            font-size: 13px;
+                            -moz-user-select: none;
+                            -ms-user-select: none;
+                            -webkit-user-select: none;
+                            -o-user-select: none;
+                            user-select: none;
+                        }
+                    }
+                    
+                    
+                }
+            }
+        }
+    }
+    
+    .buttons-set {
+        margin:1.5em 0;
+        padding:5px 0;
+        
+        .back-button {
+            margin:0;
+            float:left;
+            background:#aaa;
+            
+            &:hover {
+                background:#888;
+            }
+        }
+    }
+}

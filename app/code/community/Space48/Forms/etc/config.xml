@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Space48_Forms>
-            <version>0.0.6</version>
+            <version>0.0.9</version>
         </Space48_Forms>
     </modules>
     
@@ -45,6 +45,22 @@
                     <form_fieldset_field_index>
                         <table>space48_forms_form_fieldset_field_index</table>
                     </form_fieldset_field_index>
+                    
+                    <!-- form result table -->
+                    <form_result>
+                        <table>space48_forms_form_result</table>
+                    </form_result>
+                    
+                    <!-- form result fieldset table -->
+                    <form_result_fieldset>
+                        <table>space48_forms_form_result_fieldset</table>
+                    </form_result_fieldset>
+                    
+                    <!-- form result fieldset field table -->
+                    <form_result_fieldset_field>
+                        <table>space48_forms_form_result_fieldset_field</table>
+                    </form_result_fieldset_field>
+                    
                 </entities>
             </space48_forms_resource>
         </models>

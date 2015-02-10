@@ -217,9 +217,11 @@ abstract class Space48_Forms_Block_Form_Fieldset_Field_Abstract
      */
     public function getFieldClass()
     {
-        $this->addFieldClass('form-field');
+        $this->addFieldClass('fieldset-field');
         
-        $this->addFieldClass('form-field-'.$this->getField()->getType());
+        $this->addFieldClass('fieldset-field-'.$this->getField()->getId());
+        
+        $this->addFieldClass('fieldset-field-'.$this->getField()->getType());
         
         if ( $this->isInputRequired() ) {
             $this->addFieldClass('input-required');
@@ -228,8 +230,6 @@ abstract class Space48_Forms_Block_Form_Fieldset_Field_Abstract
         if ( $class = $this->getField()->getContainerClass() ) {
             $this->addFieldClass($class);
         }
-        
-        
         
         return implode(' ', $this->_classes);
     }
@@ -287,7 +287,36 @@ abstract class Space48_Forms_Block_Form_Fieldset_Field_Abstract
      */
     public function getFieldValue()
     {
+        $result = Mage::getSingleton('space48_forms/session')->getFormResult();
+        
+        if ( $result && $result->getId() ) {
+            $field = $result->getResultFields( $this->getField()->getName() );
+            
+            if ( $field ) {
+                return $field->getValue();
+            }
+        }
+        
         return $this->getField()->getValue();
+    }
+    
+    /**
+     * get field options
+     *
+     * @return array
+     */
+    public function getFieldOptions($blank = true)
+    {
+        // options array
+        $options = $blank ? array('' => $this->__('Please select...')) : array();
+        
+        // get field options
+        foreach ( Mage::helper('space48_forms/form')->explode($this->getField()->getOptions(), PHP_EOL) as $option ) {
+            // append to array
+            $options[$option] = $option;
+        }
+        
+        return $options;
     }
     
     /**
