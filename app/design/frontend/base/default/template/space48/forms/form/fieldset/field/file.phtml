@@ -20,22 +20,20 @@
             id="<?php echo $this->getInputId(); ?>"
             class="<?php echo $this->getCssClass(); ?>"
             name="<?php echo $this->getFieldName(); ?>"
-            value="<?php echo $this->getFieldValue(); ?>"
             title="<?php echo $this->getFieldTitle(); ?>"
             type="<?php echo $this->getFieldType(); ?>"
-            placeholder="<?php echo $this->getFieldPlaceholder(); ?>"
             
-            <?php echo $this->isInputRequired()  ? 'required'            : '';                     ?>
-            <?php echo $this->isAutoCapitalise() ? 'autocapitalize="on"' : 'autocapitalize="off"'; ?>
-            <?php echo $this->isAutoCorrect()    ? 'autocorrect="on"'    : 'autocorrect="off"';    ?>
-            <?php echo $this->isAutoComplete()   ? 'autocomplete="on"'   : 'autocomplete="off"';   ?>
-            <?php echo $this->isSpellcheck()     ? 'spellcheck="true"'   : 'spellcheck="false"';   ?>
+            <?php echo $this->isInputRequired() ? 'required' : ''; ?>
             >
     </div>
     
     <?php if ( $this->canShowComment() ) : ?>
         <div class="field-comment">
-            <p><?php echo $this->getFieldComment(); ?></p>
+            <p>
+                <?php echo $this->getFieldComment() ? $this->getFieldComment() . '<br />' : ''; ?> 
+                <?php echo $this->__('File size limit (max): '); ?> <?php echo $this->getFieldFileSizeLimit(); ?> <br />
+                <?php echo $this->__('File types: '); ?> <?php echo $this->getFieldFileExtensions(); ?> only.<br />
+            </p>
         </div>
     <?php endif; ?>
 </li>

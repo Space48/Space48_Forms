@@ -20,7 +20,7 @@
      * from them is then recognised or posted through.
      * 
      */
-    var toggleAllGridInputElements = function (parent, toggle) {
+    this.toggleAllGridInputElements = function (parent, toggle) {
         
         // find all grid elements
         var grids = parent.select('div.grid');
@@ -32,24 +32,31 @@
         
         // loop through all grids
         grids.each(function(grid){
-            // find all input and select elements
-            var elements = grid.select('input', 'select');
-            
-            // ensure we have matched elements
-            if ( elements && elements.length ) {
-                
-                // loop through elements...
-                elements.each(function(element){
-                    
-                    // ...and enable or disable
-                    if ( !! toggle ) {
-                        element.enable();
-                    } else {
-                        element.disable();
-                    }
-                });
-            }
+            toggleInputElements(grid, toggle);
         });
+    };
+    
+    /**
+     * toggle input elements on/off
+     */
+    this.toggleInputElements = function (parent, toggle) {
+        // find all input and select elements
+        var elements = parent.select('input', 'select', 'textarea');
+        
+        // ensure we have matched elements
+        if ( elements && elements.length ) {
+            
+            // loop through elements...
+            elements.each(function(element){
+                
+                // ...and enable or disable
+                if ( !! toggle ) {
+                    element.enable();
+                } else {
+                    element.disable();
+                }
+            });
+        }
     };
     
     /**
@@ -283,7 +290,33 @@
     /**
      * Field form
      */
-    var Form_Field = Form_Abstract.extend({});
+    var Form_Field = Form_Abstract.extend({
+        init : function (form) {
+            this._super(form);
+            
+            // default value
+            new Space48Forms.FieldDependency('type', ['text', 'select', 'radio', 'textarea'], [
+                'value'
+            ]);
+            
+            // placeholder
+            new Space48Forms.FieldDependency('type', ['text'], [
+                'placeholder'
+            ]);
+            
+            // options
+            new Space48Forms.FieldDependency('type', ['select', 'radio', 'checkbox', 'multiselect', 'multicheckbox'], [
+                'options'
+            ]);
+            
+            // file extensions, file size limit
+            new Space48Forms.FieldDependency('type', ['file'], [
+                'file_extensions',
+                'file_size_limit'
+            ]);
+            
+        }
+    });
     
     // expose to global namespace
     Space48Forms.Form_Form     = Form_Form;

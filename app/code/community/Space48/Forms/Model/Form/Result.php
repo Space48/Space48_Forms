@@ -161,17 +161,43 @@ class Space48_Forms_Model_Form_Result extends Space48_Forms_Model_Abstract
     }
     
     /**
-     * validate
+     * set form files
      *
-     * @return $this
+     * @param array $files
      */
-    public function validate()
+    public function setFormFiles(array $files)
     {
-        foreach ( $this->getResultFields() as $field ) {
-            $field->validate();
+        foreach ( $files as $name => $data ) {
+            $field = $this->getResultFields($name);
+            
+            // ignore and continue if field not found
+            if ( ! $field ) {
+                continue;
+            }
+            
+            $field->upload($name, $data);
+            $field->save();
         }
         
         return $this;
+    }
+    
+    /**
+     * validate
+     *
+     * @return bool
+     */
+    public function validate()
+    {
+        $success = true;
+        
+        foreach ( $this->getResultFields() as $field ) {
+            if ( ! $field->validate() ) {
+                $success = false;
+            }
+        }
+        
+        return $success;
     }
     
     /**

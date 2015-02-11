@@ -24,8 +24,12 @@ class Space48_Forms_Block_Admin_Field_Edit_Tabs extends Space48_Forms_Block_Admi
         // information tab
         $this->addTab('general', 'space48_forms/admin_field_edit_tab_general');
         
+        // type tab
+        $this->addTab('type', 'space48_forms/admin_field_edit_tab_type');
+        
         // advanced tab
         $this->addTab('advanced', 'space48_forms/admin_field_edit_tab_advanced');
+        
         
         return parent::_beforeToHtml();
     }

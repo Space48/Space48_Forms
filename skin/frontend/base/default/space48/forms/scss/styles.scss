@@ -56,6 +56,11 @@
                     margin:0;
                     padding:1em;
                     
+                    &.has-errors {
+                        background-color:#ffe5e5;
+                        border:1px solid #ffcccc;
+                    }
+                    
                     // fieldset label
                     label {
                         
@@ -125,9 +130,7 @@
                             -o-user-select: none;
                             user-select: none;
                         }
-                    }
-                    
-                    
+                    } 
                 }
             }
         }

@@ -59,31 +59,6 @@ class Space48_Forms_Block_Admin_Field_Edit_Tab_General extends Space48_Forms_Blo
             'value'    => $this->_getModel()->getTitle(),
         ));
         
-        // type field
-        $fieldset->addField('type', 'select', array(
-            'label'    => Mage::helper('space48_forms')->__('Type'),
-            'name'     => 'type',
-            'required' => true,
-            'note'     => Mage::helper('space48_forms')->__('Type of field.'),
-            'options'  => $this->_getFieldTypeOptions(),
-            'value'    => $this->_getModel()->getType(),
-        ));
-        
-        // options field
-        $fieldset->addField('options', 'textarea', array(
-            'label'    => Mage::helper('space48_forms')->__('Options'),
-            'name'     => 'options',
-            'note'     => Mage::helper('space48_forms')->__('Please enter one option per line.'),
-            'value'    => $this->_getModel()->getOptions(),
-        ));
-        
-        // value field
-        $fieldset->addField('value', 'text', array(
-            'label'    => Mage::helper('space48_forms')->__('Default Value'),
-            'name'     => 'value',
-            'value'    => $this->_getModel()->getValue(),
-        ));
-        
         // comment field
         $fieldset->addField('comment', 'text', array(
             'label'    => Mage::helper('space48_forms')->__('Comments'),

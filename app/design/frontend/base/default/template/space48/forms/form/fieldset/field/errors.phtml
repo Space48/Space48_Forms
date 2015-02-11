@@ -1,0 +1,15 @@
+<?php if ( $errors = $this->getErrors() ) : ?>
+    <ul class="messages">
+        <li class="error-msg">
+            <ul>
+                <?php foreach ( $errors as $error ) : ?>
+                    <li>
+                        <span>
+                            <?php echo $error; ?>
+                        </span>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </li>
+    </ul>
+<?php endif; ?>

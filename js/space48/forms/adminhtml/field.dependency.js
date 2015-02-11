@@ -64,18 +64,34 @@
             // otherwise we rely always
             // on the value of the field
             else {
-                show = this.getField().getValue().toString() == this.getValue();
+                var value = this.getValue();
+                var given = this.getField().getValue().toString();
+                
+                // is array
+                if ( value instanceof Array ) {
+                    show = value.indexOf(given) !== -1;
+                }
+                
+                // assume string
+                else {
+                    show = value == given;
+                }
             }
             
             // loop through dependant fields
             this.getFields().each(function(field){
                 // ensure we have a non null value
                 if ( field ) {
+                    
+                    var tr = field.up('tr');
+                    
                     // show or hide the field
                     if ( show ) {
-                        field.up('tr').show();
+                        tr.show();
+                        toggleInputElements(tr, true);
                     } else {
-                        field.up('tr').hide();
+                        tr.hide();
+                        toggleInputElements(tr, false);
                     }
                     
                     // if we have sub dependencies
@@ -147,7 +163,7 @@
          * @param {string|int} value
          */
         setValue : function (value) {
-            this.value = value.toString();
+            this.value = value;
             return this;
         },
         
@@ -157,7 +173,7 @@
          * @return {string}
          */
         getValue : function () {
-            return this.value.toString();
+            return this.value;
         },
         
         /**

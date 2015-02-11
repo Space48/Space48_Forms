@@ -236,24 +236,28 @@ abstract class Space48_Forms_Block_Form_Fieldset_Abstract
                 $blockType = 'space48_forms/form_fieldset_field_text';
                 break;
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_TEXTAREA:
-                $blockType = 'space48_forms/form_fieldset_field_text';
+                $blockType = 'space48_forms/form_fieldset_field_textarea';
                 break;
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_SELECT:
                 $blockType = 'space48_forms/form_fieldset_field_select';
                 break;
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_CHECKBOX:
-                $blockType = 'space48_forms/form_fieldset_field_text';
+                $blockType = 'space48_forms/form_fieldset_field_checkbox';
                 break;
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_RADIO:
-                $blockType = 'space48_forms/form_fieldset_field_text';
+                $blockType = 'space48_forms/form_fieldset_field_radio';
                 break;
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_FILE:
-                $blockType = 'space48_forms/form_fieldset_field_text';
+                $blockType = 'space48_forms/form_fieldset_field_file';
                 break;
         }
         
+        // instantiate block
         $block = $this->getLayout()->createBlock($blockType);
         
+        // should be an instance of the abstract block
+        // if not default to core template to avoid
+        // fatal errors
         if ( ! ( $block instanceof Space48_Forms_Block_Form_Fieldset_Field_Abstract ) ) {
             $block = $this->getLayout()->createBlock('core/template');
         }

@@ -34,6 +34,16 @@ class Space48_Forms_Helper_Form extends Mage_Core_Helper_Abstract
             $array[$key] = $value;
         }
         
-        return $array;
+        return array_filter($array);
+    }
+    
+    /**
+     * get file upload path
+     *
+     * @return string
+     */
+    public function getFileUploadPath()
+    {
+        return Mage::getBaseDir('media') . DS . 'forms';
     }
 }

@@ -8,6 +8,7 @@ class Space48_Forms_Model_Source_Form_Fieldset_Field_Type extends Space48_Forms_
     const TYPE_CHECKBOX = 'checkbox';
     const TYPE_RADIO    = 'radio';
     const TYPE_FILE     = 'file';
+    const TYPE_PASSWORD = 'password';
     
     /**
      * get all options
@@ -41,6 +42,10 @@ class Space48_Forms_Model_Source_Form_Fieldset_Field_Type extends Space48_Forms_
                 array(
                     'label' => Mage::helper('space48_forms')->__('File'),
                     'value' => self::TYPE_FILE,
+                ),
+                array(
+                    'label' => Mage::helper('space48_forms')->__('Password'),
+                    'value' => self::TYPE_PASSWORD,
                 ),
             );
         }

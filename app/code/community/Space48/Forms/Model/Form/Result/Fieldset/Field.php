@@ -21,14 +21,14 @@ class Space48_Forms_Model_Form_Result_Fieldset_Field extends Space48_Forms_Model
     /**
      * validate field value
      *
-     * @return $this
+     * @return bool
      */
     public function validate()
     {
         $helper  = Mage::helper('space48_forms/validation');
         $options = $this->getOptions(true);
-        $label   = $this->getLabel();
         $value   = $this->getValue();
+        $errors  = array();
         
         /**
          * if field is a required field then
@@ -36,34 +36,87 @@ class Space48_Forms_Model_Form_Result_Fieldset_Field extends Space48_Forms_Model
          */
         if ( $this->getRequired() ) {
             if ( ! strlen($value) ) {
-                $helper->throwException('%s is a required field, please enter a value and try again.', $label);
+                $errors[] = $helper->__('This is a required field, please enter a value.');
             }
         }
         
+        // field type based validation
         switch ( $this->getType() ) {
             
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_TEXT:
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_TEXTAREA:
-            case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_RADIO:
-            case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_FILE:
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_CHECKBOX:
                 // nothing to do, yet
                 break;
             
             /**
-             * select validation
+             * file validation
              */
+            case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_FILE:
+                
+                // check file size
+                if ( $this->getFileSize() > $this->getFileSizeLimit() ) {
+                    $errors[] = $helper->__('The file you uploaded exceeds the maximum allowed file size.');
+                }
+                
+                // check file extension
+                if ( ! in_array($this->getFileExtension(), $this->getAllowedFileExtensions()) ) {
+                    $errors[] = $helper->__('The file you uploaded does not match the allowed formats.');
+                }
+                
+                break;
+            
+            /**
+             * select/radio validation
+             */
+            case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_RADIO:
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_SELECT:
                 
                 // value must exist as one of the options
                 if ( ! in_array($value, $options) ) {
-                    $helper->throwException('Invalid option selected for %s. Please select an option and try again.', $label);
+                    $errors[] = $helper->__('Invalid option selected. Please select a valid option and try again.');
                 }
                 
                 break;
         }
         
+        // set errors
+        $this->setErrors($errors);
+        $this->save();
+        
+        return count($errors) < 1;
+    }
+    
+    /**
+     * set errors
+     *
+     * @param array $errors
+     */
+    public function setErrors(array $errors)
+    {
+        if ( $errors && count($errors) ) {
+            $this->setData('errors', json_encode($errors));
+        } else {
+            $this->setData('errors', '');
+        }
+        
         return $this;
+    }
+    
+    /**
+     * get errors
+     *
+     * @return array
+     */
+    public function getErrors()
+    {
+        $errors = $this->_getData('errors');
+        
+        if ( $errors ) {
+            return json_decode($errors);
+        }
+        
+        return array();
     }
     
     /**
@@ -136,16 +189,8 @@ class Space48_Forms_Model_Form_Result_Fieldset_Field extends Space48_Forms_Model
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_RADIO:
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_SELECT:
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_FILE:
-                // nothing to do here
-                break;
-            
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_CHECKBOX:
-                
-                // only json encode if is an array
-                if ( is_array($value) ) {
-                    $value = json_encode($value);
-                }
-                
+                // nothing to do here
                 break;
         }
         
@@ -169,15 +214,103 @@ class Space48_Forms_Model_Form_Result_Fieldset_Field extends Space48_Forms_Model
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_RADIO:
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_SELECT:
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_FILE:
-                // nothing to do here
-                break;
-            
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_CHECKBOX:
-                $value = json_decode($value);
+                // nothing to do here
                 break;
         }
         
         return $value;
+    }
+    
+    /**
+     * get file upload directory
+     *
+     * @return string
+     */
+    public function getFileUploadDirectory()
+    {
+        return Mage::helper('space48_forms/form')->getFileUploadPath();
+    }
+    
+    /**
+     * get file path
+     *
+     * @return string
+     */
+    public function getFilePath()
+    {
+        return $this->getFileUploadDirectory() . DS . $this->getValue();
+    }
+    
+    /**
+     * get file size
+     *
+     * @return int
+     */
+    public function getFileSize()
+    {
+        return floor( filesize( $this->getFilePath() ) / 1000 );
+    }
+    
+    /**
+     * get file extension
+     *
+     * @return string
+     */
+    public function getFileExtension()
+    {
+        return pathinfo($this->getValue(), PATHINFO_EXTENSION);
+    }
+    
+    /**
+     * get allowed file extensions
+     *
+     * @return array
+     */
+    public function getAllowedFileExtensions()
+    {
+        $extentions = $this->getFileExtensions();
+        $extentions = Mage::helper('space48_forms/form')->explode($extentions, PHP_EOL);
+        return $extentions;
+    }
+    
+    /**
+     * upload file
+     *
+     * @param  string $name
+     * @param  array $data
+     *
+     * @return $this
+     */
+    public function upload($name, array $data)
+    {
+        // instantiate uploader
+        $uploader = new Varien_File_Uploader($name);
+        $uploader->setAllowCreateFolders(true);
+        $uploader->setAllowRenameFiles(true);
+        $uploader->setFilesDispersion(true);
+        
+        // set allowed file extensions
+        $extentions = $this->getAllowedFileExtensions();
+        
+        if ( $extentions && count($extentions) ) {
+            $uploader->setAllowedExtensions($extentions);
+        }
+        
+        // get save path
+        $path = $this->getFileUploadDirectory();
+        
+        // generate file name
+        $name = $this->getName() . '.' . $uploader->getFileExtension();
+        $name = strtolower($name);
+        
+        // upload the file
+        $file = $uploader->save($path, $name);
+        
+        // set value
+        $this->setValue($file['file']);
+        
+        return $this;
     }
     
     /**

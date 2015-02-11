@@ -53,8 +53,11 @@ class Space48_Forms_SubmitController extends Space48_Forms_Controller_Abstract
         // get form data
         $data = $this->getRequest()->getPost();
         
+        // get files
+        $files = count($_FILES) ? $_FILES : array();
+        
         // handle data
-        $this->_handle($data);
+        $this->_handle($data, $files);
     }
     
     /**
@@ -78,7 +81,7 @@ class Space48_Forms_SubmitController extends Space48_Forms_Controller_Abstract
      *
      * @return void
      */
-    protected function _handle(array $data)
+    protected function _handle(array $data, array $files = array())
     {
         try {
             // try load form
@@ -108,8 +111,13 @@ class Space48_Forms_SubmitController extends Space48_Forms_Controller_Abstract
             // set form data
             $result->setFormData($data);
             
+            // set form files
+            $result->setFormFiles($files);
+            
             // validate
-            $result->validate();
+            if ( ! $result->validate() ) {
+                $this->_exception('There we errors in the your submission, please check and try again.');
+            }
             
         } catch (Exception $e) {
             // add error message to session

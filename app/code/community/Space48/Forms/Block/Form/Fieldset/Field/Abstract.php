@@ -40,6 +40,13 @@ abstract class Space48_Forms_Block_Form_Fieldset_Field_Abstract
     protected $_inputId;
     
     /**
+     * holds errors for given field
+     *
+     * @var array
+     */
+    protected $_errors;
+    
+    /**
      * css classes
      *
      * @var array
@@ -223,6 +230,10 @@ abstract class Space48_Forms_Block_Form_Fieldset_Field_Abstract
         
         $this->addFieldClass('fieldset-field-'.$this->getField()->getType());
         
+        if ( $this->hasErrors() ) {
+            $this->addFieldClass('has-errors');
+        }
+        
         if ( $this->isInputRequired() ) {
             $this->addFieldClass('input-required');
         }
@@ -281,23 +292,126 @@ abstract class Space48_Forms_Block_Form_Fieldset_Field_Abstract
     }
     
     /**
+     * get errors html
+     *
+     * @return string
+     */
+    public function getErrorsHtml()
+    {
+        if ( ! $this->hasErrors() ) {
+            return '';
+        }
+        
+        return $this->getLayout()->createBlock('core/template')
+            ->setTemplate('space48/forms/form/fieldset/field/errors.phtml')
+            ->setErrors($this->getErrors())
+            ->toHtml();
+    }
+    
+    /**
+     * get errors
+     *
+     * @return array
+     */
+    public function getErrors()
+    {
+        if ( is_null($this->_errors) ) {
+            $this->_errors = array();
+            
+            $result = Mage::getSingleton('space48_forms/session')->getFormResult();
+            
+            // if we get a result model
+            if ( $result && $result->getId() ) {
+                // lets get the result field that this
+                // field relates to
+                $field = $result->getResultFields( $this->getField()->getName() );
+                
+                // if we have got the result field
+                // then we return the captured value
+                if ( $field ) {
+                    // get errors
+                    $errors = $field->getErrors();
+                    
+                    // must have errors to continue
+                    if ( $errors && count($errors) ) {
+                        $this->_errors = $errors;
+                    }
+                }
+            }
+        }
+        
+        return $this->_errors;
+    }
+    
+    /**
+     * has errors
+     *
+     * @return bool
+     */
+    public function hasErrors()
+    {
+        return count($this->getErrors()) > 0;
+    }
+    
+    /**
+     * get field placeholder
+     *
+     * @return string
+     */
+    public function getFieldPlaceholder()
+    {
+        return $this->getField()->getPlaceholder();
+    }
+    
+    /**
      * get default value
      *
      * @return string
      */
     public function getFieldValue()
     {
-        $result = Mage::getSingleton('space48_forms/session')->getFormResult();
-        
-        if ( $result && $result->getId() ) {
-            $field = $result->getResultFields( $this->getField()->getName() );
+        // lets check if we have an active result model in our session - this
+        // basically means the user has tried to submit their form but for some
+        // reason (probably a missed field) it cannot be submitted. we will
+        // load all values they filled into their form so they do no have to repeat
+        if ( $this->_canRestoreCapturedData() ) {
+            $result = Mage::getSingleton('space48_forms/session')->getFormResult();
             
-            if ( $field ) {
-                return $field->getValue();
+            // if we get a result model
+            if ( $result && $result->getId() ) {
+                // lets get the result field that this
+                // field relates to
+                $field = $result->getResultFields( $this->getField()->getName() );
+                
+                // if we have got the result field
+                // then we return the captured value
+                if ( $field ) {
+                    return $field->getValue();
+                }
             }
         }
         
         return $this->getField()->getValue();
+    }
+    
+    /**
+     * whether we can restore captured data
+     * when a form has been submitted but
+     * failed submission and is shown again
+     * to the user
+     *
+     * @return bool
+     */
+    protected function _canRestoreCapturedData()
+    {
+        switch ( $this->getType() ) {
+            case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_PASSWORD:
+            case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_FILE:
+                return false;
+                break;
+        }
+        
+        return true;
     }
     
     /**
