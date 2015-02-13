@@ -1,6 +1,6 @@
 <?php
 
-class Space48_Forms_Block_Form_Fieldset_Field_Textarea extends Space48_Forms_Block_Form_Fieldset_Field_Abstract
+class Space48_Forms_Block_Form_Fieldset_Field_Textarea extends Space48_Forms_Block_Form_Fieldset_Field_Text
 {
     /**
      * constructor
@@ -26,8 +26,28 @@ class Space48_Forms_Block_Form_Fieldset_Field_Textarea extends Space48_Forms_Blo
      *
      * @return string
      */
-    public function getCssClass()
+    public function getInputClass()
     {
-        return 'input-textarea ' . parent::getCssClass();
+        $class = 'input-textarea ' . parent::getInputClass();
+        $class = str_replace('input-text ', null, $class);
+        $class = trim($class);
+        
+        return $class;
+    }
+    
+    /**
+     * get input attributes
+     *
+     * @return array
+     */
+    protected function _getInputAttributes()
+    {
+        // merge attributes
+        $attributes = parent::_getInputAttributes();
+        
+        // unset attributes not used (from parent class)
+        unset($attributes['value'], $attributes['type']);
+        
+        return $attributes;
     }
 }

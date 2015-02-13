@@ -75,20 +75,26 @@ c.prototype.constructor=c;c.extend=arguments.callee; return c}})();
         // load jquery object with element id
         this.$form = $('#' + id);
         
-        
-        
         // don't continue if there is no elements found
         if ( this.$form.length == 0 ) {
             return this;
         }
-        
-        
         
         // extend config
         this.config = $.extend({}, this.config, config || {});
         
         // create varien form
         this.varienForm = new VarienForm(id);
+        
+        // on ready
+        $(function(){
+            this.onReady();
+        }.bind(this));
+        
+        // on load
+        $(window).load(function(){
+            this.onLoad();
+        }.bind(this));
         
         return this;
     };
@@ -101,6 +107,40 @@ c.prototype.constructor=c;c.extend=arguments.callee; return c}})();
     Space48Forms.Form_Abstract.prototype.getForm = function () {
         return this.$form;
     };
+    
+    /**
+     * on ready
+     * @return void
+     */
+    Space48Forms.Form_Abstract.prototype.onReady = function () {
+        // scroll any errors into view
+        this.scrollErrorsIntoView();
+    };
+    
+    /**
+     * on load
+     * @return void
+     */
+    Space48Forms.Form_Abstract.prototype.onLoad = function () {};
+    
+    /**
+     * scroll errors into view
+     *
+     * @return {this}
+     */
+    Space48Forms.Form_Abstract.prototype.scrollErrorsIntoView = function () {
+        
+        // get the first error field
+        var errorField = this.$form.find('.has-errors').first();
+        
+        // if we have fields
+        if ( errorField.length ) {
+            errorField.velocity("scroll", { duration: 2000, easing: "easeOutQuint", offset: -100 });
+        }
+        
+        return this;
+    };
+    
     
     /**
      * Space48 Form

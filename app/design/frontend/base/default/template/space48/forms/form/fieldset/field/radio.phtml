@@ -1,45 +1,50 @@
 <li id="<?php echo $this->getFieldId(); ?>" class="<?php echo $this->getFieldClass(); ?>">
-    <label <?php echo $this->isInputRequired() ? 'class="required"' : ''; ?> >
-        <?php echo $this->getFieldLabel(); ?>
-        
-        <?php if ( $this->isInputRequired() ) : ?>
-            <em class="required">*</em>
-        <?php endif; ?>
-        
-        <?php if ( $this->canShowHint() ) : ?>
-            <span class="field-hint">
-                (<a href="javascript:void(0);">help?</a>)
-                <p><?php echo $this->getFieldHint(); ?></p>
-            </span>
-        <?php endif; ?>
-    </label>
     
     <?php echo $this->getErrorsHtml(); ?>
     
-    <?php foreach ( $this->getFieldOptions(false) as $value => $label ) : ?>
-        <div class="control">
-            <div class="input-box">
-                <input 
-                    value="<?php echo $value; ?>"
-                    id="<?php echo $this->getInputId() . $value; ?>"
-                    class="<?php echo $this->getCssClass(); ?>"
-                    name="<?php echo $this->getFieldName(); ?>"
-                    title="<?php echo $this->getFieldTitle(); ?>"
-                    type="<?php echo $this->getFieldType(); ?>"
-                    
-                    <?php echo trim($this->getFieldValue()) == trim($value) ? 'checked' : ''; ?>
-                    >
+    <div class="field-head">
+        <label <?php echo $this->isInputRequired() ? 'class="required"' : ''; ?> >
+            <?php echo $this->getFieldLabel(); ?>
+            
+            <?php if ( $this->isInputRequired() ) : ?>
+                <em class="required">*</em>
+            <?php endif; ?>
+            
+            <?php if ( $this->canShowHint() ) : ?>
+                <span class="field-hint">
+                    (<a href="javascript:void(0);">help?</a>)
+                    <p><?php echo $this->getFieldHint(); ?></p>
+                </span>
+            <?php endif; ?>
+        </label>
+    </div>
+    
+    <div class="field-body">
+        <?php foreach ( $this->getFieldOptions(false) as $value => $label ) : ?>
+            <div class="control">
+                <div class="input-box">
+                    <input 
+                        value="<?php echo $value; ?>"
+                        id="<?php echo $this->getInputId() . $value; ?>"
+                        class="<?php echo $this->getCssClass(); ?>"
+                        name="<?php echo $this->getFieldName(); ?>"
+                        title="<?php echo $this->getFieldTitle(); ?>"
+                        type="<?php echo $this->getFieldType(); ?>"
+                        
+                        <?php echo trim($this->getFieldValue()) == trim($value) ? 'checked' : ''; ?>
+                        >
+                </div>
+                <label for="<?php echo $this->getFor() . $value; ?>">
+                    <?php echo $label; ?>
+                </label>
             </div>
-            <label for="<?php echo $this->getFor() . $value; ?>">
-                <?php echo $label; ?>
-            </label>
-        </div>
-    <?php endforeach; ?>
-    
-    
-    <?php if ( $this->canShowComment() ) : ?>
-        <div class="field-comment">
-            <p><?php echo $this->getFieldComment(); ?></p>
-        </div>
-    <?php endif; ?>
+        <?php endforeach; ?>
+        
+        
+        <?php if ( $this->canShowComment() ) : ?>
+            <div class="field-comment">
+                <p><?php echo $this->getFieldComment(); ?></p>
+            </div>
+        <?php endif; ?>
+    </div>
 </li>

@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Space48_Forms>
-            <version>0.1.3</version>
+            <version>0.1.5</version>
         </Space48_Forms>
     </modules>
     
@@ -164,6 +164,69 @@
                 </args>
             </space48_forms>
         </routers>
+        
+        <!-- events -->
+        <events>
+            <!-- validate text -->
+            <space48_forms_result_fieldset_field_validate_text>
+                <observers>
+                    <space48_forms_result_fieldset_field_validator_text>
+                        <class>space48_forms/observer_result_fieldset_field_validator_text</class>
+                        <method>validate</method>
+                    </space48_forms_result_fieldset_field_validator_text>
+                </observers>
+            </space48_forms_result_fieldset_field_validate_text>
+            
+            <!-- validate textarea -->
+            <space48_forms_result_fieldset_field_validate_textarea>
+                <observers>
+                    <space48_forms_result_fieldset_field_validator_text>
+                        <class>space48_forms/observer_result_fieldset_field_validator_textarea</class>
+                        <method>validate</method>
+                    </space48_forms_result_fieldset_field_validator_text>
+                </observers>
+            </space48_forms_result_fieldset_field_validate_textarea>
+            
+            <!-- validate select -->
+            <space48_forms_result_fieldset_field_validate_select>
+                <observers>
+                    <space48_forms_result_fieldset_field_validator_select>
+                        <class>space48_forms/observer_result_fieldset_field_validator_select</class>
+                        <method>validate</method>
+                    </space48_forms_result_fieldset_field_validator_select>
+                </observers>
+            </space48_forms_result_fieldset_field_validate_select>
+            
+            <!-- validate checkbox -->
+            <space48_forms_result_fieldset_field_validate_checkbox>
+                <observers>
+                    <space48_forms_result_fieldset_field_validator_checkbox>
+                        <class>space48_forms/observer_result_fieldset_field_validator_checkbox</class>
+                        <method>validate</method>
+                    </space48_forms_result_fieldset_field_validator_checkbox>
+                </observers>
+            </space48_forms_result_fieldset_field_validate_checkbox>
+            
+            <!-- validate radio -->
+            <space48_forms_result_fieldset_field_validate_radio>
+                <observers>
+                    <space48_forms_result_fieldset_field_validator_radio>
+                        <class>space48_forms/observer_result_fieldset_field_validator_radio</class>
+                        <method>validate</method>
+                    </space48_forms_result_fieldset_field_validator_radio>
+                </observers>
+            </space48_forms_result_fieldset_field_validate_radio>
+            
+            <!-- validate file -->
+            <space48_forms_result_fieldset_field_validate_file>
+                <observers>
+                    <space48_forms_result_fieldset_field_validator_file>
+                        <class>space48_forms/observer_result_fieldset_field_validator_file</class>
+                        <method>validate</method>
+                    </space48_forms_result_fieldset_field_validator_file>
+                </observers>
+            </space48_forms_result_fieldset_field_validate_file>
+        </events>
     </frontend>
     
     <!-- DEFAULT -->

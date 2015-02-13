@@ -175,6 +175,11 @@ class Space48_Forms_Model_Form_Result extends Space48_Forms_Model_Abstract
                 continue;
             }
             
+            // check if user did actually upload the file
+            if ( ! file_exists($_FILES[$name]['tmp_name']) || ! is_uploaded_file($_FILES[$name]['tmp_name']) ) {
+                continue;
+            }
+            
             $field->upload($name, $data);
             $field->save();
         }
@@ -189,15 +194,11 @@ class Space48_Forms_Model_Form_Result extends Space48_Forms_Model_Abstract
      */
     public function validate()
     {
-        $success = true;
-        
         foreach ( $this->getResultFields() as $field ) {
-            if ( ! $field->validate() ) {
-                $success = false;
-            }
+            $field->validate();
         }
         
-        return $success;
+        return $this;
     }
     
     /**

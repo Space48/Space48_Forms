@@ -26,8 +26,8 @@ class Space48_Forms_Block_Form_Fieldset_Field_Select extends Space48_Forms_Block
      *
      * @return string
      */
-    public function getCssClass()
+    public function getInputClass()
     {
-        return 'input-select ' . parent::getCssClass();
+        return 'input-select ' . parent::getInputClass();
     }
 }

@@ -94,12 +94,62 @@
                         toggleInputElements(tr, false);
                     }
                     
+                    // toggle fieldset visibility
+                    this.toggleFieldset(tr);
+                    
                     // if we have sub dependencies
                     if ( field.__dependency ) {
                         field.__dependency.onFieldChange(show);
                     }
                 }
+            }.bind(this));
+            
+            return this;
+        },
+        
+        /**
+         * we detect all sibling tr elements
+         * and check if they are visible. if none
+         * are visible then we hide that particular
+         * fieldset. if at least one if visible
+         * then we show show the fieldset
+         *
+         * @param  {Element} tr
+         *
+         * @return {this}
+         */
+        toggleFieldset : function (tr) {
+            
+            // get elements
+            var siblings = tr.siblings();
+            var fieldset = tr.up('.fieldset');
+            var title    = fieldset.previous();
+            
+            // flag
+            var atLeastOneVisible = false;
+            
+            // loop through each sibling tr
+            siblings.each(function(tr){
+                if ( tr.visible() ) {
+                    atLeastOneVisible = true;
+                    return false;
+                }
             });
+            
+            // if none are visible then
+            // hide the fieldset and its
+            // title
+            if ( ! atLeastOneVisible ) {
+                fieldset.hide();
+                title.hide();
+            }
+            
+            // otherwise show the fieldset
+            // and its title
+            else {
+                fieldset.show();
+                title.show();
+            }
             
             return this;
         },

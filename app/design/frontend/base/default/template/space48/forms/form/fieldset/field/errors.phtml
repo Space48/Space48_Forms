@@ -1,15 +1,11 @@
 <?php if ( $errors = $this->getErrors() ) : ?>
-    <ul class="messages">
-        <li class="error-msg">
-            <ul>
-                <?php foreach ( $errors as $error ) : ?>
-                    <li>
-                        <span>
-                            <?php echo $error; ?>
-                        </span>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </li>
+    <ul class="errors">
+        <?php foreach ( $errors as $error ) : ?>
+            <li>
+                <span>
+                    <?php echo $error; ?>
+                </span>
+            </li>
+        <?php endforeach; ?>
     </ul>
 <?php endif; ?>

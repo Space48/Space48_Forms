@@ -25,10 +25,49 @@ class Space48_Forms_Model_Form_Result_Fieldset_Field extends Space48_Forms_Model
      */
     public function validate()
     {
+        // transport object
+        $transport = new Space48_Forms_Model_Form_Result_Fieldset_Field_ValidationTransport();
+        
+        // create event handles
+        $standard = 'space48_forms_result_fieldset_field_validate';
+        $specific = 'space48_forms_result_fieldset_field_validate_' . $this->getType();
+        
+        // event data
+        $data = array(
+            'field'     => $this,
+            'transport' => $transport,
+        );
+        
+        // dispatch events
+        Mage::dispatchEvent($standard, $data);
+        Mage::dispatchEvent($specific, $data);
+        
+        // get errors
+        $errors = $transport->getErrors();
+        
+        // set errors
+        $this->setErrors($errors);
+        $this->save();
+        
+        if ( ! $transport->isValid() ) {
+            // an empty exception will do
+            throw new Exception();
+        }
+        
+        return $this;
+        
+        
+        // variables
         $helper  = Mage::helper('space48_forms/validation');
         $options = $this->getOptions(true);
         $value   = $this->getValue();
-        $errors  = array();
+        
+        // errors array
+        $errors = array();
+        
+        // validation data
+        $validation = $this->getValidation();
+        $validationData = $this->getValidationData();
         
         /**
          * if field is a required field then
@@ -36,17 +75,25 @@ class Space48_Forms_Model_Form_Result_Fieldset_Field extends Space48_Forms_Model
          */
         if ( $this->getRequired() ) {
             if ( ! strlen($value) ) {
-                $errors[] = $helper->__('This is a required field, please enter a value.');
+                $errors[] = $helper->__('This is a required field.');
             }
         }
         
         // field type based validation
         switch ( $this->getType() ) {
             
+            /**
+             * text and textarea
+             */
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_TEXT:
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_TEXTAREA:
+                $helper->validate($validation, $validationData, $value);
+                break;
+            
+            /**
+             * checkbox
+             */
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_CHECKBOX:
-                // nothing to do, yet
                 break;
             
             /**
@@ -54,14 +101,22 @@ class Space48_Forms_Model_Form_Result_Fieldset_Field extends Space48_Forms_Model
              */
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_FILE:
                 
+                // only continue if we require an upload
+                // the required check is done above
+                if ( ! strlen($value) ) {
+                    break;
+                }
+                
                 // check file size
-                if ( $this->getFileSize() > $this->getFileSizeLimit() ) {
-                    $errors[] = $helper->__('The file you uploaded exceeds the maximum allowed file size.');
+                if ( $fileSizeLimit = $this->getFileSizeLimit() ) {
+                    if ( $this->getFileSize() > $fileSizeLimit ) {
+                        $errors[] = $helper->__('');
+                    }
                 }
                 
                 // check file extension
                 if ( ! in_array($this->getFileExtension(), $this->getAllowedFileExtensions()) ) {
-                    $errors[] = $helper->__('The file you uploaded does not match the allowed formats.');
+                    $errors[] = $helper->__('');
                 }
                 
                 break;
@@ -80,9 +135,7 @@ class Space48_Forms_Model_Form_Result_Fieldset_Field extends Space48_Forms_Model
                 break;
         }
         
-        // set errors
-        $this->setErrors($errors);
-        $this->save();
+        
         
         return count($errors) < 1;
     }
@@ -168,6 +221,10 @@ class Space48_Forms_Model_Form_Result_Fieldset_Field extends Space48_Forms_Model
             'options'                => $field->getOptions(),
             'comment'                => $field->getComment(),
             'hint'                   => $field->getHint(),
+            'file_extensions'        => $field->getFileExtensions(),
+            'file_size_limit'        => $field->getFileSizeLimit(),
+            'validation'             => $field->getValidation(),
+            'validation_data'        => $field->getValidationDataJson(),
             'required'               => $field->getRequired() ? '1' : '0',
             'show_in_admin_email'    => $field->getShowInAdminEmail() ? '1' : '0',
             'show_in_customer_email' => $field->getShowInCustomerEmail() ? '1' : '0',
@@ -263,6 +320,16 @@ class Space48_Forms_Model_Form_Result_Fieldset_Field extends Space48_Forms_Model
     }
     
     /**
+     * get file exists
+     *
+     * @return boolean
+     */
+    public function getFileExists()
+    {
+        return file_exists($this->getFilePath());
+    }
+    
+    /**
      * get allowed file extensions
      *
      * @return array
@@ -284,31 +351,58 @@ class Space48_Forms_Model_Form_Result_Fieldset_Field extends Space48_Forms_Model
      */
     public function upload($name, array $data)
     {
-        // instantiate uploader
-        $uploader = new Varien_File_Uploader($name);
-        $uploader->setAllowCreateFolders(true);
-        $uploader->setAllowRenameFiles(true);
-        $uploader->setFilesDispersion(true);
-        
-        // set allowed file extensions
-        $extentions = $this->getAllowedFileExtensions();
-        
-        if ( $extentions && count($extentions) ) {
-            $uploader->setAllowedExtensions($extentions);
+        try {
+            // instantiate uploader
+            $uploader = new Varien_File_Uploader($name);
+            $uploader->setAllowCreateFolders(true);
+            $uploader->setAllowRenameFiles(true);
+            $uploader->setFilesDispersion(true);
+            
+            // set allowed file extensions
+            $extentions = $this->getAllowedFileExtensions();
+            
+            if ( $extentions && count($extentions) ) {
+                $uploader->setAllowedExtensions($extentions);
+            }
+            
+            // get save path
+            $path = $this->getFileUploadDirectory();
+            
+            // generate file name
+            $name = $this->getName() . '.' . $uploader->getFileExtension();
+            $name = strtolower($name);
+            
+            // upload the file
+            $file = $uploader->save($path, $name);
+            
+            // set value
+            $this->setValue($file['file']);
         }
         
-        // get save path
-        $path = $this->getFileUploadDirectory();
-        
-        // generate file name
-        $name = $this->getName() . '.' . $uploader->getFileExtension();
-        $name = strtolower($name);
-        
-        // upload the file
-        $file = $uploader->save($path, $name);
-        
-        // set value
-        $this->setValue($file['file']);
+        // catch exception
+        catch (Exception $e) {
+            
+            // helper
+            $helper = Mage::helper('space48_forms');
+            
+            // errors array
+            $errors = array();
+            
+            // set specific error message for this exception
+            if ( $e->getMessage() == 'Disallowed file type.' ) {
+                $errors[] = $helper->__('Invalid file format, please select a valid file and try again.');
+            }
+            // any other exception
+            else {
+                $errors[] = $helper->__('Unable to upload your file, please reselect the file and try again.');
+            }
+            
+            // set and store errors
+            $this->setErrors($errors);
+            $this->save();
+            
+            $helper->throwException('Unable to upload file.');
+        }
         
         return $this;
     }
@@ -330,5 +424,50 @@ class Space48_Forms_Model_Form_Result_Fieldset_Field extends Space48_Forms_Model
         }
         
         return $options;
+    }
+    
+    /**
+     * get validation data
+     *
+     * @param  string|null $key
+     *
+     * @return string|null
+     */
+    public function getValidationData($key = null)
+    {
+        if ( is_null($this->_validationData) ) {
+            
+            // get raw value
+            $data = $this->_getData('validation_data');
+            
+            // check if is array
+            if ( ! is_array($data) ) {
+                // if not then json decode
+                $data = (array) json_decode($data);
+            }
+            
+            // cache value
+            $this->_validationData = $data;
+        }
+        
+        if ( is_null($key) ) {
+            return $this->_validationData;
+        }
+        
+        if ( array_key_exists($key, $this->_validationData) ) {
+            return $this->_validationData[$key];
+        }
+        
+        return null;
+    }
+    
+    /**
+     * get validation data json
+     *
+     * @return string
+     */
+    public function getValidationDataJson()
+    {
+        return $this->_getData('validation_data');
     }
 }

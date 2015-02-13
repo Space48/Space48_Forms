@@ -300,12 +300,16 @@
             ]);
             
             // placeholder
-            new Space48Forms.FieldDependency('type', ['text'], [
-                'placeholder'
+            new Space48Forms.FieldDependency('type', ['text', 'textarea'], [
+                'placeholder',
+                'autocapitalize',
+                'autocorrect',
+                'spellcheck',
+                'autocomplete'
             ]);
             
             // options
-            new Space48Forms.FieldDependency('type', ['select', 'radio', 'checkbox', 'multiselect', 'multicheckbox'], [
+            new Space48Forms.FieldDependency('type', ['select', 'radio', 'multiselect', 'multicheckbox'], [
                 'options'
             ]);
             
@@ -315,6 +319,22 @@
                 'file_size_limit'
             ]);
             
+            // validation on text, textarea only
+            new Space48Forms.FieldDependency('type', ['text', 'textarea'], [
+                'validation'
+            ]);
+            
+            // validation rules - string_length, number, alphanumeric
+            new Space48Forms.FieldDependency('validation', ['string_length', 'number', 'alphanumeric'], [
+                'validation_min',
+                'validation_max'
+            ]);
+            
+            // validation rules - alphanumeric
+            new Space48Forms.FieldDependency('validation', ['alphanumeric'], [
+                'validation_allow_whitespace',
+                'validation_case',
+            ]);
         }
     });
     

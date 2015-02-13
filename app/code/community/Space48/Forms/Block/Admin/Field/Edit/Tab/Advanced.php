@@ -56,47 +56,6 @@ class Space48_Forms_Block_Admin_Field_Edit_Tab_Advanced extends Space48_Forms_Bl
             'options'  => $this->_getYesNoOptions(),
         ));
         
-        // new fieldset
-        $fieldset = $form->addFieldset('browser_settings', array(
-            'legend' => Mage::helper('space48_forms')->__('Browser Dependent Settings')
-        ));
-        
-        // autocapitalize field
-        $fieldset->addField('autocapitalize', 'select', array(
-            'label'    => Mage::helper('space48_forms')->__('Autocapitalise'),
-            'name'     => 'autocapitalize',
-            'note'     => Mage::helper('space48_forms')->__('Whether to autocapitalise the input.'),
-            'value'    => $this->_getModel()->getAutocapitalize(),
-            'options'  => $this->_getYesNoOptions(),
-        ));
-        
-        // autocorrect field
-        $fieldset->addField('autocorrect', 'select', array(
-            'label'    => Mage::helper('space48_forms')->__('Autocorrect'),
-            'name'     => 'autocorrect',
-            'note'     => Mage::helper('space48_forms')->__('Whether to autocorrect the input.'),
-            'value'    => $this->_getModel()->getAutocorrect(),
-            'options'  => $this->_getYesNoOptions(),
-        ));
-        
-        // spellcheck field
-        $fieldset->addField('spellcheck', 'select', array(
-            'label'    => Mage::helper('space48_forms')->__('Spellcheck'),
-            'name'     => 'spellcheck',
-            'note'     => Mage::helper('space48_forms')->__('Whether to spellcheck the input.'),
-            'value'    => $this->_getModel()->getSpellcheck(),
-            'options'  => $this->_getYesNoOptions(),
-        ));
-        
-        // autocomplete field
-        $fieldset->addField('autocomplete', 'select', array(
-            'label'    => Mage::helper('space48_forms')->__('Autocomplete'),
-            'name'     => 'autocomplete',
-            'note'     => Mage::helper('space48_forms')->__('Whether to autocomplete the input.'),
-            'value'    => $this->_getModel()->getAutocomplete(),
-            'options'  => $this->_getYesNoOptions(),
-        ));
-        
         return parent::_prepareForm();
     }
     

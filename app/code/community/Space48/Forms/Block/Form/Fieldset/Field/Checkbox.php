@@ -26,8 +26,8 @@ class Space48_Forms_Block_Form_Fieldset_Field_Checkbox extends Space48_Forms_Blo
      *
      * @return string
      */
-    public function getCssClass()
+    public function getInputClass()
     {
-        return 'input-checkbox checkbox' . parent::getCssClass();
+        return 'input-checkbox checkbox' . parent::getInputClass();
     }
 }

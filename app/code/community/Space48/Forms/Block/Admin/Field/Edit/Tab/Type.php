@@ -69,7 +69,127 @@ class Space48_Forms_Block_Admin_Field_Edit_Tab_Type extends Space48_Forms_Block_
             'value'    => $this->_getModel()->getValue(),
         ));
         
+        $this->_validationSection($form);
+        
+        $this->_browserSection($form);
+        
         return parent::_prepareForm();
+    }
+    
+    /**
+     * setup validation section
+     *
+     * @param  Varien_Data_Form $form
+     *
+     * @return $this
+     */
+    protected function _validationSection(Varien_Data_Form $form)
+    {
+        // new fieldset
+        $fieldset = $form->addFieldset('validation_fieldset', array(
+            'legend' => Mage::helper('space48_forms')->__('Validation')
+        ));
+        
+        // required field
+        $fieldset->addField('required', 'select', array(
+            'label'    => Mage::helper('space48_forms')->__('Required'),
+            'name'     => 'required',
+            'note'     => Mage::helper('space48_forms')->__('This field will be a required field if set to "Yes".'),
+            'value'    => $this->_getModel()->getRequired(),
+            'options'  => $this->_getYesNoOptions(),
+        ));
+        
+        // type field
+        $fieldset->addField('validation', 'select', array(
+            'label'    => Mage::helper('space48_forms')->__('Validation'),
+            'name'     => 'validation',
+            'note'     => Mage::helper('space48_forms')->__('Validate user input.'),
+            'options'  => $this->_getValidationOptions(),
+            'value'    => $this->_getModel()->getValidation(),
+        ));
+        
+        // minimum field
+        $fieldset->addField('validation_min', 'text', array(
+            'label'    => Mage::helper('space48_forms')->__('Minimum'),
+            'name'     => 'validation_data[min]',
+            'value'    => $this->_getModel()->getValidationData('min'),
+        ));
+        
+        // maximum field
+        $fieldset->addField('validation_max', 'text', array(
+            'label'    => Mage::helper('space48_forms')->__('Maximum'),
+            'name'     => 'validation_data[max]',
+            'value'    => $this->_getModel()->getValidationData('max'),
+        ));
+        
+        // allow_whitespace field
+        $fieldset->addField('validation_allow_whitespace', 'select', array(
+            'label'    => Mage::helper('space48_forms')->__('Allow Whitespace'),
+            'name'     => 'validation_data[allow_whitespace]',
+            'options'  => $this->_getYesNoOptions(),
+            'value'    => $this->_getModel()->getValidationData('allow_whitespace'),
+        ));
+        
+        // case field
+        $fieldset->addField('validation_case', 'select', array(
+            'label'    => Mage::helper('space48_forms')->__('Case'),
+            'name'     => 'validation_data[case]',
+            'value'    => $this->_getModel()->getValidationData('case'),
+            'options'  => $this->_getValidationCaseOptions(),
+        ));
+    }
+    
+    /**
+     * setup browser specific section
+     *
+     * @param  Varien_Data_Form $form
+     *
+     * @return $this
+     */
+    protected function _browserSection(Varien_Data_Form $form)
+    {
+        // new fieldset
+        $fieldset = $form->addFieldset('browser_settings', array(
+            'legend' => Mage::helper('space48_forms')->__('Browser Dependent Settings')
+        ));
+        
+        // autocapitalize field
+        $fieldset->addField('autocapitalize', 'select', array(
+            'label'    => Mage::helper('space48_forms')->__('Autocapitalise'),
+            'name'     => 'autocapitalize',
+            'note'     => Mage::helper('space48_forms')->__('Whether to autocapitalise the input.'),
+            'value'    => $this->_getModel()->getAutocapitalize(),
+            'options'  => $this->_getTernaryOptions(),
+        ));
+        
+        // autocorrect field
+        $fieldset->addField('autocorrect', 'select', array(
+            'label'    => Mage::helper('space48_forms')->__('Autocorrect'),
+            'name'     => 'autocorrect',
+            'note'     => Mage::helper('space48_forms')->__('Whether to autocorrect the input.'),
+            'value'    => $this->_getModel()->getAutocorrect(),
+            'options'  => $this->_getTernaryOptions(),
+        ));
+        
+        // spellcheck field
+        $fieldset->addField('spellcheck', 'select', array(
+            'label'    => Mage::helper('space48_forms')->__('Spellcheck'),
+            'name'     => 'spellcheck',
+            'note'     => Mage::helper('space48_forms')->__('Whether to spellcheck the input.'),
+            'value'    => $this->_getModel()->getSpellcheck(),
+            'options'  => $this->_getTernaryOptions(),
+        ));
+        
+        // autocomplete field
+        $fieldset->addField('autocomplete', 'select', array(
+            'label'    => Mage::helper('space48_forms')->__('Autocomplete'),
+            'name'     => 'autocomplete',
+            'note'     => Mage::helper('space48_forms')->__('Whether to autocomplete the input.'),
+            'value'    => $this->_getModel()->getAutocomplete(),
+            'options'  => $this->_getTernaryOptions(),
+        ));
+        
+        return $this;
     }
     
     /**

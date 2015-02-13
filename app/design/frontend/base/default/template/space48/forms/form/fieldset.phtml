@@ -4,8 +4,26 @@
         <?php /* fieldset title */ ?>
         <?php if ( $this->canShowTitle() ) : ?>
             <h2 class="legend fieldset-title">
-                <?php echo $this->getFieldsetTitle(); ?>
+                <span><?php echo $this->getFieldsetTitle(); ?><span>
             </h2>
+        <?php endif; ?>
+        
+        <?php if ( $this->canShowDescription() ) : ?>
+            <div class="fieldset-description">
+                <?php echo $this->getFieldsetDescription(); ?>
+            </div>
+        <?php endif; ?>
+        
+        <?php if ( $this->canShowInstructions() ) : ?>
+            <div class="fieldset-instructions form-instructions">
+                <?php echo $this->getFieldsetInstructions(); ?>
+            </div>
+        <?php endif; ?>
+        
+        <?php if ( $this->canShowBeforeFieldsContent() ) : ?>
+            <div class="before-fields-content">
+                <?php echo $this->getBeforeFieldsContent(); ?>
+            </div>
         <?php endif; ?>
         
         <ul class="form-list fieldset-fields">
@@ -13,5 +31,12 @@
                 <?php echo $this->getFieldHtml($field); ?>
             <?php endforeach; ?>
         </ul>
+        
+        <?php if ( $this->canShowAfterFieldsContent() ) : ?>
+            <div class="after-fields-content">
+                <?php echo $this->getAfterFieldsContent(); ?>
+            </div>
+        <?php endif; ?>
     </li>
 <?php endif; ?>
+

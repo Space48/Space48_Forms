@@ -108,15 +108,18 @@ class Space48_Forms_SubmitController extends Space48_Forms_Controller_Abstract
             // store back into session
             $session->setFormResult($result);
             
-            // set form data
-            $result->setFormData($data);
-            
-            // set form files
-            $result->setFormFiles($files);
-            
-            // validate
-            if ( ! $result->validate() ) {
-                $this->_exception('There we errors in the your submission, please check and try again.');
+            try {
+                // set form data
+                $result->setFormData($data);
+                
+                // set form files
+                $result->setFormFiles($files);
+                
+                // validate
+                $result->validate();
+                
+            } catch (Exception $e) {
+                $this->_exception('There we errors in the form, please check and try again.');
             }
             
         } catch (Exception $e) {

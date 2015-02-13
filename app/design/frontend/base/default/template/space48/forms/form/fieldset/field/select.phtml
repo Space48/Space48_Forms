@@ -1,41 +1,46 @@
 <li id="<?php echo $this->getFieldId(); ?>" class="<?php echo $this->getFieldClass(); ?>">
-    <label for="<?php echo $this->getFor(); ?>" <?php echo $this->isInputRequired() ? 'class="required"' : ''; ?> >
-        <?php echo $this->getFieldLabel(); ?>
-        <?php if ( $this->isInputRequired() ) : ?>
-            <em class="required">*</em>
-        <?php endif; ?>
-        
-        <?php if ( $this->canShowHint() ) : ?>
-            <span class="field-hint">
-                (<a href="javascript:void(0);">help?</a>)
-                <p><?php echo $this->getFieldHint(); ?></p>
-            </span>
-        <?php endif; ?>
-    </label>
     
     <?php echo $this->getErrorsHtml(); ?>
     
-    <div class="input-box">
-        <select
+    <div class="field-head">
+        <label for="<?php echo $this->getFor(); ?>" <?php echo $this->isInputRequired() ? 'class="required"' : ''; ?> >
+            <?php echo $this->getFieldLabel(); ?>
+            <?php if ( $this->isInputRequired() ) : ?>
+                <em class="required">*</em>
+            <?php endif; ?>
             
-            id="<?php echo $this->getInputId(); ?>"
-            class="<?php echo $this->getCssClass(); ?>"
-            name="<?php echo $this->getFieldName(); ?>"
-            title="<?php echo $this->getFieldTitle(); ?>"
-            
-            <?php echo $this->isInputRequired() ? 'required' : ''; ?>
-            >
-            <?php foreach ( $this->getFieldOptions() as $value => $label ) : ?>
-                <option value="<?php echo $value; ?>" <?php echo $this->getFieldValue() == $value ? 'selected' : ''; ?>>
-                    <?php echo $label; ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+            <?php if ( $this->canShowHint() ) : ?>
+                <span class="field-hint">
+                    (<a href="javascript:void(0);">help?</a>)
+                    <p><?php echo $this->getFieldHint(); ?></p>
+                </span>
+            <?php endif; ?>
+        </label>
     </div>
     
-    <?php if ( $this->canShowComment() ) : ?>
-        <div class="field-comment">
-            <p><?php echo $this->getFieldComment(); ?></p>
+    <div class="field-body">
+        <div class="input-box">
+            <select
+                
+                id="<?php echo $this->getInputId(); ?>"
+                class="<?php echo $this->getCssClass(); ?>"
+                name="<?php echo $this->getFieldName(); ?>"
+                title="<?php echo $this->getFieldTitle(); ?>"
+                
+                <?php echo $this->isInputRequired() ? 'required' : ''; ?>
+                >
+                <?php foreach ( $this->getFieldOptions() as $value => $label ) : ?>
+                    <option value="<?php echo $value; ?>" <?php echo $this->getFieldValue() == $value ? 'selected' : ''; ?>>
+                        <?php echo $label; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
         </div>
-    <?php endif; ?>
+        
+        <?php if ( $this->canShowComment() ) : ?>
+            <div class="field-comment">
+                <p><?php echo $this->getFieldComment(); ?></p>
+            </div>
+        <?php endif; ?>
+    </div>
 </li>

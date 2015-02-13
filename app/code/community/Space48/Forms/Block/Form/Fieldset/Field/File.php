@@ -26,9 +26,9 @@ class Space48_Forms_Block_Form_Fieldset_Field_File extends Space48_Forms_Block_F
      *
      * @return string
      */
-    public function getCssClass()
+    public function getInputClass()
     {
-        return 'input-file ' . parent::getCssClass();
+        return 'input-file ' . parent::getInputClass();
     }
     
     /**

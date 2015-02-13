@@ -266,11 +266,21 @@ abstract class Space48_Forms_Block_Form_Fieldset_Field_Abstract
     }
     
     /**
-     * get input element css class
+     * alias for "getInputClass"
      *
      * @return string
      */
     public function getCssClass()
+    {
+        return $this->getInputClass();
+    }
+    
+    /**
+     * get field class
+     *
+     * @return string
+     */
+    public function getInputClass()
     {
         $class = $this->getField()->getCssClass();
         
@@ -464,47 +474,6 @@ abstract class Space48_Forms_Block_Form_Fieldset_Field_Abstract
     }
     
     /**
-     * is autocapitalise
-     *
-     * @return bool
-     */
-    public function isAutoCapitalise()
-    {
-        return (bool) $this->getField()->getAutocapitalize();
-    }
-    
-    /**
-     * is autocorrect
-     *
-     * @return bool
-     */
-    public function isAutoCorrect()
-    {
-        return (bool) $this->getField()->getAutocorrect();
-    }
-    
-    /**
-     * is autocomplete
-     *
-     * @return bool
-     */
-    public function isAutoComplete()
-    {
-        return (bool) $this->getField()->getAutocomplete();
-    }
-    
-    /**
-     * is spellcheck
-     *
-     * @return bool
-     */
-    public function isSpellcheck()
-    {
-        return (bool) $this->getField()->getSpellcheck();
-    }
-    
-    
-    /**
      * get input id
      *
      * @return string
@@ -526,5 +495,47 @@ abstract class Space48_Forms_Block_Form_Fieldset_Field_Abstract
     public function getFor()
     {
         return $this->getInputId();
+    }
+    
+    /**
+     * get input attributes
+     *
+     * @return array
+     */
+    protected function _getInputAttributes()
+    {
+        $attributes = array(
+            'id'    => $this->getInputId(),
+            'class' => $this->getInputClass(),
+            'name'  => $this->getFieldName(),
+            'title' => $this->getFieldTitle(),
+        );
+        
+        if ( $this->isInputRequired() ) {
+            $attributes['required'] = null;
+        }
+        
+        return $attributes;
+    }
+    
+    /**
+     * get input attributes
+     *
+     * @return string
+     */
+    public function getInputAttributes()
+    {
+        // attributes
+        $attributes = '';
+        
+        foreach ( $this->_getInputAttributes() as $key => $value ) {
+            if ( $value ) {
+                $attributes .= " {$key}=\"{$value}\" ";
+            } else {
+                $attributes .= " {$key} ";
+            }
+        }
+        
+        return $attributes;
     }
 }

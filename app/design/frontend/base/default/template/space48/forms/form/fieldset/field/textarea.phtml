@@ -1,38 +1,32 @@
 <li id="<?php echo $this->getFieldId(); ?>" class="<?php echo $this->getFieldClass(); ?>">
-    <label for="<?php echo $this->getFor(); ?>" <?php echo $this->isInputRequired() ? 'class="required"' : ''; ?> >
-        <?php echo $this->getFieldLabel(); ?>
-        <?php if ( $this->isInputRequired() ) : ?>
-            <em class="required">*</em>
-        <?php endif; ?>
-        
-        <?php if ( $this->canShowHint() ) : ?>
-            <span class="field-hint">
-                (<a href="javascript:void(0);">help?</a>)
-                <p><?php echo $this->getFieldHint(); ?></p>
-            </span>
-        <?php endif; ?>
-    </label>
     
     <?php echo $this->getErrorsHtml(); ?>
     
-    <div class="input-box">
-        <textarea
-            id="<?php echo $this->getInputId(); ?>"
-            class="<?php echo $this->getCssClass(); ?>"
-            name="<?php echo $this->getFieldName(); ?>"
-            title="<?php echo $this->getFieldTitle(); ?>"
+    <div class="field-head">
+        <label for="<?php echo $this->getFor(); ?>" <?php echo $this->isInputRequired() ? 'class="required"' : ''; ?> >
+            <?php echo $this->getFieldLabel(); ?>
+            <?php if ( $this->isInputRequired() ) : ?>
+                <em class="required">*</em>
+            <?php endif; ?>
             
-            <?php echo $this->isInputRequired()  ? 'required'            : '';                     ?>
-            <?php echo $this->isAutoCapitalise() ? 'autocapitalize="on"' : 'autocapitalize="off"'; ?>
-            <?php echo $this->isAutoCorrect()    ? 'autocorrect="on"'    : 'autocorrect="off"';    ?>
-            <?php echo $this->isAutoComplete()   ? 'autocomplete="on"'   : 'autocomplete="off"';   ?>
-            <?php echo $this->isSpellcheck()     ? 'spellcheck="true"'   : 'spellcheck="false"';   ?>
-            ><?php echo $this->getFieldValue(); ?></textarea>
+            <?php if ( $this->canShowHint() ) : ?>
+                <span class="field-hint">
+                    (<a href="javascript:void(0);">help?</a>)
+                    <p><?php echo $this->getFieldHint(); ?></p>
+                </span>
+            <?php endif; ?>
+        </label>
     </div>
     
-    <?php if ( $this->canShowComment() ) : ?>
-        <div class="field-comment">
-            <p><?php echo $this->getFieldComment(); ?></p>
+    <div class="field-body">
+        <div class="input-box">
+            <textarea <?php echo $this->getInputAttributes(); ?>><?php echo $this->getFieldValue(); ?></textarea>
         </div>
-    <?php endif; ?>
+        
+        <?php if ( $this->canShowComment() ) : ?>
+            <div class="field-comment">
+                <p><?php echo $this->getFieldComment(); ?></p>
+            </div>
+        <?php endif; ?>
+    </div>
 </li>

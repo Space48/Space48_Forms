@@ -208,6 +208,62 @@ abstract class Space48_Forms_Block_Form_Fieldset_Abstract
     }
     
     /**
+     * can show description
+     *
+     * @return bool
+     */
+    public function canShowDescription()
+    {
+        if ( ! $this->getFieldset()->getDescription() ) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * can show instructions
+     *
+     * @return bool
+     */
+    public function canShowInstructions()
+    {
+        if ( ! $this->getFieldset()->getInstructions() ) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * can show before fields content
+     *
+     * @return bool
+     */
+    public function canShowBeforeFieldsContent()
+    {
+        if ( ! $this->getFieldset()->getBeforeFieldsContent() ) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * can show after fields content
+     *
+     * @return bool
+     */
+    public function canShowAfterFieldsContent()
+    {
+        if ( ! $this->getFieldset()->getAfterFieldsContent() ) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
      * get fieldset title
      *
      * @return string
@@ -215,6 +271,46 @@ abstract class Space48_Forms_Block_Form_Fieldset_Abstract
     public function getFieldsetTitle()
     {
         return $this->getFieldset()->getTitle();
+    }
+    
+    /**
+     * get fieldset description
+     *
+     * @return string
+     */
+    public function getFieldsetDescription()
+    {
+        return $this->getFieldset()->getDescription();
+    }
+    
+    /**
+     * get fieldset instructions
+     *
+     * @return string
+     */
+    public function getFieldsetInstructions()
+    {
+        return $this->getFieldset()->getInstructions();
+    }
+    
+    /**
+     * get before fields content
+     *
+     * @return string
+     */
+    public function getBeforeFieldsContent()
+    {
+        return $this->getFieldset()->getBeforeFieldsContent();
+    }
+    
+    /**
+     * get after fields content
+     *
+     * @return string
+     */
+    public function getAfterFieldsContent()
+    {
+        return $this->getFieldset()->getAfterFieldsContent();
     }
     
     /**

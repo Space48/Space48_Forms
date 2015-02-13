@@ -26,8 +26,8 @@ class Space48_Forms_Block_Form_Fieldset_Field_Radio extends Space48_Forms_Block_
      *
      * @return string
      */
-    public function getCssClass()
+    public function getInputClass()
     {
-        return 'input-radio radio ' . parent::getCssClass();
+        return 'input-radio radio ' . parent::getInputClass();
     }
 }

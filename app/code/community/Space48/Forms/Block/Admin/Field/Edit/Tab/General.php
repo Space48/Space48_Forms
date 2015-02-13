@@ -75,15 +75,6 @@ class Space48_Forms_Block_Admin_Field_Edit_Tab_General extends Space48_Forms_Blo
             'value'    => $this->_getModel()->getHint(),
         ));
         
-        // required field
-        $fieldset->addField('required', 'select', array(
-            'label'    => Mage::helper('space48_forms')->__('Required'),
-            'name'     => 'required',
-            'note'     => Mage::helper('space48_forms')->__('This field will be a required field if set to "Yes".'),
-            'value'    => $this->_getModel()->getRequired(),
-            'options'  => $this->_getYesNoOptions(),
-        ));
-        
         return parent::_prepareForm();
     }
     

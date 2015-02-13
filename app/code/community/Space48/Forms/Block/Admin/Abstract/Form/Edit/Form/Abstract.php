@@ -57,4 +57,14 @@ abstract class Space48_Forms_Block_Admin_Abstract_Form_Edit_Form_Abstract extend
     {
         return Mage::getSingleton('space48_forms/source_boolean')->getOptionArray();
     }
+    
+    /**
+     * get ternary options
+     *
+     * @return array
+     */
+    protected function _getTernaryOptions()
+    {
+        return Mage::getSingleton('space48_forms/source_ternary')->getOptionArray();
+    }
 }

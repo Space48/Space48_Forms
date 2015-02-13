@@ -21,4 +21,30 @@ abstract class Space48_Forms_Block_Admin_Field_Edit_Tab_Abstract extends Space48
         
         return $options;
     }
+    
+    /**
+     * get validation options
+     *
+     * @return array
+     */
+    protected function _getValidationOptions()
+    {
+        $options = Mage::getSingleton('space48_forms/source_form_fieldset_field_validation')->getOptionArray();
+        $options = Mage::helper('space48_forms/form')->addBlankOption($options);
+        
+        return $options;
+    }
+    
+    /**
+     * get validation case options
+     *
+     * @return array
+     */
+    protected function _getValidationCaseOptions()
+    {
+        $options = Mage::getSingleton('space48_forms/source_form_fieldset_field_validation_case')->getOptionArray();
+        $options = Mage::helper('space48_forms/form')->addBlankOption($options);
+        
+        return $options;
+    }
 }

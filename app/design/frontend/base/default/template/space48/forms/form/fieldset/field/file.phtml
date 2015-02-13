@@ -1,39 +1,44 @@
 <li id="<?php echo $this->getFieldId(); ?>" class="<?php echo $this->getFieldClass(); ?>">
-    <label for="<?php echo $this->getFor(); ?>" <?php echo $this->isInputRequired() ? 'class="required"' : ''; ?> >
-        <?php echo $this->getFieldLabel(); ?>
-        <?php if ( $this->isInputRequired() ) : ?>
-            <em class="required">*</em>
-        <?php endif; ?>
-        
-        <?php if ( $this->canShowHint() ) : ?>
-            <span class="field-hint">
-                (<a href="javascript:void(0);">help?</a>)
-                <p><?php echo $this->getFieldHint(); ?></p>
-            </span>
-        <?php endif; ?>
-    </label>
     
     <?php echo $this->getErrorsHtml(); ?>
     
-    <div class="input-box">
-        <input 
-            id="<?php echo $this->getInputId(); ?>"
-            class="<?php echo $this->getCssClass(); ?>"
-            name="<?php echo $this->getFieldName(); ?>"
-            title="<?php echo $this->getFieldTitle(); ?>"
-            type="<?php echo $this->getFieldType(); ?>"
+    <div class="field-head">
+        <label for="<?php echo $this->getFor(); ?>" <?php echo $this->isInputRequired() ? 'class="required"' : ''; ?> >
+            <?php echo $this->getFieldLabel(); ?>
+            <?php if ( $this->isInputRequired() ) : ?>
+                <em class="required">*</em>
+            <?php endif; ?>
             
-            <?php echo $this->isInputRequired() ? 'required' : ''; ?>
-            >
+            <?php if ( $this->canShowHint() ) : ?>
+                <span class="field-hint">
+                    (<a href="javascript:void(0);">help?</a>)
+                    <p><?php echo $this->getFieldHint(); ?></p>
+                </span>
+            <?php endif; ?>
+        </label>
     </div>
     
-    <?php if ( $this->canShowComment() ) : ?>
-        <div class="field-comment">
-            <p>
-                <?php echo $this->getFieldComment() ? $this->getFieldComment() . '<br />' : ''; ?> 
-                <?php echo $this->__('File size limit (max): '); ?> <?php echo $this->getFieldFileSizeLimit(); ?> <br />
-                <?php echo $this->__('File types: '); ?> <?php echo $this->getFieldFileExtensions(); ?> only.<br />
-            </p>
+    <div class="field-body">
+        <div class="input-box">
+            <input 
+                id="<?php echo $this->getInputId(); ?>"
+                class="<?php echo $this->getCssClass(); ?>"
+                name="<?php echo $this->getFieldName(); ?>"
+                title="<?php echo $this->getFieldTitle(); ?>"
+                type="<?php echo $this->getFieldType(); ?>"
+                
+                <?php echo $this->isInputRequired() ? 'required' : ''; ?>
+                >
         </div>
-    <?php endif; ?>
+        
+        <?php if ( $this->canShowComment() ) : ?>
+            <div class="field-comment">
+                <p>
+                    <?php echo $this->getFieldComment() ? $this->getFieldComment() . '<br />' : ''; ?> 
+                    <?php echo $this->__('File size limit (max): '); ?> <?php echo $this->getFieldFileSizeLimit(); ?> <br />
+                    <?php echo $this->__('File types: '); ?> <?php echo $this->getFieldFileExtensions(); ?> only.<br />
+                </p>
+            </div>
+        <?php endif; ?>
+    </div>
 </li>
