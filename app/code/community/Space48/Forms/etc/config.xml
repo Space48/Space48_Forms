@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Space48_Forms>
-            <version>0.1.5</version>
+            <version>0.1.7</version>
         </Space48_Forms>
     </modules>
     
@@ -60,6 +60,11 @@
                     <form_result_fieldset_field>
                         <table>space48_forms_form_result_fieldset_field</table>
                     </form_result_fieldset_field>
+                    
+                    <!-- form result fieldset field table -->
+                    <process_queue>
+                        <table>space48_forms_process_queue</table>
+                    </process_queue>
                     
                 </entities>
             </space48_forms_resource>

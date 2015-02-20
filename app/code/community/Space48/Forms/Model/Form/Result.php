@@ -26,7 +26,7 @@ class Space48_Forms_Model_Form_Result extends Space48_Forms_Model_Abstract
     /**
      * _construct
      */
-    public function _construct()
+    protected function _construct()
     {
         parent::_construct();
         $this->_init('space48_forms/form_result');
@@ -87,6 +87,27 @@ class Space48_Forms_Model_Form_Result extends Space48_Forms_Model_Abstract
         $this->getResultFieldsets()->setIsLoaded(true);
         
         return $this;
+    }
+    
+    /**
+     * get form 
+     *
+     * @return Space48_Forms_Model_Form
+     */
+    public function getForm()
+    {
+        if ( is_null($this->_form) ) {
+            
+            // assign model
+            $this->_form = Mage::getModel('space48_forms/form');
+            
+            // if we have form id then load form
+            if ( $id = $this->getFormId() ) {
+                $this->_form->load($id);
+            }
+        }
+        
+        return $this->_form;
     }
     
     /**
@@ -202,27 +223,6 @@ class Space48_Forms_Model_Form_Result extends Space48_Forms_Model_Abstract
     }
     
     /**
-     * get form 
-     *
-     * @return Space48_Forms_Model_Form
-     */
-    public function getForm()
-    {
-        if ( is_null($this->_form) ) {
-            
-            // assign model
-            $this->_form = Mage::getModel('space48_forms/form');
-            
-            // if we have form id then load form
-            if ( $id = $this->getFormId() ) {
-                $this->_form->load($id);
-            }
-        }
-        
-        return $this->_form;
-    }
-    
-    /**
      * get result fieldsets
      *
      * @return Space48_Forms_Model_Resource_Form_Result_Fieldset_Collection
@@ -235,5 +235,25 @@ class Space48_Forms_Model_Form_Result extends Space48_Forms_Model_Abstract
         }
         
         return $this->_resultFieldsets;
+    }
+    
+    /**
+     * set status
+     *
+     * @param string $status
+     */
+    public function setStatus($status)
+    {
+        switch ( $status ) {
+            case Space48_Forms_Model_Source_Form_Result_Status::STATUS_INVALID:
+            case Space48_Forms_Model_Source_Form_Result_Status::STATUS_VALID:
+                $this->setData('status', $status);
+                break;
+        }
+        
+        // save
+        $this->save();
+        
+        return $this;
     }
 }

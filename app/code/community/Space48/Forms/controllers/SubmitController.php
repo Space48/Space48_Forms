@@ -109,17 +109,52 @@ class Space48_Forms_SubmitController extends Space48_Forms_Controller_Abstract
             $session->setFormResult($result);
             
             try {
-                // set form data
+                // set form post data
                 $result->setFormData($data);
                 
-                // set form files
+                // set form uploaded files
                 $result->setFormFiles($files);
+                
+                // set initial status
+                $result->setStatus(Space48_Forms_Model_Source_Form_Result_Status::STATUS_INVALID);
                 
                 // validate
                 $result->validate();
                 
+                // by this point we know that the form is valid
+                $result->setStatus(Space48_Forms_Model_Source_Form_Result_Status::STATUS_VALID);
+                
+                // we don't need to persist this form 
+                // result in the session from this
+                // point forward
+                $session->unsFormResult();
+                
+                // however we do want to store
+                // the last completed form id and
+                // the last completed result id
+                $session->setLastCompletedFormId($form->getId());
+                $session->setLastCompletedResultId($result->getId());
+                
+                // we need to queue this for processing
+                $queue = Mage::getModel('space48_forms/process_queue');
+                $queue->queue($form, $result);
+                
+                // get redirect url
+                $url = $form->getRedirectUrl();
+                
+                // if we have been given a url, redirect
+                // to this url
+                if ( $url ) {
+                    $this->_redirectUrl($url);
+                    return;
+                }
+                
+                // redirect to standard success page
+                $this->_redirect('forms/success/index');
+                return;
+                
             } catch (Exception $e) {
-                $this->_exception('There we errors in the form, please check and try again.');
+                $this->_exception('There were errors in the form, please check and try again.');
             }
             
         } catch (Exception $e) {

@@ -50,94 +50,10 @@ class Space48_Forms_Model_Form_Result_Fieldset_Field extends Space48_Forms_Model
         $this->save();
         
         if ( ! $transport->isValid() ) {
-            // an empty exception will do
-            throw new Exception();
+            Mage::throwException('Form is not valid.');
         }
         
         return $this;
-        
-        
-        // variables
-        $helper  = Mage::helper('space48_forms/validation');
-        $options = $this->getOptions(true);
-        $value   = $this->getValue();
-        
-        // errors array
-        $errors = array();
-        
-        // validation data
-        $validation = $this->getValidation();
-        $validationData = $this->getValidationData();
-        
-        /**
-         * if field is a required field then
-         * a value must exist
-         */
-        if ( $this->getRequired() ) {
-            if ( ! strlen($value) ) {
-                $errors[] = $helper->__('This is a required field.');
-            }
-        }
-        
-        // field type based validation
-        switch ( $this->getType() ) {
-            
-            /**
-             * text and textarea
-             */
-            case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_TEXT:
-            case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_TEXTAREA:
-                $helper->validate($validation, $validationData, $value);
-                break;
-            
-            /**
-             * checkbox
-             */
-            case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_CHECKBOX:
-                break;
-            
-            /**
-             * file validation
-             */
-            case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_FILE:
-                
-                // only continue if we require an upload
-                // the required check is done above
-                if ( ! strlen($value) ) {
-                    break;
-                }
-                
-                // check file size
-                if ( $fileSizeLimit = $this->getFileSizeLimit() ) {
-                    if ( $this->getFileSize() > $fileSizeLimit ) {
-                        $errors[] = $helper->__('');
-                    }
-                }
-                
-                // check file extension
-                if ( ! in_array($this->getFileExtension(), $this->getAllowedFileExtensions()) ) {
-                    $errors[] = $helper->__('');
-                }
-                
-                break;
-            
-            /**
-             * select/radio validation
-             */
-            case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_RADIO:
-            case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_SELECT:
-                
-                // value must exist as one of the options
-                if ( ! in_array($value, $options) ) {
-                    $errors[] = $helper->__('Invalid option selected. Please select a valid option and try again.');
-                }
-                
-                break;
-        }
-        
-        
-        
-        return count($errors) < 1;
     }
     
     /**

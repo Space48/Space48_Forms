@@ -46,7 +46,7 @@ class Space48_Forms_Block_Form_Fieldset_Field_Text extends Space48_Forms_Block_F
         ));
         
         /**
-         * auto capitaliza
+         * auto capitalise
          */
         switch ( $this->getField()->getAutocapitalize() ) {
             case Space48_Forms_Model_Source_Ternary::VALUE_YES:

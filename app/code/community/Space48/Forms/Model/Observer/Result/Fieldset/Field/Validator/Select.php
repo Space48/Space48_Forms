@@ -36,7 +36,7 @@ class Space48_Forms_Model_Observer_Result_Fieldset_Field_Validator_Select
         
         // value must exist as one of the options
         if ( ! in_array($value, $options) ) {
-            $trans->addError('Invalid option selected.ss Please select a valid option and try again.');
+            $trans->addError('Invalid option selected. Please select a valid option and try again.');
         }
         
         return $this;

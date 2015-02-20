@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
 <layout>
+    
+    <!-- default -->
     <default>
         <reference name="head">
             <!-- css -->
@@ -10,4 +12,17 @@
             <action method="addJs"><script>space48/forms/frontend/forms.js</script></action>
         </reference>
     </default>
+    
+    <!-- form submit success -->
+    <space48_forms_success_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        
+        <reference name="content">
+            <block type="space48_forms/result_success" name="space48.forms.result.success" template="space48/forms/result/success.phtml" />
+        </reference>
+    </space48_forms_success_index>
 </layout>

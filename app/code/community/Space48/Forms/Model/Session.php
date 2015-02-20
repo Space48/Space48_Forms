@@ -54,4 +54,21 @@ class Space48_Forms_Model_Session extends Mage_Core_Model_Session_Abstract
         
         return $this->_formResult;
     }
+    
+    /**
+     * unset form result model and remove
+     * any trace from session
+     *
+     * @return $this
+     */
+    public function unsFormResult()
+    {
+        // set model to null
+        $this->_formResult = null;
+        
+        // set id to null also
+        $this->setFormResultId(null);
+        
+        return $this;
+    }
 }

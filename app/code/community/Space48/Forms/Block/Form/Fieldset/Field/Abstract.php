@@ -415,7 +415,6 @@ abstract class Space48_Forms_Block_Form_Fieldset_Field_Abstract
     protected function _canRestoreCapturedData()
     {
         switch ( $this->getType() ) {
-            case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_PASSWORD:
             case Space48_Forms_Model_Source_Form_Fieldset_Field_Type::TYPE_FILE:
                 return false;
                 break;

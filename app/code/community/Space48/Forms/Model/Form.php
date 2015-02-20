@@ -3,12 +3,6 @@
 class Space48_Forms_Model_Form extends Space48_Forms_Model_Abstract
 {
     /**
-     * status
-     */
-    const STATUS_ENABLED  = '1';
-    const STATUS_DISABLED = '2';
-    
-    /**
      * default renderer details
      */
     const DEFAULT_FRONTEND_BLOCK    = 'space48_forms/form';
@@ -20,6 +14,9 @@ class Space48_Forms_Model_Form extends Space48_Forms_Model_Abstract
     const FORM_METHOD_POST = 'POST';
     const FORM_METHOD_GET  = 'GET';
     
+    /**
+     * form enc types
+     */
     const FORM_ENCTYPE_MULTIPART_FORM_DATA               = 'multipart/form-data';
     const FORM_ENCTYPE_APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
     const FORM_ENCTYPE_TEXT_PLAIN                        = 'text/plain';
@@ -34,7 +31,7 @@ class Space48_Forms_Model_Form extends Space48_Forms_Model_Abstract
     /**
      * _construct
      */
-    public function _construct()
+    protected function _construct()
     {
         parent::_construct();
         $this->_init('space48_forms/form');
