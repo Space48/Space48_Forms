@@ -46,4 +46,14 @@ class Space48_Forms_Helper_Form extends Mage_Core_Helper_Abstract
     {
         return Mage::getBaseDir('media') . DS . 'forms';
     }
+    
+    /**
+     * get file upload url
+     *
+     * @return string
+     */
+    public function getFileUploadUrl()
+    {
+        return Mage::getBaseUrl('media') . 'forms';
+    }
 }

@@ -1,0 +1,22 @@
+<tr>
+    <td class="label">
+        <label>
+            <?php echo $this->getField()->getLabel(); ?>
+        </label>
+    </td>
+    <td class="value">
+        <ul class="options">
+            <?php foreach ( $this->getOptions(true) as $option ) : ?>
+                <?php if ( $this->isSelectedOption($option) ) : ?>
+                    <li class="selected">
+                        <b>&gt; <?php echo $option; ?></b>
+                    </li>
+                <?php else : ?>
+                    <li class="not-selected">
+                        <?php echo $option; ?>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </ul>
+    </td>
+</tr>

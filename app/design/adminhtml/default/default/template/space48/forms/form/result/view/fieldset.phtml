@@ -1,0 +1,38 @@
+<div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend">
+        <?php echo $this->getFieldset()->getTitle(); ?>
+    </h4>
+</div>
+<div class="fieldset">
+
+    <!-- meta -->
+    <div class="hor-scroll fieldset-meta">
+        <h4><?php echo $this->__('Fieldset Metadata'); ?></h4>
+        <table cellspacing="0" class="form-list">
+            <tbody>
+                <?php foreach ( $this->getFieldsetMetaData() as $label => $value ) : ?>
+                    <tr>
+                        <td class="label">
+                            <?php echo $this->__($label); ?>
+                        </td>
+                        <td class="value">
+                            <?php echo $value; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- fields -->
+    <div class="hor-scroll fieldset-fields">
+        <h4><?php echo $this->__('Fields'); ?></h4>
+        <table cellspacing="0" class="form-list">
+            <tbody>
+                <?php foreach ( $this->getFields() as $field ) : ?>
+                    <?php echo $this->getFieldHtml($field); ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

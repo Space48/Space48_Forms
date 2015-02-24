@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<layout>
+    <!-- Space48 Forms FIELDSET -->
+    <adminhtml_forms_fieldset_index>
+        <reference name="content">
+            <block type="space48_forms/admin_fieldset" name="space48_forms.fieldset.grid_container" />
+        </reference>
+    </adminhtml_forms_fieldset_index>
+    
+    <adminhtml_forms_fieldset_new>
+        <update handle="space48_forms_fieldset_add_edit" />
+    </adminhtml_forms_fieldset_new>
+    
+    <adminhtml_forms_fieldset_edit>
+        <update handle="space48_forms_fieldset_add_edit" />
+    </adminhtml_forms_fieldset_edit>
+    
+    <adminhtml_forms_fieldset_fieldsgrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="space48_forms/admin_fieldset_edit_tab_fields" name="space48_forms.fieldsets.edit.tab.fields.grid"/>
+        </block>
+    </adminhtml_forms_fieldset_fieldsgrid>
+    
+    <space48_forms_fieldset_add_edit>
+        <update handle="space48_forms_abstract_add_edit"/>
+        
+        <reference name="left">
+            <block type="space48_forms/admin_fieldset_edit_tabs" name="space48_forms.fieldset.edit.tabs" />
+        </reference>
+        
+        <reference name="content">
+            <block type="space48_forms/admin_fieldset_edit" name="space48_forms.fieldset.edit" />
+        </reference>
+    </space48_forms_fieldset_add_edit>
+</layout>

@@ -3,6 +3,13 @@
 abstract class Space48_Forms_Controller_Admin_Abstract extends Mage_Adminhtml_Controller_Action
 {
     /**
+     * holds model
+     *
+     * @var Mage_Core_Model_Abstract
+     */
+    protected $_model;
+    
+    /**
      * get model class
      *
      * @return string
@@ -19,7 +26,11 @@ abstract class Space48_Forms_Controller_Admin_Abstract extends Mage_Adminhtml_Co
      */
     protected function _getModel()
     {
-        return Mage::getModel($this->_getModelClass());
+        if ( is_null($this->_model) ) {
+            $this->_model = Mage::getModel($this->_getModelClass());
+        }
+        
+        return $this->_model;
     }
     
     /**

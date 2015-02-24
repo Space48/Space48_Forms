@@ -141,9 +141,30 @@
         <!-- layout -->
         <layout>
             <updates>
-                <space48_forms>
-                    <file>space48/forms/default.xml</file>
-                </space48_forms>
+                <!-- default -->
+                <space48_forms_default>
+                    <file>space48/forms/forms.default.xml</file>
+                </space48_forms_default>
+                
+                <!-- form -->
+                <space48_forms_form>
+                    <file>space48/forms/forms.form.xml</file>
+                </space48_forms_form>
+                
+                <!-- field -->
+                <space48_forms_field>
+                    <file>space48/forms/forms.field.xml</file>
+                </space48_forms_field>
+                
+                <!-- fieldset -->
+                <space48_forms_fieldset>
+                    <file>space48/forms/forms.fieldset.xml</file>
+                </space48_forms_fieldset>
+                
+                <!-- form result -->
+                <space48_forms_form_result>
+                    <file>space48/forms/forms.form.result.xml</file>
+                </space48_forms_form_result>
             </updates>
         </layout>
     </adminhtml>

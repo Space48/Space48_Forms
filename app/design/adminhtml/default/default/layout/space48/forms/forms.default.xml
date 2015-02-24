@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<layout>
+    <!-- ABSTRACT -->
+    <space48_forms_abstract_add_edit>
+        <update handle="editor"/>
+        
+        <reference name="root">
+            <action method="addBodyClass">
+                <class>space48-forms-form</class>
+            </action>
+        </reference>
+        
+        <reference name="head">
+            <action method="addCss">
+                <name>space48/forms/css/forms.css</name>
+            </action>
+            
+            <action method="addJs"><js>space48/forms/adminhtml/core.js</js></action>
+            <action method="addJs"><js>space48/forms/adminhtml/field.dependency.js</js></action>
+            <action method="addJs"><js>space48/forms/adminhtml/fieldset.toggle.js</js></action>
+            <action method="addJs"><js>space48/forms/adminhtml/forms.js</js></action>
+            
+            <action method="setCanLoadExtJs"><flag>1</flag></action>
+            <action method="setCanLoadTinyMce"><flag>1</flag></action>
+        </reference>
+    </space48_forms_abstract_add_edit>
+</layout>

@@ -1,0 +1,42 @@
+<table style="width:100%;">
+    <tbody>
+        <tr>
+            <td style="width:50%;">
+                <h3><?php echo $this->__('View Result'); ?></h3>
+            </td>
+            <td class="a-right">
+                <button title="<?php echo $this->__('Back'); ?>" type="button" class="scalable back" onclick="setLocation('<?php echo $this->getBackUrl(); ?>')">
+                    <span><span><span><?php echo $this->__('Back'); ?></span></span></span>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="entry-edit">
+    
+    <!-- meta -->
+    <div class="fieldset">
+        <div class="hor-scroll fieldset-meta">
+            <h4><?php echo $this->__('Form Result Metadata'); ?></h4>
+            <table cellspacing="0" class="form-list">
+                <tbody>
+                    <?php foreach ( $this->getResultMetaData() as $label => $value ) : ?>
+                        <tr>
+                            <td class="label">
+                                <?php echo $this->__($label); ?>
+                            </td>
+                            <td class="value">
+                                <?php echo $value; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <?php foreach ( $this->getFieldsets() as $fieldset ) : ?>
+        <?php echo $this->getFieldsetHtml($fieldset); ?>
+    <?php endforeach; ?>
+</div>

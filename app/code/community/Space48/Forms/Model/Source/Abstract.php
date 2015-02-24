@@ -40,6 +40,16 @@ abstract class Space48_Forms_Model_Source_Abstract
     }
     
     /**
+     * alias for "getOptionArray"
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return $this->getOptionArray();
+    }
+    
+    /**
      * get value array
      *
      * @return array
