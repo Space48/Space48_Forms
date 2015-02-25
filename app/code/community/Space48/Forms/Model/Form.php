@@ -29,6 +29,13 @@ class Space48_Forms_Model_Form extends Space48_Forms_Model_Abstract
     protected $_fieldsets;
     
     /**
+     * holds fields
+     *
+     * @var array
+     */
+    protected $_fields;
+    
+    /**
      * _construct
      */
     protected function _construct()
@@ -208,5 +215,91 @@ class Space48_Forms_Model_Form extends Space48_Forms_Model_Abstract
         }
         
         return $this->_fieldsets;
+    }
+    
+    /**
+     * get fields
+     *
+     * @param  string $name
+     *
+     * @return Space48_Forms_Model_Form_Result_Fieldset_Field|array|null
+     */
+    public function getFields()
+    {
+        if ( is_null($this->_fields) ) {
+            // default to empty array
+            $fields = array();
+            
+            // loop through fieldsets
+            foreach ( $this->getFieldsets() as $fieldset ) {
+                // loop through fields
+                foreach ( $fieldset->getFields() as $field ) {
+                    // add to fields array
+                    $fields[] = $field;
+                }
+            }
+            
+            // set fields
+            $this->_fields = $fields;
+        }
+        
+        // return all fields if no name given
+        return $this->_fields;
+    }
+    
+    /**
+     * get field by name
+     *
+     * @param  string $name
+     *
+     * @return bool|Space48_Forms_Model_Form_Fieldset_Field
+     */
+    public function getFieldByName($name)
+    {
+        $fields = $this->getFields();
+        
+        foreach ( $fields as $field ) {
+            if ( $field->getName() == $name ) {
+                return $field;
+            }
+        }
+        
+        return false;
+    }
+    
+    /**
+     * has duplicated fields
+     *
+     * @return bool 
+     */
+    public function hasDuplicatedFields()
+    {
+        // get fields
+        $fields = $this->getFields();
+        
+        // array of field names
+        $names = array();
+        
+        // loop through fields
+        foreach ( $fields as $field ) {
+            
+            // get name
+            $name = $field->getName();
+            
+            // if the key does not exist, add it to the
+            // names array
+            if ( ! array_key_exists($name, $names) ) {
+                $names[$name] = true;
+            }
+            
+            // otherwise it did exist and therefore
+            // the form has duplicates - return true
+            else {
+                return true;
+            }
+        }
+        
+        // no duplicates found
+        return false;
     }
 }

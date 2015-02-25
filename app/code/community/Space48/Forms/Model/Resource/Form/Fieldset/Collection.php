@@ -33,6 +33,9 @@ class Space48_Forms_Model_Resource_Form_Fieldset_Collection extends Space48_Form
         // add where condition
         $select->where('index.form_id = ?', $form);
         
+        // add order by
+        $select->order('index.position');
+        
         return $this;
     }
 }

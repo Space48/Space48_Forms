@@ -54,5 +54,18 @@ class Space48_Forms_Adminhtml_Forms_Form_ResultController
         $this->loadLayout();
         $this->renderLayout();
     }
+    
+    /**
+     * view action
+     *
+     * @return void
+     */
+    public function quickviewAction()
+    {
+        $this->_initForm();
+        $this->_initModel();
+        $this->loadLayout();
+        $this->renderLayout();
+    }
 }
 

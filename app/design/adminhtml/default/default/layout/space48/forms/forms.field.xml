@@ -1,20 +1,23 @@
 <?xml version="1.0"?>
 <layout>
-    <!-- Space48 Forms FIELD -->
+    <!-- view fields -->
     <adminhtml_forms_field_index>
         <reference name="content">
             <block type="space48_forms/admin_field" name="space48_forms.field.grid_container" />
         </reference>
     </adminhtml_forms_field_index>
     
+    <!-- new field -->
     <adminhtml_forms_field_new>
         <update handle="space48_forms_field_add_edit" />
     </adminhtml_forms_field_new>
     
+    <!-- edit field -->
     <adminhtml_forms_field_edit>
         <update handle="space48_forms_field_add_edit" />
     </adminhtml_forms_field_edit>
     
+    <!-- add/edit handle -->
     <space48_forms_field_add_edit>
         <update handle="space48_forms_abstract_add_edit"/>
         

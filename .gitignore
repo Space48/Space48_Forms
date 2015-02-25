@@ -3,19 +3,15 @@
 # Requested paths to exclude from ignore:
 #
 # app/etc/modules/Space48_Forms.xml
-# 
 # app/code/community/Space48/Forms/
-# 
 # app/design/adminhtml/default/default/layout/space48/forms/
 # app/design/adminhtml/default/default/template/space48/forms/
-# 
 # app/design/frontend/base/default/layout/space48/forms/
 # app/design/frontend/base/default/template/space48/forms/
-# 
 # skin/frontend/base/default/space48/forms/
 # skin/adminhtml/default/default/space48/forms/
-# 
 # js/space48/forms/
+# app/locale/en_GB/template/email/space48/forms/
 
 /*
 !/app
@@ -91,4 +87,15 @@
 !/js/space48
 /js/space48/*
 !/js/space48/forms
+!/app/locale
+/app/locale/*
+!/app/locale/en_GB
+/app/locale/en_GB/*
+!/app/locale/en_GB/template
+/app/locale/en_GB/template/*
+!/app/locale/en_GB/template/email
+/app/locale/en_GB/template/email/*
+!/app/locale/en_GB/template/email/space48
+/app/locale/en_GB/template/email/space48/*
+!/app/locale/en_GB/template/email/space48/forms
 !.gitignore

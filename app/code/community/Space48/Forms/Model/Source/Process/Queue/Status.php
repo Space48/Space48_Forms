@@ -5,7 +5,8 @@ class Space48_Forms_Model_Source_Process_Queue_Status extends Space48_Forms_Mode
     /**
      * Option values
      */
-    const STATUS_FRESH = 'fresh';
+    const STATUS_FRESH    = 'fresh';
+    const STATUS_COMPLETE = 'cmplt';
     
     /**
      * get all options

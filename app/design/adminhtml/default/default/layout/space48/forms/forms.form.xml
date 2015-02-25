@@ -1,26 +1,30 @@
 <?xml version="1.0"?>
 <layout>
-    <!-- Space48 Forms FORM -->
+    <!-- view forms -->
     <adminhtml_forms_form_index>
         <reference name="content">
             <block type="space48_forms/admin_form" name="space48_forms.form.grid_container" />
         </reference>
     </adminhtml_forms_form_index>
     
+    <!-- new form -->
     <adminhtml_forms_form_new>
         <update handle="space48_forms_form_add_edit" />
     </adminhtml_forms_form_new>
     
+    <!-- edit form -->
     <adminhtml_forms_form_edit>
         <update handle="space48_forms_form_add_edit" />
     </adminhtml_forms_form_edit>
     
+    <!-- form grid (ajax) -->
     <adminhtml_forms_form_fieldsetgrid>
         <block type="core/text_list" name="root" output="toHtml">
             <block type="space48_forms/admin_form_edit_tab_fieldsets" name="space48_forms.form.edit.tab.fieldsets.grid"/>
         </block>
     </adminhtml_forms_form_fieldsetgrid>
     
+    <!-- add/edit handle -->
     <space48_forms_form_add_edit>
         <update handle="space48_forms_abstract_add_edit"/>
         
@@ -29,6 +33,7 @@
         </reference>
         
         <reference name="content">
+            <block type="space48_forms/admin_form_edit_validation" name="space48_forms.form.edit.validation" />
             <block type="space48_forms/admin_form_edit" name="space48_forms.form.edit" />
         </reference>
     </space48_forms_form_add_edit>

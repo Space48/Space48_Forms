@@ -44,4 +44,16 @@ abstract class Space48_Forms_Model_Resource_Collection_Abstract extends Mage_Cor
         
         return $countSelect;
     }
+    
+    /**
+     * set limit
+     *
+     * @param int $limit
+     * @param int|null $offset
+     */
+    public function setLimit($limit, $offset = null)
+    {
+        $this->getSelect()->limit($limit, $offset);
+        return $this;
+    }
 }

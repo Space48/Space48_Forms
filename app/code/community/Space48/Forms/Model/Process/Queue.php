@@ -46,7 +46,7 @@ class Space48_Forms_Model_Process_Queue extends Space48_Forms_Model_Abstract
         $this->setResult($result);
         
         // set initial status
-        $this->setStatus(Space48_Forms_Model_Source_Process_Queue_Status::STATUS_FRESH);
+        $this->setFresh();
         
         // and save
         $this->save();
@@ -127,6 +127,22 @@ class Space48_Forms_Model_Process_Queue extends Space48_Forms_Model_Abstract
     }
     
     /**
+     * set fresh
+     */
+    public function setFresh()
+    {
+        return $this->setStatus(Space48_Forms_Model_Source_Process_Queue_Status::STATUS_FRESH);
+    }
+    
+    /**
+     * set complete
+     */
+    public function setComplete()
+    {
+        return $this->setStatus(Space48_Forms_Model_Source_Process_Queue_Status::STATUS_COMPLETE);
+    }
+    
+    /**
      * set status
      *
      * @param string $status
@@ -135,6 +151,7 @@ class Space48_Forms_Model_Process_Queue extends Space48_Forms_Model_Abstract
     {
         switch ( $status ) {
             case Space48_Forms_Model_Source_Process_Queue_Status::STATUS_FRESH:
+            case Space48_Forms_Model_Source_Process_Queue_Status::STATUS_COMPLETE:
                 $this->setData('status', $status);
                 break;
         }

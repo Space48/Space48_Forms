@@ -1,0 +1,17 @@
+<div class="entry-edit-head">
+    <h4 class="icon-head head-edit-form fieldset-legend">
+        <?php echo $this->getFieldset()->getTitle(); ?>
+    </h4>
+</div>
+<div class="fieldset">
+    <!-- fields -->
+    <div class="hor-scroll fieldset-fields">
+        <table cellspacing="0" class="form-list">
+            <tbody>
+                <?php foreach ( $this->getFields() as $field ) : ?>
+                    <?php echo $this->getFieldHtml($field); ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

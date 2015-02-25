@@ -1,12 +1,32 @@
 <?xml version="1.0"?>
 <layout>
-    <!-- Space48 Forms Form RESULT -->
+    <!-- view form results -->
     <adminhtml_forms_form_result_index>
         <reference name="content">
             <block type="space48_forms/admin_form_result" name="space48_forms.form.result.grid_container" />
         </reference>
     </adminhtml_forms_form_result_index>
     
+    <!-- quick view -->
+    <adminhtml_forms_form_result_quickview>
+        
+        <!-- fieldset block -->
+        <block type="space48_forms/admin_form_result_quickview_fieldset" name="space48_forms_fieldset" />
+        
+        <!-- field blocks -->
+        <block type="space48_forms/admin_form_result_quickview_fieldset_field_file"     name="space48_forms_field_file"     />
+        <block type="space48_forms/admin_form_result_quickview_fieldset_field_text"     name="space48_forms_field_text"     />
+        <block type="space48_forms/admin_form_result_quickview_fieldset_field_radio"    name="space48_forms_field_radio"    />
+        <block type="space48_forms/admin_form_result_quickview_fieldset_field_select"   name="space48_forms_field_select"   />
+        <block type="space48_forms/admin_form_result_quickview_fieldset_field_checkbox" name="space48_forms_field_checkbox" />
+        <block type="space48_forms/admin_form_result_quickview_fieldset_field_textarea" name="space48_forms_field_textarea" />
+        
+        <reference name="content">
+            <block type="space48_forms/admin_form_result_quickview" name="space48_forms.form.result.quickview" />
+        </reference>
+    </adminhtml_forms_form_result_quickview>
+    
+    <!-- detailed view -->
     <adminhtml_forms_form_result_view>
         
         <!-- fieldset block -->
@@ -24,4 +44,6 @@
             <block type="space48_forms/admin_form_result_view" name="space48_forms.form.result.view" />
         </reference>
     </adminhtml_forms_form_result_view>
+    
+    
 </layout>

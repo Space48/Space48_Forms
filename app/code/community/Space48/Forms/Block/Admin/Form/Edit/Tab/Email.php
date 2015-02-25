@@ -70,6 +70,24 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Email extends Space48_Forms_Block_
             'value'   => $this->_getModel()->getEmailCustomer(),
         ));
         
+        // email_customer_address_field field
+        $fieldset->addField('email_customer_name_field', 'text', array(
+            'label'    => Mage::helper('space48_forms')->__('Name Field(s)'),
+            'name'     => 'email_customer_name_field',
+            'note'     => Mage::helper('space48_forms')->__('Name(s) of field that will contain the customer`s name(s). Comma separate for multiple fields.'),
+            'value'    => $this->_getModel()->getEmailCustomerNameField(),
+            'required' => true,
+        ));
+        
+        // email_customer_address_field field
+        $fieldset->addField('email_customer_address_field', 'text', array(
+            'label'    => Mage::helper('space48_forms')->__('Email Address Field'),
+            'name'     => 'email_customer_address_field',
+            'note'     => Mage::helper('space48_forms')->__('Name of field that will contain the email address.'),
+            'value'    => $this->_getModel()->getEmailCustomerAddressField(),
+            'required' => true,
+        ));
+        
         // email_customer_address_cc field
         $fieldset->addField('email_customer_address_cc', 'textarea', array(
             'label' => Mage::helper('space48_forms')->__('Email Address CC'),
@@ -127,7 +145,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Email extends Space48_Forms_Block_
         $fieldset->addField('email_customer_before_results_content', 'editor', array(
             'label'   => Mage::helper('space48_forms')->__('Before Results Content'),
             'name'    => 'email_customer_before_results_content',
-            'note'    => Mage::helper('space48_forms')->__('This content appears immediately before the form results.'),
+            'note'    => Mage::helper('space48_forms')->__('This content appears immediately before the form results if they are to be shown.'),
             'wysiwyg' => true,
             'config'  => $this->_getWywiwygConfig(),
             'style'   => 'width:800px',
@@ -138,7 +156,7 @@ class Space48_Forms_Block_Admin_Form_Edit_Tab_Email extends Space48_Forms_Block_
         $fieldset->addField('email_customer_after_results_content', 'editor', array(
             'label'   => Mage::helper('space48_forms')->__('After Results Content'),
             'name'    => 'email_customer_after_results_content',
-            'note'    => Mage::helper('space48_forms')->__('This content appears immediately after the form results.'),
+            'note'    => Mage::helper('space48_forms')->__('This content appears immediately after the form results if they are to be shown.'),
             'wysiwyg' => true,
             'config'  => $this->_getWywiwygConfig(),
             'style'   => 'width:800px',

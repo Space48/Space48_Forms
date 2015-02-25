@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <layout>
-    <!-- ABSTRACT -->
+    <!-- abstract add/edit handle -->
     <space48_forms_abstract_add_edit>
         <update handle="editor"/>
         

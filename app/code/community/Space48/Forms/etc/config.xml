@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Space48_Forms>
-            <version>0.1.7</version>
+            <version>0.1.9</version>
         </Space48_Forms>
     </modules>
     
@@ -102,25 +102,38 @@
             </space48_forms>
         </helpers>
         
-        
         <!-- templates -->
         <template>
             <email>
                 <!-- admin notification email template -->
                 <space48_forms_general_admin_notification_email_template>
                     <label>Admin Notification Email Template</label>
-                    <file>space48_forms/admin_notification_email.html</file>
+                    <file>space48/forms/admin.html</file>
                     <type>html</type>
                 </space48_forms_general_admin_notification_email_template>
                 
                 <!-- customer notification email template -->
                 <space48_forms_general_customer_notification_email_template>
                     <label>Customer Notification Email Template</label>
-                    <file>space48_forms/customer_notification_email.html</file>
+                    <file>space48/forms/customer.html</file>
                     <type>html</type>
                 </space48_forms_general_customer_notification_email_template>
             </email>
         </template>
+        
+        <!-- events -->
+        <events>
+            
+            <!-- process queue items -->
+            <space48_forms_queue_process_run>
+                <observers>
+                    <space48_forms_result_send_emails>
+                        <class>space48_forms/observer_result_email</class>
+                        <method>sendResultEmails</method>
+                    </space48_forms_result_send_emails>
+                </observers>
+            </space48_forms_queue_process_run>
+        </events>
     </global>
     
     <!-- ADMIN -->

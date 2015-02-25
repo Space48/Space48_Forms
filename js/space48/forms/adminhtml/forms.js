@@ -259,17 +259,14 @@
             
             // customer emails
             new Space48Forms.FieldDependency('email_customer', '1', [
+                'email_customer_address_field',
                 'email_customer_address_cc',
                 'email_customer_address_bcc',
                 'email_customer_replyto',
                 'email_customer_template',
                 'email_customer_content',
                 'email_customer_show_results',
-                'email_customer_footer_content'
-            ]);
-            
-            // customer email show results
-            new Space48Forms.FieldDependency('email_customer_show_results', '1', [
+                'email_customer_footer_content',
                 'email_customer_before_results_content',
                 'email_customer_after_results_content'
             ]);
