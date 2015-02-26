@@ -234,6 +234,10 @@ abstract class Space48_Forms_Block_Form_Abstract
      */
     public function canShowForm()
     {
+        // module must be enabled
+        if ( ! Mage::helper('space48_forms')->isEnabled() ) {
+            return false;
+        }
         
         // must have form model
         if ( ! $this->getForm() ) {
@@ -489,19 +493,5 @@ abstract class Space48_Forms_Block_Form_Abstract
     public function getFieldsetHtml(Space48_Forms_Model_Form_Fieldset $fieldset)
     {
         return $this->getFieldsetBlock($fieldset)->toHtml();
-    }
-    
-    /**
-     * to html
-     *
-     * @return string
-     */
-    protected function _toHtml()
-    {
-        if ( ! Mage::helper('space48_forms')->isEnabled() ) {
-            return '';
-        }
-        
-        return parent::_toHtml();
     }
 }
