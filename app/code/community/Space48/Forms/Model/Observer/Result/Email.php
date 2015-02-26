@@ -11,6 +11,11 @@ class Space48_Forms_Model_Observer_Result_Email
      */
     public function sendResultEmails(Varien_Event_Observer $observer)
     {
+        // only if module is enabled
+        if ( ! Mage::helper('space48_forms')->isEnabled() ) {
+            return $this;
+        }
+        
         /**
          * queue item
          *

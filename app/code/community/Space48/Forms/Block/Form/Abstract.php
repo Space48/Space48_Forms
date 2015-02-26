@@ -73,12 +73,30 @@ abstract class Space48_Forms_Block_Form_Abstract
     }
     
     /**
-     * get form 
-     *
+     * get form
+     * 
      * @return Space48_Forms_Model_Form
      */
     public function getForm()
     {
+        if ( is_null($this->_form) ) {
+            
+            // get form identifier - could be int id or
+            // it could be string code
+            $id = $this->getData('identifier');
+            
+            // get form model
+            $this->_form = Mage::getModel('space48_forms/form');
+            
+            if ( $id ) {
+                if ( is_numeric($id) ) {
+                    $this->_form->load($id);
+                } else {
+                    $this->_form->load($id, 'code');
+                }
+            }
+        }
+        
         return $this->_form;
     }
     
@@ -216,6 +234,7 @@ abstract class Space48_Forms_Block_Form_Abstract
      */
     public function canShowForm()
     {
+        
         // must have form model
         if ( ! $this->getForm() ) {
             return false;
@@ -470,5 +489,19 @@ abstract class Space48_Forms_Block_Form_Abstract
     public function getFieldsetHtml(Space48_Forms_Model_Form_Fieldset $fieldset)
     {
         return $this->getFieldsetBlock($fieldset)->toHtml();
+    }
+    
+    /**
+     * to html
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        if ( ! Mage::helper('space48_forms')->isEnabled() ) {
+            return '';
+        }
+        
+        return parent::_toHtml();
     }
 }

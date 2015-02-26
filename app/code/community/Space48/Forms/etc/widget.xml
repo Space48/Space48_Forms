@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<widgets>
+    <!-- form widget -->
+    <space48_forms_widget_form type="space48_forms/widget_form">
+        <name>Space48 Forms: Form</name>
+        <description>Place a form inside your content.</description>
+        <parameters>
+            <identifier translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <label>Identifier (ID or Code)</label>
+                <type>text</type>
+            </identifier>
+        </parameters>
+    </space48_forms_widget_form>
+</widgets>

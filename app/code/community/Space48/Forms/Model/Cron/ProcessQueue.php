@@ -7,7 +7,7 @@ class Space48_Forms_Model_Cron_ProcessQueue extends Space48_Forms_Model_Cron_Abs
      *
      * @return $this
      */
-    public function run()
+    protected function _run()
     {
         // get queue items
         $queue = Mage::getResourceModel('space48_forms/process_queue_collection');
@@ -27,6 +27,10 @@ class Space48_Forms_Model_Cron_ProcessQueue extends Space48_Forms_Model_Cron_Abs
                 // all the required actions to complete this
                 // queued item
                 //$item->setComplete();
+                
+                /**
+                 * @todo uncomment the above line
+                 */
                 
             } catch (Exception $e) {
                 
