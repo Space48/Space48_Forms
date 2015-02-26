@@ -1,7 +1,30 @@
 <td valign="top">
-    Middle
+    <h1 style="font-size:22px; font-weight:normal; line-height:32px; margin:0 0 20px 0;">
+        <?php echo $this->getForm()->getTitle() ?> - Submission Confirmation
+    </h1>
+    
+    <?php echo $this->getForm()->getEmailCustomerContent(); ?>
+    
+    <?php if ( $this->canShowResults() ) : ?>
+        
+        <?php echo $this->getForm()->getEmailCustomerBeforeResultsContent(); ?>
+        
+        <table cellspacing="0" cellpadding="0" border="0" height="100%" width="100%">
+            <tbody>
+                <?php foreach ( $this->getFieldsets() as $fieldset ) : ?>
+                    <tr>
+                        <td valign="top">
+                            <?php echo $this->getFieldsetHtml($fieldset); ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        
+        <?php echo $this->getForm()->getEmailCustomerAfterResultsContent(); ?>
+        
+    <?php endif; ?>
 </td>
-
 
 <?php /* <td valign="top">
     <h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;">

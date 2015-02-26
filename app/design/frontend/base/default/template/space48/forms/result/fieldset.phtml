@@ -1,0 +1,15 @@
+<div class="fieldset">
+    <div class="fieldset-header">
+        <h4><?php echo $this->getFieldset()->getTitle(); ?></h4>
+    </div>
+    <div class="fieldset-body">
+        <!-- fields -->
+        <table class="fieldset-fields">
+            <tbody>
+                <?php foreach ( $this->getFields() as $field ) : ?>
+                    <?php echo $this->getFieldHtml($field); ?>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

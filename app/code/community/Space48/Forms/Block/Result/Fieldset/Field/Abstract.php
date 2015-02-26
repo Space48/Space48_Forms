@@ -1,6 +1,6 @@
 <?php
 
-abstract class Space48_Forms_Block_Result_Fieldset_Field_Abstract extends Mage_Core_Block_Template
+abstract class Space48_Forms_Block_Result_Fieldset_Field_Abstract extends Space48_Forms_Block_Result_Abstract
 {
     /**
      * holds field
@@ -15,13 +15,6 @@ abstract class Space48_Forms_Block_Result_Fieldset_Field_Abstract extends Mage_C
      * @var Space48_Forms_Model_Form_Result_Fieldset
      */
     protected $_fieldset;
-    
-    /**
-     * holds field
-     *
-     * @var Space48_Forms_Model_Form_Result
-     */
-    protected $_result;
     
     /**
      * constructor
@@ -71,27 +64,6 @@ abstract class Space48_Forms_Block_Result_Fieldset_Field_Abstract extends Mage_C
     public function getFieldset()
     {
         return $this->_fieldset;
-    }
-    
-    /**
-     * set result
-     *
-     * @param Space48_Forms_Model_Form_Result $result
-     */
-    public function setResult(Space48_Forms_Model_Form_Result $result)
-    {
-        $this->_result = $result;
-        return $this;
-    }
-    
-    /**
-     * get result
-     *
-     * @return Space48_Forms_Model_Form_Result
-     */
-    public function getResult()
-    {
-        return $this->_result;
     }
     
     /**

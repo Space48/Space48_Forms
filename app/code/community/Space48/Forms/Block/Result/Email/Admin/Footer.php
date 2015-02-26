@@ -1,6 +1,6 @@
 <?php
 
-class Space48_Forms_Block_Result_Email_Admin_Footer extends Mage_Core_Block_Template
+class Space48_Forms_Block_Result_Email_Admin_Footer extends Space48_Forms_Block_Result_Email_Abstract
 {
     /**
      * construct

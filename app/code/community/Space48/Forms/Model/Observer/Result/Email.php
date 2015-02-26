@@ -47,6 +47,11 @@ class Space48_Forms_Model_Observer_Result_Email
         // get email template
         $template = $item->getForm()->getEmailCustomerTemplate();
         
+        // default to system default
+        if ( ! $template ) {
+            $template = Mage::helper('space48_forms')->getConfig('customer_notification_email_template');
+        }
+        
         // graceful exit
         if ( ! $template ) {
             return $this;
@@ -109,7 +114,121 @@ class Space48_Forms_Model_Observer_Result_Email
     }
     
     /**
-     * get recipient details
+     * send admin email
+     *
+     * @param  Space48_Forms_Model_Process_Queue $item
+     *
+     * @return $this
+     */
+    protected function _sendAdminEmail(Space48_Forms_Model_Process_Queue $item)
+    {
+        // get email model
+        $email = Mage::getModel('space48_forms/email');
+        
+        // get email template
+        $template = $item->getForm()->getEmailAdminTemplate();
+        
+        // default to system default
+        if ( ! $template ) {
+            $template = Mage::helper('space48_forms')->getConfig('admin_notification_email_template');
+        }
+        
+        // graceful exit
+        if ( ! $template ) {
+            return $this;
+        }
+        
+        // get sender details
+        $sender = $this->_getSenderDetails();
+        
+        // get "to" emails
+        $emails = $this->_getAdminRecipientDetails($item);
+        
+        // build subject
+        $subject = Mage::helper('space48_forms')->__('%s - Form Submission', $item->getForm()->getTitle());
+        
+        // prepare email
+        $email->prepareEmail($subject, $template, $sender);
+        
+        // set cc addresses
+        if ( $cc = $item->getForm()->getEmailAdminAddressCc() ) {
+            $cc = Mage::helper('space48_forms/form')->explode($cc, PHP_EOL);
+            
+            foreach ( $cc as $_cc ) {
+                
+                if ( ! $_cc ) {
+                    continue;
+                }
+                
+                // add cc
+                $email->addCc($_cc);
+            }
+        }
+        
+        // set cc addresses
+        if ( $bcc = $item->getForm()->getEmailAdminAddressBcc() ) {
+            $bcc = Mage::helper('space48_forms/form')->explode($bcc, PHP_EOL);
+            
+            foreach ( $bcc as $_bcc ) {
+                
+                if ( ! $_bcc ) {
+                    continue;
+                }
+                
+                // add cc
+                $email->addBcc($_bcc);
+            }
+        }
+        
+        // send email
+        $email->sendEmail($emails, array(
+            'form'   => $item->getForm(),
+            'result' => $item->getResult(),
+        ));
+        
+        return $this;
+    }
+    
+    /**
+     * get admin recipient details
+     *
+     * @param  Space48_Forms_Model_Process_Queue $item
+     *
+     * @return array
+     */
+    protected function _getAdminRecipientDetails(Space48_Forms_Model_Process_Queue $item)
+    {
+        // get emails
+        $emails = $item->getForm()->getEmailAdminAddressTo();
+        
+        // use default store email details if we do not have any emails
+        // stored in the form
+        if ( ! $emails ) {
+            
+            $name  = Mage::getStoreConfig('trans_email/ident_support/name');
+            $email = Mage::getStoreConfig('trans_email/ident_support/email');
+            
+            return array($name => $email);
+        }
+        
+        // explode emails
+        $emails = Mage::helper('space48_forms/form')->explode($emails, PHP_EOL);
+        
+        // emails array to return
+        $_emails = array();
+        
+        // build email array
+        foreach ( $emails as $email ) {
+            $name = substr($email, 0, strpos($email, '@'));
+            
+            $_emails[$name] = $email;
+        }
+        
+        return $_emails;
+    }
+    
+    /**
+     * get customer recipient details
      *
      * @return array
      */
@@ -188,18 +307,6 @@ class Space48_Forms_Model_Observer_Result_Email
             'name'  => Mage::getStoreConfig('trans_email/ident_support/name'),
             'email' => Mage::getStoreConfig('trans_email/ident_support/email'),
         );
-    }
-    
-    /**
-     * send admin email
-     *
-     * @param  Space48_Forms_Model_Process_Queue $item
-     *
-     * @return $this
-     */
-    protected function _sendAdminEmail(Space48_Forms_Model_Process_Queue $item)
-    {
-        return $this;
     }
     
     /**

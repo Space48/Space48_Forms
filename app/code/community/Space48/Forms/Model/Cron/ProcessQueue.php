@@ -26,7 +26,7 @@ class Space48_Forms_Model_Cron_ProcessQueue extends Space48_Forms_Model_Cron_Abs
                 // that if we get to this point we have executed
                 // all the required actions to complete this
                 // queued item
-                $item->setComplete();
+                //$item->setComplete();
                 
             } catch (Exception $e) {
                 

@@ -1,6 +1,6 @@
 <?php
 
-class Space48_Forms_Block_Result_Email_Customer_Header extends Mage_Core_Block_Template
+class Space48_Forms_Block_Result_Email_Customer_Header extends Space48_Forms_Block_Result_Email_Abstract
 {
     /**
      * construct
