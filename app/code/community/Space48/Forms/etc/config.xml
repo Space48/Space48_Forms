@@ -300,6 +300,21 @@
                     <model>space48_forms/cron_clean_result::run</model>
                 </run>
             </space48_forms_clean_expired_results>
+            
+            <!--
+            /**
+             * delete all files that do not exist
+             * in the database
+             */
+            -->
+            <space48_forms_clean_expired_results>
+                <schedule>
+                    <cron_expr>0 5 * * 7</cron_expr>
+                </schedule>
+                <run>
+                    <model>space48_forms/cron_clean_files::run</model>
+                </run>
+            </space48_forms_clean_expired_results>
         </jobs>
     </crontab>
     
