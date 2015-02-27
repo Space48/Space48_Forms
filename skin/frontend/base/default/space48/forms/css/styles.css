@@ -1,0 +1,145 @@
+.space48-form .form-instructions {
+  padding: 1em;
+  background: #eee;
+  margin: 0 0 1.5em 0;
+  border: 1px solid #ddd;
+  color: #444;
+}
+.space48-form .form-instructions *:last-child {
+  margin-bottom: 0;
+}
+.space48-form .form-fieldsets {
+  margin: 20px 0 0 0;
+  list-style: none;
+  border-bottom: 1px solid #ddd;
+}
+.space48-form .form-fieldsets .form-fieldset {
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-bottom: 0;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-title {
+  padding: 20px;
+  margin: 0;
+  font-size: 20px;
+  background: #eee;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-description {
+  margin: 20px;
+}
+.space48-form .form-fieldsets .form-fieldset .form-instructions {
+  padding: 20px;
+  margin: 20px;
+}
+.space48-form .form-fieldsets .form-fieldset .before-fields-content {
+  margin: 20px;
+}
+.space48-form .form-fieldsets .form-fieldset .after-fields-content {
+  padding: 0 20px 20px 20px;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields {
+  list-style: none;
+  padding: 0 20px 20px 20px;
+  margin: 20px 0 0 0;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .fieldset-field {
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .fieldset-field:last-child {
+  margin-bottom: 0;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .fieldset-field.has-errors {
+  padding: 20px;
+  background-color: #ffe5e5;
+  border: 1px solid #ffcccc;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .fieldset-field .field-head {
+  margin-bottom: 10px;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .fieldset-field .field-head label {
+  font-size: 14px;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .fieldset-field .field-head label .field-hint {
+  position: relative;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .fieldset-field .field-head label .field-hint a:hover + p {
+  display: block;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .fieldset-field .field-head label .field-hint p {
+  display: none;
+  position: absolute;
+  width: 200px;
+  height: auto;
+  padding: 1em;
+  border: 1px solid silver;
+  z-index: 1000;
+  background: #fff;
+  border-radius: 4px;
+  left: 110%;
+  top: 0;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.4);
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .fieldset-field .field-body {
+  margin: 0 0 0 20px;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .fieldset-field .field-body .input-box {
+  margin: 10px 0;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .fieldset-field .field-body .control {
+  margin: 0 0 10px 0;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .fieldset-field .field-body .control .input-box {
+  margin: 0;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .fieldset-field .field-body .field-comment p {
+  margin: 0 0 0 0;
+  padding: 4px 8px;
+  border-left: 2px solid #2e8ab8;
+  background-color: none;
+  display: inline-block;
+  font-size: 13px;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.space48-form .buttons-set {
+  margin: 0;
+  padding: 20px;
+  background: #eee;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+}
+.space48-form .buttons-set .back-button {
+  margin: 0;
+  float: left;
+  background: #aaa;
+}
+.space48-form .buttons-set .back-button:hover {
+  background: #888;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .errors {
+  margin: 0 0 10px 0;
+  padding: 0;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .errors li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .errors li:before {
+  display: none;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .errors li span {
+  font-size: 12px;
+  color: red;
+}
+.space48-form .form-fieldsets .form-fieldset .fieldset-fields .fieldset-field-radio .field-body .control {
+  margin: 0;
+}

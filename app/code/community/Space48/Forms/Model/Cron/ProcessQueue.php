@@ -12,7 +12,7 @@ class Space48_Forms_Model_Cron_ProcessQueue extends Space48_Forms_Model_Cron_Abs
         // get queue items
         $queue = Mage::getResourceModel('space48_forms/process_queue_collection');
         $queue->addFreshFilter();
-        $queue->setLimit(20);
+        $queue->setLimit(50);
         
         foreach ( $queue as $item ) {
             try {
@@ -26,11 +26,7 @@ class Space48_Forms_Model_Cron_ProcessQueue extends Space48_Forms_Model_Cron_Abs
                 // that if we get to this point we have executed
                 // all the required actions to complete this
                 // queued item
-                //$item->setComplete();
-                
-                /**
-                 * @todo uncomment the above line
-                 */
+                $item->setComplete();
                 
             } catch (Exception $e) {
                 

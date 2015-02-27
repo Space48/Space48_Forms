@@ -268,6 +268,41 @@
         </events>
     </frontend>
     
+    <crontab>
+        <jobs>
+            <!--
+            /**
+             * process all queued items every 10
+             * minutes
+             */
+            -->
+            <space48_forms_process_queue>
+                <schedule>
+                    <cron_expr>*/10 * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>space48_forms/cron_processQueue::run</model>
+                </run>
+            </space48_forms_process_queue>
+            
+            <!--
+            /**
+             * delete all incomlete/invalid results
+             * that are older than x days every day
+             * at 0300.
+             */
+            -->
+            <space48_forms_clean_expired_results>
+                <schedule>
+                    <cron_expr>0 3 * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>space48_forms/cron_clean_result::run</model>
+                </run>
+            </space48_forms_clean_expired_results>
+        </jobs>
+    </crontab>
+    
     <!-- DEFAULT -->
     <default>
         <space48_forms>
