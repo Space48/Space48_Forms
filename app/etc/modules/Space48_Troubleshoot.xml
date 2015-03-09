@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Space48_Troubleshoot>
+            <active>true</active>
+            <codePool>community</codePool>
+            <depends>
+                <Space48_Forms/>
+            </depends>
+        </Space48_Troubleshoot>
+    </modules>
+</config>

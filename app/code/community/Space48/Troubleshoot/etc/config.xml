@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Space48_Troubleshoot>
+            <version>0.0.1</version>
+        </Space48_Troubleshoot>
+    </modules>
+    
+    <!-- GLOBAL -->
+    <global>
+        
+        <!-- models -->
+        <models>
+            <!-- model declaration -->
+            <space48_troubleshoot>
+                <class>Space48_Troubleshoot_Model</class>
+                <resourceModel>space48_troubleshoot_resource</resourceModel>
+            </space48_troubleshoot>
+            
+            <!-- model resource -->
+            <space48_troubleshoot_resource>
+                <class>Space48_Troubleshoot_Model_Resource</class>
+                <entities>
+                    <!-- question table -->
+                    <question>
+                        <table>space48_troubleshoot_question</table>
+                    </question>
+                </entities>
+            </space48_troubleshoot_resource>
+        </models>
+        
+        <!-- resources -->
+        <resources>
+            <space48_troubleshoot_setup>
+                <setup>
+                    <module>Space48_Troubleshoot</module>
+                </setup>
+                <connection><use>core_setup</use></connection>
+            </space48_troubleshoot_setup>
+            
+            <space48_troubleshoot_write>
+                <connection><use>core_write</use></connection>
+            </space48_troubleshoot_write>
+            
+            <space48_troubleshoot_read>
+                <connection><use>core_read</use></connection>
+            </space48_troubleshoot_read>
+        </resources>
+        
+        <!-- blocks -->
+        <blocks>
+            <space48_troubleshoot>
+                <class>Space48_Troubleshoot_Block</class>
+            </space48_troubleshoot>
+        </blocks>
+        
+        <!-- helpers -->
+        <helpers>
+            <space48_troubleshoot>
+                <class>Space48_Troubleshoot_Helper</class>
+            </space48_troubleshoot>
+        </helpers>
+    </global>
+    
+    <!-- ADMIN -->
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Space48_Troubleshoot_Adminhtml before="Mage_Adminhtml">Space48_Troubleshoot_Adminhtml</Space48_Troubleshoot_Adminhtml>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    
+    <!-- ADMINHTML -->
+    <adminhtml>
+        <!-- layout -->
+        <layout>
+            <updates>
+                <!-- default -->
+                <space48_troubleshoot_default>
+                    <file>space48/troubleshoot/default.xml</file>
+                </space48_troubleshoot_default>
+            </updates>
+        </layout>
+    </adminhtml>
+    
+    <!-- FRONTEND -->
+    <frontend>
+        <!-- layout -->
+        <layout>
+            <updates>
+                <space48_troubleshoot>
+                    <file>space48/troubleshoot/default.xml</file>
+                </space48_troubleshoot>
+            </updates>
+        </layout>
+        
+        <!-- routers -->
+        <routers>
+            <space48_troubleshoot>
+                <use>standard</use>
+                <args>
+                    <module>Space48_Troubleshoot</module>
+                    <frontName>troubleshoot</frontName>
+                </args>
+            </space48_troubleshoot>
+        </routers>
+    </frontend>
+    
+    <!-- DEFAULT -->
+    <default>
+        <space48_troubleshoot>
+            <general>
+                <enabled>0</enabled>
+            </general>
+        </space48_troubleshoot>
+    </default>
+</config>

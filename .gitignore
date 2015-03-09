@@ -3,15 +3,34 @@
 # Requested paths to exclude from ignore:
 #
 # app/etc/modules/Space48_Forms.xml
+# app/etc/modules/Space48_Troubleshoot.xml
+#
 # app/code/community/Space48/Forms/
+# app/code/community/Space48/Troubleshoot/
+#
 # app/design/adminhtml/default/default/layout/space48/forms/
+# app/design/adminhtml/default/default/layout/space48/troubleshoot/
+#
 # app/design/adminhtml/default/default/template/space48/forms/
+# app/design/adminhtml/default/default/template/space48/troubleshoot/
+#
 # app/design/frontend/base/default/layout/space48/forms/
+# app/design/frontend/base/default/layout/space48/troubleshoot/
+#
 # app/design/frontend/base/default/template/space48/forms/
+# app/design/frontend/base/default/template/space48/troubleshoot/
+#
 # skin/frontend/base/default/space48/forms/
+# skin/frontend/base/default/space48/troubleshoot/
+#
 # skin/adminhtml/default/default/space48/forms/
+# skin/adminhtml/default/default/space48/troubleshoot/
+#
 # js/space48/forms/
+# js/space48/troubleshoot/
+#
 # app/locale/en_GB/template/email/space48/forms/
+# app/locale/en_GB/template/email/space48/troubleshoot/
 
 /*
 !/app
@@ -21,6 +40,7 @@
 !/app/etc/modules
 /app/etc/modules/*
 !/app/etc/modules/Space48_Forms.xml
+!/app/etc/modules/Space48_Troubleshoot.xml
 !/app/code
 /app/code/*
 !/app/code/community
@@ -28,6 +48,7 @@
 !/app/code/community/Space48
 /app/code/community/Space48/*
 !/app/code/community/Space48/Forms
+!/app/code/community/Space48/Troubleshoot
 !/app/design
 /app/design/*
 !/app/design/adminhtml
@@ -41,11 +62,13 @@
 !/app/design/adminhtml/default/default/layout/space48
 /app/design/adminhtml/default/default/layout/space48/*
 !/app/design/adminhtml/default/default/layout/space48/forms
+!/app/design/adminhtml/default/default/layout/space48/troubleshoot
 !/app/design/adminhtml/default/default/template
 /app/design/adminhtml/default/default/template/*
 !/app/design/adminhtml/default/default/template/space48
 /app/design/adminhtml/default/default/template/space48/*
 !/app/design/adminhtml/default/default/template/space48/forms
+!/app/design/adminhtml/default/default/template/space48/troubleshoot
 !/app/design/frontend
 /app/design/frontend/*
 !/app/design/frontend/base
@@ -57,11 +80,13 @@
 !/app/design/frontend/base/default/layout/space48
 /app/design/frontend/base/default/layout/space48/*
 !/app/design/frontend/base/default/layout/space48/forms
+!/app/design/frontend/base/default/layout/space48/troubleshoot
 !/app/design/frontend/base/default/template
 /app/design/frontend/base/default/template/*
 !/app/design/frontend/base/default/template/space48
 /app/design/frontend/base/default/template/space48/*
 !/app/design/frontend/base/default/template/space48/forms
+!/app/design/frontend/base/default/template/space48/troubleshoot
 !/skin
 /skin/*
 !/skin/frontend
@@ -73,6 +98,7 @@
 !/skin/frontend/base/default/space48
 /skin/frontend/base/default/space48/*
 !/skin/frontend/base/default/space48/forms
+!/skin/frontend/base/default/space48/troubleshoot
 !/skin/adminhtml
 /skin/adminhtml/*
 !/skin/adminhtml/default
@@ -82,11 +108,13 @@
 !/skin/adminhtml/default/default/space48
 /skin/adminhtml/default/default/space48/*
 !/skin/adminhtml/default/default/space48/forms
+!/skin/adminhtml/default/default/space48/troubleshoot
 !/js
 /js/*
 !/js/space48
 /js/space48/*
 !/js/space48/forms
+!/js/space48/troubleshoot
 !/app/locale
 /app/locale/*
 !/app/locale/en_GB
@@ -98,4 +126,5 @@
 !/app/locale/en_GB/template/email/space48
 /app/locale/en_GB/template/email/space48/*
 !/app/locale/en_GB/template/email/space48/forms
+!/app/locale/en_GB/template/email/space48/troubleshoot
 !.gitignore
