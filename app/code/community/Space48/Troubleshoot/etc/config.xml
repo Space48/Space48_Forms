@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Space48_Troubleshoot>
-            <version>0.0.1</version>
+            <version>0.0.3</version>
         </Space48_Troubleshoot>
     </modules>
     
@@ -21,10 +21,10 @@
             <space48_troubleshoot_resource>
                 <class>Space48_Troubleshoot_Model_Resource</class>
                 <entities>
-                    <!-- question table -->
-                    <question>
-                        <table>space48_troubleshoot_question</table>
-                    </question>
+                    <!-- issue table -->
+                    <issue>
+                        <table>space48_troubleshoot_issue</table>
+                    </issue>
                 </entities>
             </space48_troubleshoot_resource>
         </models>

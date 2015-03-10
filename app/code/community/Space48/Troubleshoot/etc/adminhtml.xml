@@ -6,9 +6,9 @@
                 <space48_forms>
                     <children>
                         <troubleshoot>
-                            <title>Troubleshoot Questions</title>
+                            <title>Troubleshoot Issues</title>
                             <sort_order>0</sort_order>
-                            <action>adminhtml/troubleshoot_questions/index</action>
+                            <action>adminhtml/troubleshoot_issue/index</action>
                         </troubleshoot>
                     </children>
                 </space48_forms>
@@ -27,7 +27,7 @@
                             <space48_forms>
                                 <children>
                                     <troubleshoot>
-                                        <title>Troubleshoot Questions</title>
+                                        <title>Troubleshoot Issues</title>
                                         <sort_order>10</sort_order>
                                     </troubleshoot>
                                 </children>

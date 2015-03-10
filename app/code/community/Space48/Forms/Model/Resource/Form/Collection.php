@@ -32,4 +32,37 @@ class Space48_Forms_Model_Resource_Form_Collection extends Space48_Forms_Model_R
         
         return $this;
     }
+    
+    /**
+     * add enabled filter
+     */
+    public function addEnabledFilter()
+    {
+        return $this->addStatusFilter(Space48_Forms_Model_Source_Boolean::VALUE_YES);
+    }
+    
+    /**
+     * add disabled filter
+     */
+    public function addDisabledFilter()
+    {
+        return $this->addStatusFilter(Space48_Forms_Model_Source_Boolean::VALUE_NO);
+    }
+    
+    /**
+     * add status filter
+     *
+     * @param string $status
+     */
+    public function addStatusFilter($status)
+    {
+        switch ($status) {
+            case Space48_Forms_Model_Source_Boolean::VALUE_YES:
+            case Space48_Forms_Model_Source_Boolean::VALUE_NO:
+                $this->getSelect()->where('status = ?', $status);
+                break;
+        }
+        
+        return $this;
+    }
 }

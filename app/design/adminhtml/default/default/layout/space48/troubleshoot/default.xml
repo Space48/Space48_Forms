@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<layout>
+    <!-- view fields -->
+    <adminhtml_troubleshoot_issue_index>
+        <update handle="editor"/>
+        
+        <reference name="head">
+            <action method="addCss">
+                <name>space48/troubleshoot/css/jstree.css</name>
+            </action>
+            <action method="addCss">
+                <name>space48/troubleshoot/css/default.css</name>
+            </action>
+            
+            <action method="addJs"><js>space48/troubleshoot/adminhtml/jquery.js</js></action>
+            <action method="addJs"><js>space48/troubleshoot/adminhtml/jstree.min.js</js></action>
+            
+            <action method="setCanLoadExtJs"><flag>1</flag></action>
+            <action method="setCanLoadTinyMce"><flag>1</flag></action>
+        </reference>
+        
+        <reference name="left">
+            <block type="space48_troubleshoot/admin_issue_tree" name="space48.troubleshoot.issue.tree" />
+        </reference>
+        
+        <reference name="content">
+            <block type="space48_troubleshoot/admin_issue_edit" name="space48.troubleshoot.issue.edit" />
+        </reference>
+    </adminhtml_troubleshoot_issue_index>
+</layout>

@@ -1,0 +1,171 @@
+<!-- add root button -->
+<div>
+    <button style="width:90%;" title="<?php echo $this->__('Add Root Issue'); ?>" type="button" class="add" onclick="(function(){ setLocation('<?php echo $this->getAddRootIssueUrl(); ?>'); }()); return false;">
+        <span><span><span><?php echo $this->__('Add Root Issue'); ?></span></span></span>
+    </button>
+</div>
+
+<br />
+
+<!-- tree -->
+<div id="<?php echo $this->getHtmlId(); ?>"></div>
+
+<!-- js -->
+<script type="text/javascript">
+    (function($){
+        // get json config
+        var config = <?php echo $this->getJsonConfig(); ?>;
+        
+        // get context menu items
+        config.contextmenu.items = <?php echo $this->getContextMenuItemsJson(); ?>;
+        
+        /**
+         * what we are doing here is ensuring that
+         * nodes that we want to be selected are
+         * the ones that are selected
+         */
+        config.state.filter = function (state) {
+            state.core.selected = <?php echo $this->getSelectedNodesJson(); ?>;
+            return state;
+        };
+        
+        // init tree
+        var $tree = $('#<?php echo $this->getHtmlId(); ?>').jstree(config);
+        var tree  = $tree.jstree(true);
+        
+        /**
+         * get parent id
+         *
+         * @param  {string} id
+         *
+         * @return {string}
+         */
+        var getParentId = function (id) {
+            if ( id == '#' ) {
+                return 0;
+            }
+            
+            return id.replace('node_', '');
+        };
+        
+        /**
+         * update (wrapper for $.post)
+         *
+         * @param  {string} url
+         * @param  {object} data
+         *
+         * @return {void}
+         */
+        var update = function (url, data) {
+            // show mask
+            showMask();
+            
+            // complete function
+            var complete = function () {
+                hideMask();
+            };
+            
+            // add form key
+            data.form_key = window.FORM_KEY;
+            
+            $.ajax(url, {
+                'data'        : data,
+                'cache'       : false,
+                'complete'    : complete,
+                'type'        : 'POST',
+            });
+        };
+        
+        /**
+         * show mask
+         */
+        var showMask = function () {
+            varienLoaderHandler.handler.onCreate({options:{loadArea:''}});
+        };
+        
+        /**
+         * hide mask
+         */
+        var hideMask = function () {
+            varienLoaderHandler.handler.onComplete();
+        };
+        
+        /**
+         * on changed event
+         */
+        $tree.on('changed.jstree', function(e, data){
+            
+            // we are not concerned with events that are initially
+            // fired - we are looking for events that fire on user
+            // interaction only
+            if ( typeof data.event == 'undefined' ) {
+                return;
+            }
+            
+            // ignore all events but the click event
+            if ( data.event.type != 'click' ) {
+                return;
+            }
+            
+            // get url from node
+            var url = data.node.data.url
+            
+            if ( url ) {
+                setLocation(url);
+            }
+        });
+        
+        /**
+         * on move node
+         */
+        $tree.on('move_node.jstree', function(e, data){
+            var json = tree.get_json($tree, {
+                'no_state' : true,
+                'flat' : true,
+            });
+            
+            var data = {};
+            
+            for ( var i = 0; i < json.length; i++ ) {
+                var child = json[i];
+                
+                data['node_'+i] = {
+                    'id'        : child.data.id,
+                    'parent_id' : getParentId(child.parent)
+                };
+            }
+            
+            update('<?php echo $this->getUpdateNodePositionsUrl(); ?>', data);
+        });
+        
+        /**
+         * we are ensuring that our selected node
+         * always appears
+         */
+        $tree.on('ready.jstree', function(){
+            // open selected node
+            var node = tree.get_node('node_<?php echo $this->getSelectedId(); ?>');
+            
+            // get parent
+            var parent = tree.get_parent(node);
+            
+            // loop
+            while ( parent && parent != '#' ) {
+                // get parent node
+                var node = tree.get_node(parent);
+                
+                // if we haven't got it then break out
+                if ( ! node ) {
+                    break;
+                }
+                
+                // open parent node
+                tree.open_node(node);
+                
+                // get parents parent
+                parent = tree.get_parent(node);
+            }
+        });
+        
+    }(jQuery));
+</script>
