@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<layout>
+    <!-- view issues -->
+    <space48_troubleshoot_index_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        
+        <reference name="content">
+            <block type="space48_troubleshoot/issues" name="space48.troubleshoot.issues" template="space48/troubleshoot/issues.phtml" />
+        </reference>
+    </space48_troubleshoot_index_index>
+</layout>

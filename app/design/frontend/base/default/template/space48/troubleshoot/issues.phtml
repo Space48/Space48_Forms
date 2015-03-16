@@ -1,0 +1,59 @@
+<?php if ( $this->canShow() ) : ?>
+    
+    <div class="page-title issue-title">
+        <h1>
+            <a href="<?php echo $this->getUrl('troubleshoot/index/index'); ?>">
+                <?php echo $this->__('Troubleshoot'); ?>
+            </a>
+        </h1>
+    </div>
+    
+    <?php if ( $this->hasIssue() ) : ?>
+        
+        <?php if ( $breadcrumbs = $this->getBreadcrumbHtml() ) : ?>
+            <div class="issue-breadcrumbs std">
+                <?php echo $this->getBreadcrumbHtml(); ?>
+            </div>
+        <?php endif; ?>
+        
+        <div class="issue-heading">
+            <h2><?php echo $this->getIssue()->getTitle(); ?></h2>
+        </div>
+        
+        <?php if ( $description = $this->getIssue()->getDescription() ) : ?>
+            <div class="issue-description std">
+                <?php echo $description; ?>
+            </div>
+        <?php endif; ?>
+        
+        <?php if ( $solution = $this->getIssue()->getSolution() ) : ?>
+            <div class="issue-solution std">
+                <?php echo $solution; ?>
+            </div>
+        <?php endif; ?>
+        
+        <?php if ( $this->hasForm() ) : ?>
+            <div class="issue-form">
+                <?php echo $this->getFormHtml(); ?>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
+    
+    <?php if ( $this->hasIssues() ) : ?>
+        <div class="issue-list std">
+            <ul class="ul">
+                <?php foreach ( $this->getIssues() as $issue ) : ?>
+                    <li class="issue">
+                        <div class="issue-title">
+                            <h3>
+                                <a href="<?php echo $this->getIssueUrl($issue); ?>">
+                                    <?php echo $issue->getTitle(); ?>
+                                </a>
+                            </h3>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
