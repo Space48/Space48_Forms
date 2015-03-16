@@ -103,4 +103,22 @@ class Space48_Troubleshoot_Block_Admin_Issue_Edit extends Mage_Adminhtml_Block_W
     {
         return 'head-' . strtr($this->_controller, '_', '-');
     }
+    
+    /**
+     * to html
+     *
+     * @return string
+     */
+    protected function _toHtml()
+    {
+        $data = Mage::app()->getRequest()->getParams();
+        
+        // if we have no id or parent id
+        // then we only show a message
+        if ( ! array_key_exists('id', $data) && ! array_key_exists('parent_id', $data) ) {
+            return $this->__('Please select an item from the left menu.');
+        }
+        
+        return parent::_toHtml();
+    }
 }

@@ -10,6 +10,20 @@ class Space48_Troubleshoot_Model_Issue extends Mage_Core_Model_Abstract
     protected $_children;
     
     /**
+     * holds parents
+     *
+     * @var array
+     */
+    protected $_parents;
+    
+    /**
+     * holds form
+     *
+     * @var Space48_Forms_Model_Form
+     */
+    protected $_form;
+    
+    /**
      * _construct
      */
     protected function _construct()
@@ -46,6 +60,20 @@ class Space48_Troubleshoot_Model_Issue extends Mage_Core_Model_Abstract
     }
     
     /**
+     * get parents
+     *
+     * @return array
+     */
+    public function getParents()
+    {
+        if ( is_null($this->_parents) ) {
+            $this->_parents = $this->getResource()->getParents($this);
+        }
+        
+        return $this->_parents;
+    }
+    
+    /**
      * on before delete, delete all children first
      *
      * @return $this
@@ -57,5 +85,47 @@ class Space48_Troubleshoot_Model_Issue extends Mage_Core_Model_Abstract
         }
         
         return parent::_beforeDelete();
+    }
+    
+    /**
+     * get form
+     *
+     * @return Space48_Forms_Model_Form
+     */
+    public function getForm()
+    {
+        // init model
+        if ( is_null($this->_form) ) {
+            $this->_form = Mage::getModel('space48_forms/form');
+        }
+        
+        // if we have not loaded the form
+        if ( ! $this->_form->getId() ) {
+            // if we have a form id
+            if ( $id = $this->getFormId() ) {
+                // load form
+                $this->_form->load($id);
+            }
+        }
+        
+        return $this->_form;
+    }
+    
+    /**
+     * set form
+     *
+     * @param Space48_Forms_Model_Form $form
+     */
+    public function setForm(Space48_Forms_Model_Form $form)
+    {
+        // set form
+        $this->_form = $form;
+        
+        // if form has id, then set id
+        if ( $id = $form->getId() ) {
+            $this->setFormId($id);
+        }
+        
+        return $this;
     }
 }

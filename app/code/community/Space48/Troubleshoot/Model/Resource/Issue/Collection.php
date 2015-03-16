@@ -25,4 +25,45 @@ class Space48_Troubleshoot_Model_Resource_Issue_Collection extends Mage_Core_Mod
         
         return $this;
     }
+    
+    /**
+     * add root filter
+     */
+    public function addRootFilter()
+    {
+        return $this->addParentFilter(0);
+    }
+    
+    /**
+     * add enabled filter
+     */
+    public function addEnabledFilter()
+    {
+        return $this->addStatusFilter(Space48_Troubleshoot_Model_Source_Boolean::VALUE_YES);
+    }
+    
+    /**
+     * add disabled filter
+     */
+    public function addDisabledFilter()
+    {
+        return $this->addStatusFilter(Space48_Troubleshoot_Model_Source_Boolean::VALUE_NO);
+    }
+    
+    /**
+     * add status filter
+     *
+     * @param string $status
+     */
+    public function addStatusFilter($status)
+    {
+        switch ( $status ) {
+            case Space48_Troubleshoot_Model_Source_Boolean::VALUE_YES:
+            case Space48_Troubleshoot_Model_Source_Boolean::VALUE_NO:
+                $this->getSelect()->where('status = ?', $status);
+                break;
+        }
+        
+        return $this;
+    }
 }
