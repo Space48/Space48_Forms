@@ -1,0 +1,14 @@
+{
+    "name": "space48/forms",
+    "description": "Creates an FAQ tree",
+    "type": "magento-module",
+    "authors": [
+        {
+            "name": "Space48",
+            "email": "webmaster@space48.com"
+        }
+    ],
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

@@ -128,3 +128,5 @@
 !/app/locale/en_GB/template/email/space48/forms
 !/app/locale/en_GB/template/email/space48/troubleshoot
 !.gitignore
+!composer.json
+!modman
